@@ -113,7 +113,7 @@
                                 </div>
                                 </td>
                                 <td scope="row">
-                                <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak2019/dosen/{{ $dosen->nip }}/delete"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->nip }}/delete"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         </tbody>

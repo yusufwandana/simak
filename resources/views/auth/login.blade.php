@@ -79,7 +79,7 @@
                 </div>
               @endif
               
-              <form action="/simak2019/postlogin" method="post" role="form">
+              <form action="/simak/postlogin" method="post" role="form">
                 @csrf
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">

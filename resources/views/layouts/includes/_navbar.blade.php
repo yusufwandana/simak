@@ -33,7 +33,7 @@
                 <span>Ubah password</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="/simak2019/logout" class="dropdown-item">
+              <a href="/simak/logout" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -46,7 +46,7 @@
     {{--  Edit profile --}}
   <div class="modal fade" id="changeProfile" tabindex="-1" role="dialog" aria-labelledby="changeProfileLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="/simak2019/changepp" method="POST" enctype="multipart/form-data">
+      <form action="/simak/changepp" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -109,7 +109,7 @@
   {{--  Change pw --}}
   <div class="modal fade" id="changePw" tabindex="-1" role="dialog" aria-labelledby="changePwLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-          <form action="/simak2019/ubahpw" method="post">
+          <form action="/simak/ubahpw" method="post">
               @csrf
               <div class="modal-content">
                   <div class="modal-header">

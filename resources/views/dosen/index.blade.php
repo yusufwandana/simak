@@ -61,9 +61,9 @@
                     </div>
                   </td>
                   <td scope="row">
-                    <a class="btn btn-primary btn-sm btn-success" href="/simak2019/dosen/{{ $dosen->id }}/profile"><i class="ni ni-books"></i></a>
-                    <a class="btn btn-info btn-sm" href="/simak2019/dosen/{{ $dosen->id }}/edit"><i class="fa fa-cog"></i></a>
-                    <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak2019/dosen/{{ $dosen->id }}/delete"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-primary btn-sm btn-success" href="/simak/dosen/{{ $dosen->id }}/profile"><i class="ni ni-books"></i></a>
+                    <a class="btn btn-info btn-sm" href="/simak/dosen/{{ $dosen->id }}/edit"><i class="fa fa-cog"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->id }}/delete"><i class="fa fa-trash"></i></a>
                   </td>
                   {{-- <td class="text-right">
                     <div class="dropdown">
@@ -71,8 +71,8 @@
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
-                          <a class="dropdown-item" class="btn btn-warning" href="/simak2019/dosen/{{ $dosen->id }}/edit">Edit</a>
-                          <a class="dropdown-item" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak2019/dosen/{{ $dosen->id }}/delete">Hapus</a>
+                          <a class="dropdown-item" class="btn btn-warning" href="/simak/dosen/{{ $dosen->id }}/edit">Edit</a>
+                          <a class="dropdown-item" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->id }}/delete">Hapus</a>
                       </div>
                     </div>
                   </td> --}}
@@ -91,7 +91,7 @@
   {{-- Modal --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="/simak2019/dosen/create" method="post">
+            <form action="/simak/dosen/create" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">

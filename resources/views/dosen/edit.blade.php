@@ -13,7 +13,7 @@
             <div class="card-header bg-transparent">
             <h3 class="mb-0">Form Edit Dosen</h3>
             </div>
-            <form action="/simak2019/dosen/{{ $dosen->id }}/update" method="post">
+            <form action="/simak/dosen/{{ $dosen->id }}/update" method="post">
             @csrf
             <div class="card-body">
                 <div class="form-group">
