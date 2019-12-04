@@ -12,7 +12,7 @@
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="text-white">{{ $message }}</h4>
+            <h5 class="text-white">{{ $message }}</h5>
         </div>
         @endif
         <h3 class="mb-0 float-left">Daftar Ruangan</h3>
@@ -24,6 +24,7 @@
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Ruangan</th>
+                <th scope="col">Jenis</th>
                 <th scope="col">Aksi</th>
             </tr>
             </thead>
@@ -42,6 +43,15 @@
                     <div class="media-body">
                         <span class="mb-0 text-sm">
                         {{ $ruangan->ruangan }}
+                        </span>
+                    </div>
+                    </div>
+                </td>
+                <td scope="row">
+                    <div class="media align-items-center">
+                    <div class="media-body">
+                        <span class="mb-0 text-sm">
+                        {{ $ruangan->jenis }}
                         </span>
                     </div>
                     </div>
@@ -85,6 +95,24 @@
                     <div class="form-group">
                         <label for="ruangan">Nama Ruangan</label>
                         <input type="text" class="form-control" placeholder="Masukan nama ruangan.." name="ruangan" id="ruangan">
+                    </div>
+                    <div class="form-group">
+                        @if ($errors->has('jenis'))
+                            <label for="jenis">Jenis Ruangan</label>
+                            <select name="jenis" id="jenis" class="form-control">
+                                <option value="" selected disabled>Pilih jenis ruangan..</option>
+                                <option value="Kelas">Kelas</option>
+                                <option value="Lab.Komputer">Lab.Komputer</option>
+                                <small class="text-danger">{{ $errors->first('jenis') }}</small>
+                            </select>
+                        @else
+                            <label for="jenis">jenis</label>
+                            <select name="jenis" id="jenis" class="form-control">
+                                <option value="" selected disabled>Pilih jenis ruangan..</option>
+                                <option value="Kelas">Kelas</option>
+                                <option value="Lab.Komputer">Lab.Komputer</option>
+                            </select>
+                        @endif
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                 </div>

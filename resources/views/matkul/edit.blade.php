@@ -18,7 +18,7 @@
             @method('PUT')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama">Nama mata kuliah</label>
+                    <label for="matakuliah">Nama mata kuliah</label>
                     <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ $matkul->matakuliah }}">
                 </div>
                 <div class="form-group">
@@ -29,6 +29,10 @@
                             <option value="{{ $semester->id }}" @if ($matkul->semester->id == $semester->id) selected @endif>Semester {{ $semester->semester }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="sks">Jumlah SKS</label>
+                    <input type="text" class="form-control" placeholder="Masukan jumlah sks.." name="sks" id="sks" value="{{ $matkul->sks }}">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save changes</button>

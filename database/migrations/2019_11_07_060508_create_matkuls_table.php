@@ -15,7 +15,10 @@ class CreateMatkulsTable extends Migration
     {
         Schema::create('matkuls', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('kd_matkul');
             $table->string('matakuliah');
+            $table->integer('sks');
+            $table->string('kategori');
             $table->integer('semester_id')->unsigned();
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
             $table->timestamps();

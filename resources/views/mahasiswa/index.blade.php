@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('head', 'dosen')
+@section('head', 'Mahasiswa')
 
-@section('title', 'SIMAK2019 | Dosen')
+@section('title', 'SIMAK2019 | Mahasiswa')
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">
@@ -15,27 +15,37 @@
               <h5 class="text-white">{{ $message }}</h5>
             </div>
           @endif
-          <h3 class="mb-0 float-left">Daftar Dosen</h3>
+          <h3 class="mb-0 float-left">Daftar Mahasiswa</h3>
           <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
         </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush" id="dataTable">
             <thead class="thead-light">
               <tr>
-                <th scope="col">NIP</th>
+                <th scope="col">Tahun Masuk</th>
+                <th scope="col">NIM</th>
                 <th scope="col">Nama lengkap</th>
                 <th scope="col">Jenis kelamin</th>
+                <th scope="col">Jurusan</th>
+                <th scope="col">Semester</th>
                 <th scope="col">Alamat</th>
                 <th scope="col">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($dosens as $dosen)
+              @foreach ($mahasiswa as $mhs)
                 <tr>
                   <th scope="row">
                     <div class="media align-items-center">
                       <div class="media-body">
-                        <span class="mb-0 text-sm">{{ $dosen->nip }}</span>
+                        <span class="mb-0 text-sm">{{ $mhs->tahun_masuk }}</span>
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        <span class="mb-0 text-sm">{{ $mhs->nim }}</span>
                       </div>
                     </div>
                   </th>
@@ -43,7 +53,7 @@
                     <div class="media align-items-center">
                       <div class="media-body">
                         <span class="mb-0 text-sm">
-                          {{ $dosen->nama }}
+                          {{ $mhs->nama }}
                         </span>
                       </div>
                     </div>
@@ -52,9 +62,9 @@
                     <div class="media align-items-center">
                       <div class="media-body">
                         <span class="mb-0 text-sm">
-                          @if ($dosen->jk == 'L')
+                          @if ($mhs->jk == 'L')
                               Laki-laki
-                          @elseif($dosen->jk == 'P')
+                          @elseif($mhs->jk == 'P')
                               Perempuan
                           @endif
                         </span>
@@ -64,33 +74,42 @@
                   <td scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="mb-0 text-sm">{{ $dosen->alamat }}</span>
+                          <span class="mb-0 text-sm">{{ $mhs->jurusan->jurusan }}</span>
                         </div>
                       </div>
                     </td>
                   <td scope="row">
-                    <a title="profile" class="btn btn-primary btn-sm btn-success" href="/simak/dosen/{{ $dosen->id }}/profile"><i class="ni ni-books"></i></a>
-                    <a title="edit" class="btn btn-info btn-sm" href="/simak/dosen/{{ $dosen->id }}/edit"><i class="fa fa-cog"></i></a>
-                    <a title="delete" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->id }}/delete"><i class="fa fa-trash"></i></a>
-                  </td>
-                  {{-- <td class="text-right">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">Semester {{ $mhs->semester->semester }}</span>
+                        </div>
+                      </div>
+                    </td>
+                  <td scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{ $mhs->alamat }}</span>
+                        </div>
+                      </div>
+                    </td>
+                 <td class="text-right">
                     <div class="dropdown">
                       <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
-                          <a class="dropdown-item" class="btn btn-warning" href="/simak/dosen/{{ $dosen->id }}/edit">Edit</a>
-                          <a class="dropdown-item" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->id }}/delete">Hapus</a>
+                          <a class="dropdown-item btn-sm" href="/simak/mhs/{{ $mhs->id }}/edit"><i class="fa fa-cog"></i>Edit</a>
+                          <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/mhs/{{ $mhs->id }}/delete"><i class="fa fa-trash"></i>Hapus</a>
                       </div>
                     </div>
-                  </td> --}}
+                  </td>
                 </tr>    
               @endforeach
             </tbody>
           </table>
         </div>
         <div class="card-footer py-4">
-           {{ $dosens->links() }}
+           {{ $mahasiswa->links() }}
         </div>
       </div>
     </div>
@@ -99,27 +118,27 @@
   {{-- Modal --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="/simak/dosen/create" method="post">
+            <form action="{{ route('mahasiswa.store') }}" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="exampleModalLabel">
-                            Tambah Dosen
+                            Tambah Mahasiswa
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="avatar" value="default.png">
+                        <input type="hidden" name="tahun_masuk" id="tahun_masuk" value="{{ date('Y') }}">
                         <div class="form-group">
-                            @if ($errors->first('nip'))
-                                <label for="nip">NIP</label>
-                                <input type="text" class="form-control" name="nip" placeholder="Masukan NIP.." id="nip">
-                                <small class="text-danger">{{ $errors->first('nip') }}</small>
+                            @if ($errors->first('nim'))
+                                <label for="nim">NIM</label>
+                                <input type="text" class="form-control" name="nim" placeholder="Masukan nim.." id="nim">
+                                <small class="text-danger">{{ $errors->first('nim') }}</small>
                             @else
-                                <label for="nip">NIP</label>
-                                <input type="text" class="form-control" placeholder="Masukan NIP.." name="nip" id="nip">
+                                <label for="nim">NIM</label>
+                                <input type="text" class="form-control" placeholder="Masukan NIM.." name="nim" id="nim">
                             @endif
                         </div>
                         <div class="form-group">
@@ -151,6 +170,24 @@
                             @endif
                         </div>
                         <div class="form-group">
+                            <label for="jurusan">Jurusan</label>
+                            <select class="form-control" name="jurusan" id="jurusan">
+                                <option value="">Pilih jurusan..</option>
+                                @foreach ($jurusan as $j)
+                                    <option value="{{ $j->id }}">{{ $j->jurusan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="semester">Semester</label>
+                            <select class="form-control" name="semester" id="semester">
+                                <option value="">Pilih semester..</option>
+                                @foreach ($semester as $s)
+                                    <option value="{{ $s->id }}">{{ $s->semester }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                           @if ($errors->has('email'))
                             <label for="signin-email" class="control-label">Email</label>
                             <input type="email" name="email" class="form-control" id="signin-email" placeholder="Masukan Email..">
@@ -163,7 +200,7 @@
                         <div class="form-group">
                           @if ($errors->has('alamat'))
                             <label for="alamat" class="control-label">Alamat</label>
-                            <input type="alamat" name="alamat" class="form-control" placeholder="Masukan alamat..">
+                            <textarea name="alamat" class="form-control" placeholder="Masukan alamat.."></textarea>
                             <small class="text-danger">{{ $errors->first('alamat') }}</small>
                           @else
                             <label for="signin-alamat" class="control-label">Alamat</label>

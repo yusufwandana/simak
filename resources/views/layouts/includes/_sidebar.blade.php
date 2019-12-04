@@ -57,13 +57,15 @@
           </div>
         </div>
         <!-- Navigation -->
+        @if (auth()->user()->role == 'admin')
+        <hr class="my-2">
+        <h6 class="navbar-heading text-muted">Menu Admin</h6>
         <ul class="navbar-nav">
           <li class="nav-item">
-          <a class=" nav-link active " href="/simak/dashboard/{{ auth()->user()->role }}">
-            <i class="ni ni-tv-2 text-info"></i> Dashboard
+          <a class=" nav-link " href="/simak/dashboard/{{ auth()->user()->role }}">
+            <i class="ni ni-tv-2 text-primary"></i> Dashboard
           </a>
           </li>
-          @if (auth()->user()->role == 'admin')
           <li class="nav-item">
             <a class="nav-link collapse" href="#subPages" data-toggle="collapse" aria-expanded="true"><i class="ni ni-app text-primary"></i>Kelola Data</a>
               <div id="subPages" class="collapse">
@@ -75,22 +77,105 @@
                     <li class="nav-item"><a href="/simak/matkul" class="nav-link"><i class="ni ni-books text-success"></i> Mata Kuliah</a></li>
                     <li class="nav-item"><a href="/simak/ruangan" class="nav-link"><i class="ni ni-building text-yellow"></i> Ruangan</a></li>
                     <li class="nav-item"><a href="/simak/semester" class="nav-link"><i class="ni ni-hat-3 text-default"></i> Semester</a></li>
-                    <li class="nav-item"></li>
                   </ul>
                 </div>
           </li>
-          @endif
-          <li class="nav-item">
-            <a class="nav-link " href="/simak/mapel">
-              <i class="ni ni-planet text-red"></i>Mapel
+        </ul>
+        @endif
+        @if ((auth()->user()->role == 'admin') || (auth()->user()->role == 'dosen'))
+          @php
+          $a = url()->full();
+          $b = explode('/', $a);
+          $url = $b[4];
+          // dd($url);
+          @endphp
+        <hr class="my-2">
+        <h6 class="navbar-heading text-muted">Menu Dosen</h6>
+        <ul class="navbar-nav">
+            {{-- dashboard --}}
+            @if ($url == 'dashboard')
+              <li class="nav-item active">
+                <a class=" nav-link active" href="/simak/dashboard/{{ auth()->user()->role }}">
+                  <i class="ni ni-tv-2 text-primary"></i> Dashboard
+                </a>
+              </li>
+            @else
+              <li class="nav-item">
+                <a class=" nav-link" href="/simak/dashboard/{{ auth()->user()->role }}">
+                  <i class="ni ni-tv-2 text-primary"></i> Dashboard
+                </a>
+              </li>
+            @endif
+
+            {{-- absen --}}
+            @if ($url == 'absen')
+              <li class="nav-item active">
+                <a class="nav-link active" href="/simak/absen">
+                  <i class="ni ni-bullet-list-67 text-default"></i>Absen
+                </a>
+              </li>
+              @else
+                <li class="nav-item">
+                  <a class="nav-link " href="/simak/absen">
+                    <i class="ni ni-bullet-list-67 text-default"></i>Absen
+                  </a>
+                </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link " href="/simak/lihatjadwal">
+                <i class="ni ni-calendar-grid-58 text-red"></i>Lihat Jadwal
+              </a>
+            </li>
+
+            {{-- nilai --}}
+            @if ($url == 'nilai')
+              <li class="nav-item active">
+                <a class="nav-link active" href="/simak/nilai">
+                  <i class="ni ni-planet text-info"></i>Input Nilai
+                </a>
+              </li>
+            @else
+              <li class="nav-item">
+                <a class="nav-link " href="/simak/nilai">
+                  <i class="ni ni-planet text-info"></i>Input Nilai
+                </a>
+              </li>
+            @endif
+
+            <li class="nav-item">
+              <a class="nav-link " href="/simak/nilai">
+                <i class="ni ni-diamond text-red"></i>Lihat Nilai
+              </a>
+            </li>
+        </ul>
+        @endif
+        @if ((auth()->user()->role == 'admin') || (auth()->user()->role == 'mahasiswa'))
+        <hr class="my-2">
+        <h6 class="navbar-heading text-muted">Menu Mahasiswa</h6>
+        <ul class="navbar-nav">
+          <li class="nav-item class">
+            <a class="nav-link" href="/simak/dashboard/{{ auth()->user()->role }}">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/tables.html">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
+            <a class=" nav-link " href="/simak/Kehadiran/{{ auth()->user()->role }}">
+              <i class="ni ni-tv-2 text-primary"></i> Kehadiran
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class=" nav-link " href="/simak/KRS/{{ auth()->user()->role }}">
+              <i class="ni ni-tv-2 text-primary"></i> KRS
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/simak/nilai">
+              <i class="ni ni-planet text-primary"></i>Nilai
             </a>
           </li>
         </ul>
+        @endif
+        <hr class="my-2">
       </div>
     </div>
   </nav>

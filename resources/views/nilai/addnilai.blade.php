@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'Detail Profile')
+@section('title', 'Input Nilai')
 
-@section('head', 'Profile')
+@section('head', 'Input Nilai')
 
 @section('content')
 <div class="container-fluid mt--7">
@@ -31,16 +31,16 @@
             </div>
             <div class="text-center">
                 <h3>
-                {{ $dosen->nama }}<span class="font-weight-light"></span>
+                {{ $mahasiswa->nama }}<span class="font-weight-light"></span>
                 </h3>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i>{{ $dosen->nip }}
+                <i class="ni location_pin mr-2"></i>{{ $mahasiswa->nim }}
                 </div>
                 <div class="h4 font-weight-300">
                 <i class="ni location_pin mr-2"></i>
-                @if ($dosen->jk == 'L')
+                @if ($mahasiswa->jk == 'L')
                     Laki-laki
-                @elseif($dosen->jk == 'P')
+                @elseif($mahasiswa->jk == 'P')
                     Perempuan
                 @else
                     !!EROR!!
@@ -58,18 +58,11 @@
             <div class="card-header bg-white border-0">
             <div class="row align-items-center">
                 <div class="col-8">
-                <h3 class="mb-0">{{ $user->name }} | Profile</h3>
+                <h3 class="mb-0">{{ $user->name }} | Daftar Nilai</h3>
                 </div>
             </div>
             </div>
             <div class="card-body">
-            <form>
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h5 class="text-white">{{ $message }}</h5>
-                </div>
-                @endif
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="px-lg-0">
                 <div class="row">
@@ -82,41 +75,59 @@
                     <div class="col-lg-6">
                     <div class="form-group">
                         <label class="form-control-label" for="nip">NIP</label>
-                        <input type="text" id="nip" class="form-control form-control-alternative" value="{{ $dosen->nip }}" readonly>
+                        <input type="text" id="nip" class="form-control form-control-alternative" value="{{ $mahasiswa->nim }}" readonly>
                     </div>
                     </div>
                 </div>
                 <hr class="my-4">
-                <h6 class="heading-small text-muted mb-4">Daftar matkul <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a></h6>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">{{ $message }}</h5>
+                </div>
+                @endif
+                <h6 class="heading-small text-muted mb-4">Daftar nilai <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a></h6>
                 <div class="row mt-4">
                     <div class="col-lg">
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
+                            <th scope="col">Jenis Nilai</th>
                             <th scope="col">Matkul</th>
-                            <th scope="col">Semester</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Nilai</th>
+                            <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dosen->matkul as $m)
+                            @foreach ($nilaimhs as $m)
                             <tr>
                                 <td scope="row">
                                 <div class="media align-items-center">
                                     <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->matakuliah }}</span>
+                                    <span class="mb-0 text-sm">{{ $m->jenis_nilai }}</span>
                                     </div>
                                 </div>
                                 </td>
                                 <td scope="row">
                                 <div class="media align-items-center">
                                     <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->semester->semester }}</span>
+                                    <span class="mb-0 text-sm">{{ $m->matkul->matakuliah }}</span>
                                     </div>
                                 </div>
                                 </td>
                                 <td scope="row">
-                                <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('dosenmatkul.delete', $m->pivot->id) }}"><i class="fa fa-trash"></i></a>
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                    <span class="mb-0 text-sm">{{ $m->nilai }}</span>
+                                </div>
+                                </div>
+                                </td>
+                                <td scope="row">
+                                    <form action="{{ route('nilai.destroy', $m->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')"><i class="fa fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -125,7 +136,6 @@
                     </div>
                     </div>
                 </div>
-            </form>
             </div>
         </div>
         </div>
@@ -135,7 +145,7 @@
         <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-            © 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+            © {{ date('Y') }} <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
             </div>
         </div>
         <div class="col-xl-6">
@@ -160,8 +170,9 @@
     {{-- Modal --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="{{ route('dosenmatkul.add') }}" method="post">
+            <form action="{{ route('nilai.addnilai') }}" method="post">
                 @csrf
+                <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="exampleModalLabel">
@@ -173,24 +184,28 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="hidden" name="dosen_id" value="{{ $dosen->id }}">
-                            <label for="matkul">Tambah Matkul</label>
-                            @if ($errors->has('matkul_id'))
-                                <select class="form-control" name="matkul_id" id="matkul_id">
-                                    <option value="" selected disabled>Pilih matkul</option>
-                                    @foreach ($matkul as $m)
+                            <label for="jenis">Jenis nilai</label>
+                            <select class="form-control" name="jenis" id="jenis">
+                                <option value="" selected disabled>Pilih jenis nilai</option>
+                                <option value="UTS">UTS</option>
+                                <option value="UKK">UKK</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
+                            <label for="matkul">Pilih Matkul</label>
+                            <select class="form-control" name="matkul_id" id="matkul_id">
+                                <option value="" selected disabled>Pilih matkul</option>
+                                @foreach ($dosen as $d)
+                                    @foreach ($d->Matkul as $m)
                                         <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
                                     @endforeach
-                                </select>
-                                <small class="text-danger">{{ $errors->first('jk') }}</small>
-                            @else
-                                <select class="form-control" name="matkul_id" id="matkul_id">
-                                    <option value="" selected disabled>Pilih matkul</option>
-                                    @foreach ($matkul as $m)
-                                        <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
-                                    @endforeach
-                                </select>
-                            @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="matkul">Masukkan nilai</label>
+                            <input class="form-control" type="number" name="nilai" id="nilai">
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                     </div>

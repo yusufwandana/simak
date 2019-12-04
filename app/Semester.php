@@ -15,4 +15,9 @@ class Semester extends Model
     {
         return $this->hasMany('App\Matkul', 'id', 'semester_id');
     }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne('App\Mahasiswa');
+    }
 }

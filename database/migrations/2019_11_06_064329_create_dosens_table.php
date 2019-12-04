@@ -18,6 +18,7 @@ class CreateDosensTable extends Migration
             $table->integer('nip')->unique();
             $table->string('nama');
             $table->string('jk');
+            $table->string('alamat');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->timestamps();

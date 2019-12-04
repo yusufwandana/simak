@@ -13,15 +13,19 @@ class SemesterController extends Controller
         return view('semester.index', compact('semesters'));
     }
 
-    
+
     public function create()
     {
         //
     }
 
-    
+
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'semester' => 'required|numeric|digits:1|unique:semesters'
+        ]);
+
         Semester::create([
             'semester' => $request->semester
         ]);
@@ -29,20 +33,20 @@ class SemesterController extends Controller
         return redirect()->route('semester.index')->with('success', 'Semester berhasil ditambahkan!');;
     }
 
-    
+
     public function show($id)
     {
         //
     }
 
-    
+
     public function edit($id)
     {
         $semester = Semester::find($id);
         return view('semester.edit', compact('semester'));
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $semester = Semester::find($id);

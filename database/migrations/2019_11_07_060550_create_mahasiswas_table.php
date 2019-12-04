@@ -19,10 +19,13 @@ class CreateMahasiswasTable extends Migration
             $table->string('nama');
             $table->string('jk');
             $table->string('alamat');
+            $table->integer('tahun_masuk');
             $table->integer('semester_id')->unsigned();
             $table->integer('jurusan_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
             $table->foreign('jurusan_id')->references('id')->on('jurusans')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

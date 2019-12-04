@@ -83,8 +83,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="semester">Nama Semester</label>
-                            <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" autofocus>
+                            @if ($errors->has('semester'))
+                                <label for="semester">Nama Semester</label>
+                                <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" autofocus>
+                                <small class="text-danger">{{ $errors->first('semester') }}</small>
+                            @else
+                                <label for="semester">Nama Semester</label>
+                                <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" autofocus>
+                            @endif
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                     </div>

@@ -35,8 +35,13 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
     Route::get('dosen/{id}/edit', 'DosenController@edit');
     Route::post('dosen/{id}/update', 'DosenController@update');
     Route::get('dosen/{id}/delete', 'DosenController@delete');
-    Route::get('dosen/{id}/profile', 'DosenController@profile');
-    // Route::post('dosenmatkul', 'DosenController@addMatkul')->name('dosenmatkul');
+    Route::get('dosen/{id}/profile', 'DosenController@profile')->name('profile');
+    
+    Route::get('dosenmatkul/{id}/delete', 'DosenController@deletematkul')->name('dosenmatkul.delete');
+    Route::post('dosenmatkul/create', 'DosenController@addMatkul')->name('dosenmatkul.add');
+
+    //CRUD MAHASISWA
+    Route::resource('mahasiswa', 'MahasiswaController');
 
     //CRUD SEMESTER
     Route::resource('semester', 'SemesterController');
@@ -49,11 +54,23 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
     //CRUD RUANGAN
     Route::resource('ruangan', 'RuanganController');
+
 });
+
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::get('dashboard/dosen', 'DashboardController@index');
+
+    //ABSEN
+    Route::get('absen', 'AbsenController@index')->name('absen.index');
+    Route::post('absen/daftarmhs', 'AbsenController@daftarmhs')->name('absen.daftarmhs');
+    Route::post('postabsen', 'AbsenController@postabsen')->name('absen.postabsen');
+
+    //Nilai
+    Route::resource('nilai', 'NilaiController');
+    Route::post('nilai/addnilai', 'NilaiController@addnilai')->name('nilai.addnilai');
 });
+
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () {
     Route::get('dashboard/mahasiswa', 'DashboardController@index');

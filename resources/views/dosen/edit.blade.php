@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     @if ($errors->first('jk'))
-                        <label for="jk">Nama belakang</label>
+                        <label for="jk">Jenis Kelamin</label>
                         <select name="jk" id="jk" class="form-control">
                             <option value="" selected disabled>Pilih jenis kelamin..</option>
                             <option value="L" @if ($dosen->jk == 'L') selected @endif>Laki-laki</option>
@@ -54,6 +54,16 @@
                     </select>
                     @endif
                 </div>
+                <div class="form-group">
+                    @if ($errors->first('alamat'))
+                        <label for="alamat">Alamat</label>
+                        <input type="text" class="form-control" value="{{ $dosen->alamat }}" name="alamat" placeholder="Masukan alamat.." id="alamat">
+                        <small class="text-danger">{{ $errors->first('alamat') }}</small>
+                    @else
+                        <label for="alamat">Alamat</label>
+                        <input type="text" class="form-control" value="{{ $dosen->alamat }}" placeholder="Masukan alamat.." name="alamat" id="alamat">
+                    @endif
+                </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
@@ -67,7 +77,7 @@
         <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-            © 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+            © {{ date('Y') }} <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
             </div>
         </div>
         <div class="col-xl-6">

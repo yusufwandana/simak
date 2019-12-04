@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     protected $fillable = [
-        'nama', 'jk', 'alamat', 'semester', 'jurusan_id'
+        'nim', 'nama', 'jk', 'alamat', 'semester_id', 'jurusan_id', 'tahun_masuk', 'user_id'
     ];
+
+    public function jurusan()
+    {
+        return $this->belongsTo('App\Jurusan');
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo('App\Semester');
+    }
 }

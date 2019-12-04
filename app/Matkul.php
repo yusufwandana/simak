@@ -8,12 +8,8 @@ class Matkul extends Model
 {
     protected $table = 'matkuls';
     protected $fillable = [
-        'matakuliah', 'semester_id'
+        'kd_matkul', 'matakuliah', 'semester_id', 'sks', 'kategori'
     ];
-    // public function dosen()
-    // {
-    //     return $this->belongsToMany(Dosen::class);
-    // }
 
     public function semester()
     {
@@ -22,6 +18,11 @@ class Matkul extends Model
 
     public function dosen()
     {
-        return $this->belongsToMany(Dosen::class);
+        return $this->belongsToMany(Dosen::class)->withPivot(['id']);
+    }
+
+    public function nilai()
+    {
+        return $this->hasOne('App\Nilai');
     }
 }

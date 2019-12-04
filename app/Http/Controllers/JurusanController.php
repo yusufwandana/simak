@@ -18,9 +18,13 @@ class JurusanController extends Controller
         //
     }
 
-    
+
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'jurusan' => 'required'
+        ]);
+
         Jurusan::create([
             'jurusan' => $request->jurusan
         ]);
@@ -28,22 +32,26 @@ class JurusanController extends Controller
         return redirect()->route('jurusan.index')->with('success', 'Jurusan telah berhasil ditambahkan');
     }
 
-    
+
     public function show($id)
     {
         //
     }
 
-    
+
     public function edit($id)
     {
         $jurusan = Jurusan::find($id);
         return view('jurusan.edit', compact('jurusan'));
     }
 
-    
+
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'jurusan' => 'required|unique:jurusans'
+        ]);
+        
         $jurusan = Jurusan::find($id);
         $jurusan->jurusan = $request->jurusan;
         $jurusan->save();
@@ -51,12 +59,12 @@ class JurusanController extends Controller
         return redirect()->route('jurusan.index');
     }
 
-    
+
     public function destroy($id)
     {
         $jurusan = Jurusan::find($id);
         $jurusan->delete();
-        
+
         return redirect()->route('jurusan.index')->with('success', 'Jurusan telah berhasil dihapus');
     }
 }

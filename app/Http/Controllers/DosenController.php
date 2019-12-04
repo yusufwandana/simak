@@ -6,18 +6,28 @@ use Illuminate\Http\Request;
 use App\Dosen;
 use App\User;
 use App\Matkul;
+use App\DosenMatkul;
 
 class DosenController extends Controller
 {
     public function index()
     {
-        $dosens = Dosen::paginate(5);
+        $dosens = Dosen::orderBy('nip', 'asc')->paginate(5);
         $matakuliah = Matkul::all();
         return view('dosen.index', compact('dosens', 'matakuliah'));
     }
 
     public function create(Request $request)
     {
+        //validity
+        $this->validate($request, [
+            'nip'    => 'required|numeric|digits:8',
+            'nama'   => 'required',
+            'jk'     => 'required',
+            'email'  => 'required|email',
+            'alamat' => 'required'
+        ]);
+
         //Input ke table user
         $user = new \App\User;
         $user->name = $request->nama;
@@ -35,6 +45,7 @@ class DosenController extends Controller
             'nip'     => $request->nip,
             'nama'    => $request->nama,
             'jk'      => $request->jk,
+            'alamat'  => $request->alamat,
             'user_id' => $a
         ]);
 
@@ -45,16 +56,24 @@ class DosenController extends Controller
     {
         $dosen  = Dosen::where('id', $id)->first();
         $matakuliah = Matkul::all();
-        
+
         return view('dosen.edit', compact('dosen', 'matakuliah'));
     }
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'nip'    => 'required|numeric|digits:8',
+            'nama'   => 'required',
+            'jk'     => 'required',
+            'alamat' => 'required'
+        ]);
+
         $dosen = Dosen::where('id', $id)->update([
-            'nip'  => $request->nip,
-            'nama' => $request->nama,
-            'jk'   => $request->jk
+            'nip'    => $request->nip,
+            'nama'   => $request->nama,
+            'alamat' => $request->alamat,
+            'jk'     => $request->jk
         ]);
 
         return redirect('dosen')->with('success', 'Dosen telah berhasil diupdate!');
@@ -80,6 +99,24 @@ class DosenController extends Controller
 
     public function addMatkul(Request $request)
     {
-        
+        $this->validate($request, [
+            'dosen_id' => 'required',
+            'matkul_id' => 'required'
+        ]);
+
+        DosenMatkul::create([
+            'dosen_id' => $request->dosen_id,
+            'matkul_id' => $request->matkul_id
+        ]);
+
+        return redirect()->back()->with('success', 'Penambahan matkul dosen berhasil!');
+    }
+
+    public function deletematkul($id)
+    {
+        $dm = DosenMatkul::find($id);
+        $dm->delete();
+
+        return redirect()->back()->with('success', 'Matkul dosen telah dihapus!');
     }
 }

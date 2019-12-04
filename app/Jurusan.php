@@ -9,4 +9,10 @@ class Jurusan extends Model
     protected $fillable = [
         'jurusan'
     ];
+
+    public function mahasiswa()
+    {
+        return $this->hasOne('App\Mahasiswa');
+    }
+
 }

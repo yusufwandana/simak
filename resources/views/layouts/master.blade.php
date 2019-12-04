@@ -9,6 +9,9 @@
   </title>
   <!-- Favicon -->
   <link href="{{ asset('public/template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  {{-- Datatables --}}
+  <link href="{{ asset('public/datatables/dataTables.bootstrap4.min.css') }}" rel="icon" type="image/png">
+  <link href="{{ asset('public/datatables/datatables.min.css') }}" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
@@ -28,7 +31,9 @@
 
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-  
+      <div class="row">
+        @yield('dashboard_admin')
+      </div>
     </div>
       @yield('content')
   </div>
@@ -40,6 +45,9 @@
   <script src="{{ asset('public/template/assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
   <!--   Argon JS   -->
   <script src="{{ asset('public/template/assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
+  <script src="{{ asset('public/datatables/datatables.min.js') }}"></script>
+  <script src="{{ asset('public/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('public/datatables/dataTables.bootstrap4.min.js') }}"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
     window.TrackJS &&
@@ -48,6 +56,7 @@
         application: "argon-dashboard-free"
       });
   </script>
+  @yield('customjs')
 </body>
 
 </html>

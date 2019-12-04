@@ -12,7 +12,7 @@
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="text-white">{{ $message }}</h4>
+            <h5 class="text-white">{{ $message }}</h5>
         </div>
         @endif
         <h3 class="mb-0 float-left">Daftar Mata Kuliah</h3>
@@ -23,8 +23,11 @@
             <thead class="thead-light">
             <tr>
                 <th scope="col">No</th>
+                <th scope="col">Kode Mata Kuliah</th>
                 <th scope="col">Mata Kuliah</th>
                 <th scope="col">Semester</th>
+                <th scope="col">SKS</th>
+                <th scope="col">Kategori</th>
                 <th scope="col">Aksi</th>
             </tr>
             </thead>
@@ -42,6 +45,15 @@
                     <div class="media align-items-center">
                     <div class="media-body">
                         <span class="mb-0 text-sm">
+                        {{ $matkul->kd_matkul }}
+                        </span>
+                    </div>
+                    </div>
+                </td>
+                <td scope="row">
+                    <div class="media align-items-center">
+                    <div class="media-body">
+                        <span class="mb-0 text-sm">
                         {{ $matkul->matakuliah }}
                         </span>
                     </div>
@@ -49,6 +61,24 @@
                 </td>
                 <td scope="row">
                     Semester {{ $matkul->semester->semester }}
+                </td>
+                <td scope="row">
+                    <div class="media align-items-center">
+                    <div class="media-body">
+                        <span class="mb-0 text-sm">
+                        {{ $matkul->sks }}
+                        </span>
+                    </div>
+                    </div>
+                </td>
+                <td scope="row">
+                    <div class="media align-items-center">
+                    <div class="media-body">
+                        <span class="mb-0 text-sm">
+                        {{ $matkul->kategori }}
+                        </span>
+                    </div>
+                    </div>
                 </td>
                 <td scope="row">
                     <form action="{{ route('matkul.destroy', $matkul->id) }}" method="post">
@@ -87,8 +117,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="matkul">Nama mata kuliah</label>
-                        <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah">
+                        @if ($errors->has('kode_matkul'))
+                            <label for="kode_matkul">Kode mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kode_matkul" id="kode_matkul" value="{{ old('kode_matkul') }}">
+                            <small class="text-danger">{{ $errors->first('kode_matkul') }}</small>
+                        @else
+                            <label for="kode_matkul">Kode mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kode_matkul" id="kode_matkul">
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        @if ($errors->has('matakuliah'))
+                            <label for="matakuliah">Nama mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ old('matakuliah') }}">
+                            <small class="text-danger">{{ $errors->first('matakuliah') }}</small>
+                        @else
+                            <label for="matakuliah">Nama mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ old('matakuliah') }}">                            
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="semester">Semester</label>
@@ -97,6 +143,24 @@
                             @foreach ($semesters as $semester)
                                 <option value="{{ $semester->id }}">Semester {{ $semester->semester }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        @if ($errors->has('sks'))
+                            <label for="sks">Jumlah SKS</label>
+                            <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." name="sks" id="sks" value="{{ old('sks') }}">
+                            <small class="text-danger">{{ $errors->first('sks') }}</small>
+                        @else
+                            <label for="sks">Jumlah SKS</label>
+                            <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." name="sks" id="sks">
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="kategori">Kategori</label>
+                        <select name="kategori" id="kategori" class="form-control">
+                            <option value="" selected disabled>Pilih kategori</option>
+                            <option value="pilihan">Pilihan</option>
+                            <option value="wajib">Wajib</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>

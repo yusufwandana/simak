@@ -12,7 +12,7 @@
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="text-white">{{ $message }}</h4>
+                <h5 class="text-white">{{ $message }}</h5>
             </div>
             @endif
             <h3 class="mb-0 float-left">Daftar Jurusan</h3>
@@ -82,10 +82,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->has('jurusan'))
+                        <div class="form-group">
+                            <label for="jurusan">Nama jurusan</label>
+                            <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan">
+                            <small class="text-danger">{{ $errors->first('jurusan') }}</small>
+                        </div>
+                    @else
                     <div class="form-group">
                         <label for="jurusan">Nama jurusan</label>
                         <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan">
                     </div>
+                    @endif
                     <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                 </div>
             </div>
