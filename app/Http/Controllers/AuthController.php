@@ -20,11 +20,11 @@ class AuthController extends Controller
         //     'role' => 'admin'
         // ]);
         $a = auth()->user();
-        if($a){
+        if ($a) {
             return redirect()->back();
-        }else{
+        } else {
             return view('auth.login');
-        }   
+        }
     }
 
     public function postlogin(Request $request)
@@ -32,9 +32,9 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             if (auth()->user()->role == 'admin') {
                 return redirect('dashboard/admin');
-            }elseif(auth()->user()->role == 'dosen'){
+            } elseif (auth()->user()->role == 'dosen') {
                 return redirect('dashboard/dosen');
-            }elseif(auth()->user()->role == 'mahasiswa'){
+            } elseif (auth()->user()->role == 'mahasiswa') {
                 return redirect('dashboard/mahasiswa');
             }
         } else {
@@ -47,61 +47,60 @@ class AuthController extends Controller
         $id = auth()->user()->id;
         $user = User::find($id);
         $hashed = $user->password;
-        if(Hash::check($request->password_lama, $hashed)){
-            if($request->password_baru === $request->konfirm_password){
+        if (Hash::check($request->password_lama, $hashed)) {
+            if ($request->password_baru === $request->konfirm_password) {
                 $new = Hash::make($request->password_baru);
                 $user->password = $new;
                 $user->save();
 
                 if (auth()->user()->role == 'admin') {
                     return redirect('dashboard/admin')->with('success', 'Password berhasil diubah!');
-                }elseif(auth()->user()->role == 'dosen'){
+                } elseif (auth()->user()->role == 'dosen') {
                     return redirect('dashboard/dosen')->with('success', 'Password berhasil diubah!');
-                }else{
+                } else {
                     return redirect('dashboard/mahasiswa')->with('success', 'Password berhasil diubah!');
                 }
-
-            }else{
+            } else {
 
                 if (auth()->user()->role == 'admin') {
                     return redirect('dashboard/admin')->with('failed', 'Konfirmasi password tidak cocok!');
-                }elseif(auth()->user()->role == 'dosen'){
+                } elseif (auth()->user()->role == 'dosen') {
                     return redirect('dashboard/dosen')->with('failed', 'Konfirmasi password tidak cocok!');
-                }else{
+                } else {
                     return redirect('dashboard/mahasiswa')->with('failed', 'Konfirmasi password tidak cocok!');
                 }
             }
-        }else{
+        } else {
 
             if (auth()->user()->role == 'admin') {
                 return redirect('dashboard/admin')->with('failed', 'Password lama tidak cocok dengan database!');
-            }elseif(auth()->user()->role == 'dosen'){
+            } elseif (auth()->user()->role == 'dosen') {
                 return redirect('dashboard/dosen')->with('failed', 'Konfirmasi password tidak cocok!');
-            }else{
+            } else {
                 return redirect('dashboard/mahasiswa')->with('failed', 'Konfirmasi password tidak cocok!');
             }
         }
     }
 
-    public function changepp(Request $request){
+    public function changepp(Request $request)
+    {
         $id = $request->id;
         $user = User::find($id);
 
         $new_pict = $request->file('gambar');
         $old_pict = $user->avatar;
-        
+
         if (empty($new_pict)) {
             $new_pict = $old_pict;
             $new_name = $new_pict;
-        }else{
+        } else {
             $new_name = Carbon::now()->timestamp . '_' . uniqid() . '.' . $request->file('gambar')->getClientOriginalExtension();
             $request->file('gambar')->move('public/image/profile/',  $new_name);;
-            if($old_pict == 'default.png')
-            {
+            if ($old_pict == 'default.png') {
                 //do nothing
 
-            }else{
-                unlink(public_path('\image\profile\\'.$old_pict));
+            } else {
+                unlink(public_path('\image\profile\\' . $old_pict));
             }
         }
 
@@ -113,12 +112,11 @@ class AuthController extends Controller
 
         if (auth()->user()->role == 'admin') {
             return redirect('dashboard/admin');
-        }elseif(auth()->user()->role == 'dosen'){
+        } elseif (auth()->user()->role == 'dosen') {
             return redirect('dashboard/dosen');
-        }else{
+        } else {
             return redirect('dashboard/mahasiswa');
         }
-
     }
 
     public function logout()

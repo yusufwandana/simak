@@ -20,20 +20,26 @@ class AbsenController extends Controller
 
     public function daftarMhs(Request $request)
     {
+        $this->validate($request, [
+            'matkul_id' => 'required'
+        ]);
         $matkul = Matkul::find($request->matkul_id);
         $semester = Semester::find($matkul->semester_id);
         $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
         $tahun = Mahasiswa::where('semester_id', $semester->id)->first();
         $thn = $tahun->tahun_masuk;
-        $tgl = $request->tanggal;
         $no = 1;
+        if ($request->tanggal == null) {
+            $tgl = date('Y-m-d');
+        } else {
+            $tgl = $request->tanggal;
+        }
 
         return view('absen.daftarmhs', compact('no', 'mahasiswa', 'thn', 'matkul', 'semester', 'tgl'));
     }
 
     public function postabsen(Request $request)
     {
-        // dd($request->absen);
         $absen = [];
 
         $tgl = $request->tanggal;
@@ -63,5 +69,54 @@ class AbsenController extends Controller
             Absen::insert($absen);
             return redirect()->route('absen.index')->with('success', 'Anda telah mengabsen hari ini! Selamat mengajar :)');
         }
+    }
+
+    public function rekapAbsen()
+    {
+        $dosen = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
+        $user  = Dosen::where('user_id', auth()->user()->id)->first();
+        return view('absen.rekap', compact('dosen', 'user'));
+    }
+
+    public function rekapPost(Request $request)
+    {
+        $matkul = Matkul::find($request->matkul_id);
+        $semester = Semester::find($matkul->semester_id);
+        $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
+        $a = explode('-', $request->tanggal);
+        $tahun = $a[0];
+        $bulan = $a[1];
+        $tanggal = $a[2];
+
+        $matkul = Matkul::find($request->matkul_id);
+        $mahasiswa = Mahasiswa::with('absen')->where('semester_id', $matkul->semester_id)->orderBy('id', 'asc')->get();
+        // foreach ($mahasiswa as $m) {
+        //     dd($m->absen);
+        // }
+
+        $absen = Absen::where([
+            'dosen_id'     => $request->dosen_id,
+            'matkul_id'    => $request->matkul_id
+        ])->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->orderBy('tanggal', 'asc')->get();
+        
+        // foreach ($mahasiswa as $m) {
+        //     foreach ($m->absen as $l) {
+        //         dd($l->keterangan);
+        //     }
+        // }
+            // foreach ($mahasiswa as $m) {
+            // }
+        // $absen = DB::table('absens')->where([
+        //     'dosen_id'  => $request->dosen_id,
+        //     'matkul_id' => $request->matkul_id
+        // ])->whereMonth('tanggal', $bulan)->whereYear('tanggal', 2019)->get();
+        // dd($absen);
+
+        // foreach ($absen as $a) {
+        //     $b[] = explode('-', $a->tanggal);
+        // }
+        // dd($b);
+
+        return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'semester'));
     }
 }

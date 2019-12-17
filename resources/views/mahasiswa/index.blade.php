@@ -8,7 +8,7 @@
 <div class="container-fluid mt--9 mb-5">
   <div class="col">
       <div class="card shadow">
-        <div class="card-header border-0">
+        <div class="card-header">
           @if ($message = Session::get('success'))
             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -18,95 +18,97 @@
           <h3 class="mb-0 float-left">Daftar Mahasiswa</h3>
           <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
         </div>
-        <div class="table-responsive">
-          <table class="table align-items-center table-flush" id="dataTable">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">Tahun Masuk</th>
-                <th scope="col">NIM</th>
-                <th scope="col">Nama lengkap</th>
-                <th scope="col">Jenis kelamin</th>
-                <th scope="col">Jurusan</th>
-                <th scope="col">Semester</th>
-                <th scope="col">Alamat</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($mahasiswa as $mhs)
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush" id="ini_table">
+              <thead class="thead-light">
                 <tr>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <span class="mb-0 text-sm">{{ $mhs->tahun_masuk }}</span>
-                      </div>
-                    </div>
-                  </th>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <span class="mb-0 text-sm">{{ $mhs->nim }}</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td scope="row">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <span class="mb-0 text-sm">
-                          {{ $mhs->nama }}
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td scope="row">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <span class="mb-0 text-sm">
-                          @if ($mhs->jk == 'L')
-                              Laki-laki
-                          @elseif($mhs->jk == 'P')
-                              Perempuan
-                          @endif
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td scope="row">
+                  <th scope="col">Tahun Masuk</th>
+                  <th scope="col">NIM</th>
+                  <th scope="col">Nama lengkap</th>
+                  <th scope="col">Jenis kelamin</th>
+                  <th scope="col">Jurusan</th>
+                  <th scope="col">Semester</th>
+                  <th scope="col">Alamat</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($mahasiswa as $mhs)
+                  <tr>
+                    <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="mb-0 text-sm">{{ $mhs->jurusan->jurusan }}</span>
+                          <span class="mb-0 text-sm">{{ $mhs->tahun_masuk }}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{ $mhs->nim }}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">
+                            {{ $mhs->nama }}
+                          </span>
                         </div>
                       </div>
                     </td>
-                  <td scope="row">
+                    <td scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="mb-0 text-sm">Semester {{ $mhs->semester->semester }}</span>
+                          <span class="mb-0 text-sm">
+                            @if ($mhs->jk == 'L')
+                                Laki-laki
+                            @elseif($mhs->jk == 'P')
+                                Perempuan
+                            @endif
+                          </span>
                         </div>
                       </div>
                     </td>
-                  <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="mb-0 text-sm">{{ $mhs->alamat }}</span>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <span class="mb-0 text-sm">{{ $mhs->jurusan->jurusan }}</span>
+                          </div>
+                        </div>
+                      </td>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <span class="mb-0 text-sm">Semester {{ $mhs->semester->semester }}</span>
+                          </div>
+                        </div>
+                      </td>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <span class="mb-0 text-sm">{{ $mhs->alamat }}</span>
+                          </div>
+                        </div>
+                      </td>
+                   <td class="text-right">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
+                            <a class="dropdown-item btn-sm" href="/simak/mhs/{{ $mhs->id }}/edit"><i class="fa fa-cog"></i>Edit</a>
+                            <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/mhs/{{ $mhs->id }}/delete"><i class="fa fa-trash"></i>Hapus</a>
                         </div>
                       </div>
                     </td>
-                 <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
-                          <a class="dropdown-item btn-sm" href="/simak/mhs/{{ $mhs->id }}/edit"><i class="fa fa-cog"></i>Edit</a>
-                          <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/mhs/{{ $mhs->id }}/delete"><i class="fa fa-trash"></i>Hapus</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>    
-              @endforeach
-            </tbody>
-          </table>
+                  </tr>    
+                @endforeach
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="card-footer py-4">
            {{ $mahasiswa->links() }}
@@ -154,7 +156,7 @@
                         <div class="form-group">
                             @if ($errors->has('jk'))
                               <label for="jk">Jenis kelamin</label>
-                              <select name="jk" id="jk" class="form-control">
+                              <select name="jk" id="jk" class="form-control" required>
                                   <option value="" selected disabled>Pilih jenis kelamin..</option>
                                   <option value="L">Laki-laki</option>
                                   <option value="P">Perempuan</option>
@@ -162,7 +164,7 @@
                               </select>
                             @else
                               <label for="jk">Jenis kelamin</label>
-                              <select name="jk" id="jk" class="form-control">
+                              <select name="jk" id="jk" class="form-control" required>
                                   <option value="" selected disabled>Pilih jenis kelamin..</option>
                                   <option value="L">Laki-laki</option>
                                   <option value="P">Perempuan</option>
@@ -171,7 +173,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jurusan">Jurusan</label>
-                            <select class="form-control" name="jurusan" id="jurusan">
+                            <select class="form-control" name="jurusan" id="jurusan" required>
                                 <option value="">Pilih jurusan..</option>
                                 @foreach ($jurusan as $j)
                                     <option value="{{ $j->id }}">{{ $j->jurusan }}</option>
@@ -180,7 +182,7 @@
                         </div>
                         <div class="form-group">
                             <label for="semester">Semester</label>
-                            <select class="form-control" name="semester" id="semester">
+                            <select class="form-control" name="semester" id="semester" required>
                                 <option value="">Pilih semester..</option>
                                 @foreach ($semester as $s)
                                     <option value="{{ $s->id }}">{{ $s->semester }}</option>
@@ -214,4 +216,15 @@
         </div>
     </div>
       
+@endsection
+
+@section('customjs')
+    <script>
+      $('#ini_table').dataTable({
+        paging:false,
+        info: false
+      });
+        $('#ini_table_wrapper .row  .col-sm-12').removeClass('col-md-6');
+        $('#ini_table_wrapper .row  .col-sm-12 #ini_table_filter label').addClass('pb-2');
+    </script>
 @endsection

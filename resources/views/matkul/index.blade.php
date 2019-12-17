@@ -8,7 +8,7 @@
 <div class="container-fluid mt--9 mb-5">
 <div class="col">
     <div class="card shadow">
-        <div class="card-header border-0">
+        <div class="card-header">
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -18,80 +18,82 @@
         <h3 class="mb-0 float-left">Daftar Mata Kuliah</h3>
         <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
         </div>
-        <div class="table-responsive">
-        <table class="table align-items-center table-flush">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Kode Mata Kuliah</th>
-                <th scope="col">Mata Kuliah</th>
-                <th scope="col">Semester</th>
-                <th scope="col">SKS</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Aksi</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($matkuls as $matkul)
-            <tr>
-                <th scope="row">
-                    <div class="media align-items-center">
-                    <div class="media-body">
-                        <span class="mb-0 text-sm">{{ $matkul->id }}</span>
-                    </div>
-                    </div>
-                </th>
-                <td scope="row">
-                    <div class="media align-items-center">
-                    <div class="media-body">
-                        <span class="mb-0 text-sm">
-                        {{ $matkul->kd_matkul }}
-                        </span>
-                    </div>
-                    </div>
-                </td>
-                <td scope="row">
-                    <div class="media align-items-center">
-                    <div class="media-body">
-                        <span class="mb-0 text-sm">
-                        {{ $matkul->matakuliah }}
-                        </span>
-                    </div>
-                    </div>
-                </td>
-                <td scope="row">
-                    Semester {{ $matkul->semester->semester }}
-                </td>
-                <td scope="row">
-                    <div class="media align-items-center">
-                    <div class="media-body">
-                        <span class="mb-0 text-sm">
-                        {{ $matkul->sks }}
-                        </span>
-                    </div>
-                    </div>
-                </td>
-                <td scope="row">
-                    <div class="media align-items-center">
-                    <div class="media-body">
-                        <span class="mb-0 text-sm">
-                        {{ $matkul->kategori }}
-                        </span>
-                    </div>
-                    </div>
-                </td>
-                <td scope="row">
-                    <form action="{{ route('matkul.destroy', $matkul->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <a class="btn btn-info btn-sm" href="{{ route('matkul.edit', $matkul->id) }}"><i class="fa fa-cog"></i></a>
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('matkul.destroy', $matkul->id) }}"><i class="fa fa-trash"></i></button>
-                    </form>
-                </td>
-            </tr>    
-            @endforeach
-            </tbody>
-        </table>
+        <div class="card-body">
+            <div class="table-responsive">
+            <table class="table align-items-center table-flush" id="ini_table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Kode Mata Kuliah</th>
+                    <th scope="col">Mata Kuliah</th>
+                    <th scope="col">Semester</th>
+                    <th scope="col">SKS</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($matkuls as $key => $matkul)
+                <tr>
+                    <th scope="row">
+                        <div class="media align-items-center">
+                        <div class="media-body">
+                            <span class="mb-0 text-sm">{{ $matkuls->firstItem() + $key }}</span>
+                        </div>
+                        </div>
+                    </th>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                        <div class="media-body">
+                            <span class="mb-0 text-sm">
+                            {{ $matkul->kd_matkul }}
+                            </span>
+                        </div>
+                        </div>
+                    </td>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                        <div class="media-body">
+                            <span class="mb-0 text-sm">
+                            {{ $matkul->matakuliah }}
+                            </span>
+                        </div>
+                        </div>
+                    </td>
+                    <td scope="row">
+                        Semester {{ $matkul->semester->semester }}
+                    </td>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                        <div class="media-body">
+                            <span class="mb-0 text-sm">
+                            {{ $matkul->sks }}
+                            </span>
+                        </div>
+                        </div>
+                    </td>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                        <div class="media-body">
+                            <span class="mb-0 text-sm">
+                            {{ $matkul->kategori }}
+                            </span>
+                        </div>
+                        </div>
+                    </td>
+                    <td scope="row">
+                        <form action="{{ route('matkul.destroy', $matkul->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <a class="btn btn-info btn-sm" href="{{ route('matkul.edit', $matkul->id) }}"><i class="fa fa-cog"></i></a>
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('matkul.destroy', $matkul->id) }}"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>    
+                @endforeach
+                </tbody>
+            </table>
+            </div>
         </div>
         <div class="card-footer py-4">
             {{ $matkuls->links() }}
@@ -117,13 +119,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        @if ($errors->has('kode_matkul'))
-                            <label for="kode_matkul">Kode mata kuliah</label>
-                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kode_matkul" id="kode_matkul" value="{{ old('kode_matkul') }}">
-                            <small class="text-danger">{{ $errors->first('kode_matkul') }}</small>
+                        @if ($errors->has('kd_matkul'))
+                            <label for="kd_matkul">Kode mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ old('kd_matkul') }}">
+                            <small class="text-danger">{{ $errors->first('kd_matkul') }}</small>
                         @else
-                            <label for="kode_matkul">Kode mata kuliah</label>
-                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kode_matkul" id="kode_matkul">
+                            <label for="kd_matkul">Kode mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ old('kd_matkul') }}">
                         @endif
                     </div>
                     <div class="form-group">
@@ -138,7 +140,7 @@
                     </div>
                     <div class="form-group">
                         <label for="semester">Semester</label>
-                        <select class="form-control" name="semester" id="semester">
+                        <select class="form-control" name="semester" id="semester" required>
                             <option value="" selected disabled>Pilih semester</option>
                             @foreach ($semesters as $semester)
                                 <option value="{{ $semester->id }}">Semester {{ $semester->semester }}</option>
@@ -152,12 +154,12 @@
                             <small class="text-danger">{{ $errors->first('sks') }}</small>
                         @else
                             <label for="sks">Jumlah SKS</label>
-                            <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." name="sks" id="sks">
+                            <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." value="{{ old('sks') }}" name="sks" id="sks">
                         @endif
                     </div>
                     <div class="form-group">
                         <label for="kategori">Kategori</label>
-                        <select name="kategori" id="kategori" class="form-control">
+                        <select name="kategori" id="kategori" class="form-control" required>
                             <option value="" selected disabled>Pilih kategori</option>
                             <option value="pilihan">Pilihan</option>
                             <option value="wajib">Wajib</option>
@@ -169,4 +171,16 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('customjs')
+    <script>
+        $('#ini_table').dataTable({
+            paging: false,
+            info: false
+        });
+
+        $('#ini_table_wrapper .row  .col-sm-12').removeClass('col-md-6');
+        $('#ini_table_wrapper .row  .col-sm-12 #ini_table_filter label').addClass('pb-2');
+    </script>
 @endsection

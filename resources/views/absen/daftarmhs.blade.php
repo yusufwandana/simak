@@ -10,9 +10,15 @@
         <div class="col-md">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0 float-left">Absen Mahasiswa</h3>
-                    <a href="{{ route('absen.index') }}" class="badge badge-warning float-right mx-3">kembali</a>
-                    <h4 class="mb-0 float-right">{{ $tgl }}</h4>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3 class="mb-0 float-left">Absen Mahasiswa</h3>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="mb-0 float-left">{{ $tgl }}</h4>
+                            <a href="{{ route('absen.index') }}" class="badge badge-warning float-right">kembali</a>
+                        </div>
+                    </div>
                     <br>
                     <br>
                     <table>
@@ -27,9 +33,9 @@
                             <td>{{ $thn }}</td>
                         </tr>
                         <tr>
-                            <td>Matkul</td>
+                            <td>Mata kuliah</td>
                             <td>:</td>
-                            <td>{{ $matkul->matakuliah }}</td>
+                            <td>{{ $matkul->matakuliah }} / {{ $matkul->sks }} sks</td>
                         </tr>
                         <tr>
                             <td>Semester </td>

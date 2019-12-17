@@ -21,11 +21,8 @@ class DosenController extends Controller
     {
         //validity
         $this->validate($request, [
-            'nip'    => 'required|numeric|digits:8',
-            'nama'   => 'required',
-            'jk'     => 'required',
-            'email'  => 'required|email',
-            'alamat' => 'required'
+            'nip'    => 'required|numeric|digits:8|unique:dosens',
+            'email'  => 'required|email|unique:users',
         ]);
 
         //Input ke table user
@@ -103,6 +100,18 @@ class DosenController extends Controller
             'dosen_id' => 'required',
             'matkul_id' => 'required'
         ]);
+
+        $cek = DosenMatkul::where([
+            'dosen_id' => $request->dosen_id,
+            'matkul_id' => $request->matkul_id,
+        ])->get();
+
+        foreach ($cek as $c) {
+            if ($c) {
+                return back()->with('failed', 'Dosen telah mengajar matkul tersebut!');
+            }
+        }
+
 
         DosenMatkul::create([
             'dosen_id' => $request->dosen_id,

@@ -9,7 +9,7 @@ class SemesterController extends Controller
 {
     public function index()
     {
-        $semesters = Semester::paginate(5);
+        $semesters = Semester::paginate(10);
         return view('semester.index', compact('semesters'));
     }
 

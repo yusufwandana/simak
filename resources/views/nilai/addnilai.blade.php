@@ -57,7 +57,7 @@
         <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
             <div class="row align-items-center">
-                <div class="col-8">
+                <div class="col">
                 <h3 class="mb-0">{{ $user->name }} | Daftar Nilai</h3>
                 </div>
             </div>
@@ -86,53 +86,77 @@
                     <h5 class="text-white">{{ $message }}</h5>
                 </div>
                 @endif
-                <h6 class="heading-small text-muted mb-4">Daftar nilai <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a></h6>
+                @if ($message = Session::get('failed'))
+                <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">{{ $message }}</h5>
+                </div>
+                @endif
+                @if ($message = $errors->has('nilai'))
+                <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">{{ $errors->first('nilai') }}</h5>
+                </div>
+                @endif
+                <h6 class="heading-small text-muted mb-4">Daftar nilai
+                    <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
+                </h6>
                 <div class="row mt-4">
                     <div class="col-lg">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                            <th scope="col">Jenis Nilai</th>
-                            <th scope="col">Matkul</th>
-                            <th scope="col">Nilai</th>
-                            <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($nilaimhs as $m)
-                            <tr>
-                                <td scope="row">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->jenis_nilai }}</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td scope="row">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->matkul->matakuliah }}</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td scope="row">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->nilai }}</span>
-                                </div>
-                                </div>
-                                </td>
-                                <td scope="row">
-                                    <form action="{{ route('nilai.destroy', $m->id) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')"><i class="fa fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                    <th scope="col">Jenis Nilai</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">Matkul</th>
+                                    <th scope="col">Nilai</th>
+                                    <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($nilaimhs as $m)
+                                    <tr>
+                                        <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                            <span class="mb-0 text-sm">{{ $m->jenis_nilai }}</span>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                            <span class="mb-0 text-sm">Semester {{ $m->matkul->semester->semester }}</span>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                            <span class="mb-0 text-sm">{{ $m->matkul->matakuliah }}</span>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                            <span class="mb-0 text-sm"><a href="javascript:void(0)" id="edit-data" data-id="{{ $m->id }}">{{ $m->nilai }}</a></span>
+                                        </div>
+                                        </div>
+                                        </td>
+                                        <td scope="row">
+                                            <form action="{{ route('nilai.destroy', $m->id) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     </div>
                 </div>
@@ -171,8 +195,9 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="{{ route('nilai.addnilai') }}" method="post">
-                @csrf
-                <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
+            @csrf
+            <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
+            <input type="hidden" name="matkul_id" value="{{ $matkul->id }}">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="exampleModalLabel">
@@ -184,28 +209,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="jenis">Jenis nilai</label>
-                            <select class="form-control" name="jenis" id="jenis">
+                            <label for="jenis">Jenis nilai..</label>
+                            <select class="form-control" name="jenis" id="jenis" required>
                                 <option value="" selected disabled>Pilih jenis nilai</option>
                                 <option value="UTS">UTS</option>
                                 <option value="UKK">UKK</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
-                            <label for="matkul">Pilih Matkul</label>
-                            <select class="form-control" name="matkul_id" id="matkul_id">
-                                <option value="" selected disabled>Pilih matkul</option>
-                                @foreach ($dosen as $d)
-                                    @foreach ($d->Matkul as $m)
-                                        <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="matkul">Masukkan nilai</label>
-                            <input class="form-control" type="number" name="nilai" id="nilai">
+                            <input class="form-control" type="number" name="nilai" id="nilai" value="{{ old('nilai') }}">
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                     </div>
@@ -213,6 +226,62 @@
             </form>
         </div>
     </div>
-
     </div>
+
+    <form id="userForm" name="userForm" class="form-horizontal">
+        @csrf
+        <div class="modal fade" id="ajax-crud-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="userCrudModal"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="my_id" id="my_id">
+                        <div class="form-group">
+                            <label for="nilai" class="control-label">Nilai</label>
+                            <input type="text" class="form-control" id="score" name="score" placeholder="Enter nilai" maxlength="50" required="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btn-save" value="create">Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+@endsection
+
+@section('customjs')
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('body').on('click', '#edit-data', function(){
+                var thisId = $(this).data('id');
+                $.get('/simak/nilai/' + thisId + '/edit', function(data){
+                    $('#userCrudModal').html("Edit Nilai Mahasiswa");
+                    $('#btn-save').val("edit-user");
+                    $('#ajax-crud-modal').modal('show');
+                    $('#my_id').val(data.id);
+                    $('#score').val(data.nilai);
+                });
+            });
+
+            $('body').on('click', '#btn-save', function(){
+                var id = $('#my_id').val();
+                console.log(id);
+            });
+
+        });
+    </script>
 @endsection

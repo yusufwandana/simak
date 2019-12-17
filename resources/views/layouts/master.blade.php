@@ -7,6 +7,7 @@
   <title>
     @yield('title')
   </title>
+  @yield('meta')
   <!-- Favicon -->
   <link href="{{ asset('public/template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
   {{-- Datatables --}}
@@ -17,6 +18,9 @@
   <!-- Icons -->
   <link href="{{ asset('public/template/assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  {{-- Editable --}}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
   <!-- CSS Files -->
   <link href="{{ asset('public/template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
 </head>
@@ -43,20 +47,22 @@
   <!--   Optional JS   -->
   <script src="{{ asset('public/template/assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
   <script src="{{ asset('public/template/assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
   <!--   Argon JS   -->
   <script src="{{ asset('public/template/assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
   <script src="{{ asset('public/datatables/datatables.min.js') }}"></script>
   <script src="{{ asset('public/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('public/datatables/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
+  @yield('customjs')
+  
+  {{-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> --}}
+  {{-- <script>
     window.TrackJS &&
       TrackJS.install({
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
-  </script>
-  @yield('customjs')
+  </script> --}}
 </body>
 
 </html>

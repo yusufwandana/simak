@@ -15,6 +15,8 @@ class CreateJadwalsTable extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->increments('id');
+            $table->time('waktu');
+            $table->date('tanggal');
             $table->integer('dosen_id')->unsigned();
             $table->integer('matkul_id')->unsigned();
             $table->integer('ruangan_id')->unsigned();

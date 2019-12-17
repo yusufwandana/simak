@@ -11,7 +11,8 @@
         <div class="col-md-10">
         <div class="card shadow">
             <div class="card-header bg-transparent">
-            <h3 class="mb-0">Form Edit Dosen</h3>
+            <h3 class="mb-0">Form Edit Dosen<a href="{{ route('dosen') }}" class="badge badge-warning float-right">kembali</a></h3>
+            
             </div>
             <form action="/simak/dosen/{{ $dosen->id }}/update" method="post">
             @csrf

@@ -19,4 +19,9 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo('App\Semester');
     }
+
+    public function absen()
+    {
+        return $this->hasMany('App\Absen');
+    }
 }

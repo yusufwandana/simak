@@ -11,7 +11,8 @@
         <div class="col-md-10">
         <div class="card shadow">
             <div class="card-header bg-transparent">
-            <h3 class="mb-0">Edit Jurusan</h3>
+            <h3 class="mb-0 float-left">Edit Jurusan</h3>
+            <a href="{{ route('jurusan.index') }}" class="badge badge-warning float-right mx-3">kembali</a>
             </div>
             <form action="{{ route('jurusan.update', $jurusan->id) }}" method="post">
             @csrf

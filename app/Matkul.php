@@ -25,4 +25,9 @@ class Matkul extends Model
     {
         return $this->hasOne('App\Nilai');
     }
+
+    public function jadwal()
+    {
+        return $this->hasMany('App\Jadwal');
+    }
 }

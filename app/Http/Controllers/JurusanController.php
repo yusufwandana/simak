@@ -22,7 +22,7 @@ class JurusanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'jurusan' => 'required'
+            'jurusan' => 'required|unique:jurusans'
         ]);
 
         Jurusan::create([
@@ -51,7 +51,7 @@ class JurusanController extends Controller
         $this->validate($request, [
             'jurusan' => 'required|unique:jurusans'
         ]);
-        
+
         $jurusan = Jurusan::find($id);
         $jurusan->jurusan = $request->jurusan;
         $jurusan->save();

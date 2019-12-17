@@ -18,8 +18,12 @@
             @method('PUT')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="matakuliah">Nama mata kuliah</label>
-                    <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ $matkul->matakuliah }}">
+                    <label for="kode_matkul">Kode mata kuliah</label>
+                    <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kode_matkul" id="kode_matkul" value="{{ $matkul->kd_matkul }}">
+                </div>
+                <div class="form-group">
+                    <label for="mata_kuliah">Nama mata kuliah</label>
+                    <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="mata_kuliah" id="mata_kuliah" value="{{ $matkul->matakuliah }}">
                 </div>
                 <div class="form-group">
                     <label for="semester">Semester</label>
@@ -33,6 +37,14 @@
                 <div class="form-group">
                     <label for="sks">Jumlah SKS</label>
                     <input type="text" class="form-control" placeholder="Masukan jumlah sks.." name="sks" id="sks" value="{{ $matkul->sks }}">
+                </div>
+                <div class="form-group">
+                    <label for="kategori">Kategori</label>
+                    <select name="kategori" id="kategori" class="form-control">
+                        <option value="" selected disabled>Pilih kategori</option>
+                        <option value="pilihan" @if ($matkul->kategori == 'pilihan') selected @endif>Pilihan</option>
+                        <option value="wajib" @if ($matkul->kategori == 'wajib') selected @endif>Wajib</option>
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save changes</button>

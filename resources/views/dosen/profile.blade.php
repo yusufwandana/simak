@@ -53,12 +53,43 @@
             </div>
         </div>
         </div>
+        @php
+            $a = date('D');
+            switch ($a) {
+                case 'Sun':
+                    $a = 'Minggu';
+                    break;
+                case 'Mon':
+                    $a = 'Senin';
+                    break;
+                case 'Tue':
+                    $a = 'Selasa';
+                    break;
+                case 'Wed':
+                    $a = 'Rabu';
+                    break;
+                case 'Thu':
+                    $a = 'Kamis';
+                    break;
+                case 'Fri':
+                    $a = 'Jumat';
+                    break;
+                case 'Sat':
+                    $a = 'Sabtu';
+                    break;
+                
+                default:
+                    $a = 'False';
+                    break;
+            }
+        @endphp
         <div class="col-xl-8 order-xl-1">
         <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
             <div class="row align-items-center">
-                <div class="col-8">
-                <h3 class="mb-0">{{ $user->name }} | Profile</h3>
+                <div class="col-12">
+                <h3>{{ $dosen->nama }} | Profile <a href="{{ route('dosen') }}" class="badge badge-warning float-right">kembali</a></h3>
+                
                 </div>
             </div>
             </div>
@@ -66,6 +97,12 @@
             <form>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">{{ $message }}</h5>
+                </div>
+                @endif
+                @if ($message = Session::get('failed'))
+                <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h5 class="text-white">{{ $message }}</h5>
                 </div>
@@ -90,38 +127,40 @@
                 <h6 class="heading-small text-muted mb-4">Daftar matkul <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a></h6>
                 <div class="row mt-4">
                     <div class="col-lg">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                            <th scope="col">Matkul</th>
-                            <th scope="col">Semester</th>
-                            <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($dosen->matkul as $m)
-                            <tr>
-                                <td scope="row">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->matakuliah }}</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td scope="row">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                    <span class="mb-0 text-sm">{{ $m->semester->semester }}</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td scope="row">
-                                <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('dosenmatkul.delete', $m->pivot->id) }}"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                    <th scope="col">Matkul</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($dosen->matkul as $m)
+                                    <tr>
+                                        <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                            <span class="mb-0 text-sm">{{ $m->matakuliah }}</span>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                            <span class="mb-0 text-sm">Semester {{ $m->semester->semester }}</span>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td scope="row">
+                                        <a class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('dosenmatkul.delete', $m->pivot->id) }}"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>                        
+                        </div>
                     </div>
                     </div>
                 </div>

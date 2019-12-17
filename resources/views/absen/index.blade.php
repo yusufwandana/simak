@@ -5,6 +5,15 @@
 @section('head', 'Absen Mahasiswa')
 
 @section('content')
+@php
+if ($errors->has('matkul_id')){
+    echo "<script>alert('Harap isi kolom dengan benar!');</script>";
+}else{
+
+}
+    
+@endphp
+    
 <div class="container-fluid mt--9">
     <div class="row">
         <div class="col-md">
@@ -16,8 +25,44 @@
                         <h5 class="text-white">{{ $message }}</h5>
                     </div>
                     @endif
-                    <h3 class="mb-0 float-left">Absen Mahasiswa</h3>
-                    <h4 class="mb-0 float-right">{{ date('d M Y') }}</h4>
+                    @php
+                        $a = date('D');
+                        switch ($a) {
+                            case 'Sun':
+                                $a = 'Minggu';
+                                break;
+                            case 'Mon':
+                                $a = 'Senin';
+                                break;
+                            case 'Tue':
+                                $a = 'Selasa';
+                                break;
+                            case 'Wed':
+                                $a = 'Rabu';
+                                break;
+                            case 'Thu':
+                                $a = 'Kamis';
+                                break;
+                            case 'Fri':
+                                $a = 'Jumat';
+                                break;
+                            case 'Sat':
+                                $a = 'Sabtu';
+                                break;
+                            
+                            default:
+                                $a = 'False';
+                                break;
+                        }
+                    @endphp
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h3 class="mb-0">Absen Mahasiswa</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
+                        </div>
+                    </div>
                 </div>  
                 <form action="{{ route('absen.daftarmhs') }}" method="post">
                     @csrf          
@@ -27,7 +72,7 @@
                                 <div class="form-group">
                                     <label for="matkul_id">Mata kuliah</label>
                                     <select name="matkul_id" id="matkul_id" class="form-control mb-3">
-                                        <option value="" selected disabled>Pilih matkul</option>
+                                        <option value="" selected disabled>Pilih mata kuliah</option>
                                         @foreach ($dosen as $m)
                                             @foreach ($m->Matkul as $mm)
                                                 <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
@@ -35,7 +80,6 @@
                                         @endforeach
                                     </select>
                                 </div> 
-                                <button type="submit" class="btn btn-primary btn-sm">Tampilkan</button>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-4">
@@ -43,6 +87,11 @@
                                     <label for="tanggal">Tanggal absen</label>
                                     <input type="date" class="form-control" name="tanggal" id="tanggal">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <button type="submit" class="btn btn-primary btn-sm">Tampilkan</button>
                             </div>
                         </div>
                     </div>       
