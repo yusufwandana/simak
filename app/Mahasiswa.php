@@ -24,4 +24,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany('App\Absen');
     }
+
+    public function nilai()
+    {
+        return $this->hasMany('App\Nilai');
+    }
 }

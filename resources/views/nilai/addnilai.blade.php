@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Input Nilai')
+@section('title', 'SIMAK2019 | Detail')
+
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('head', 'Input Nilai')
 
@@ -56,11 +60,14 @@
         <div class="col-xl-8 order-xl-1">
         <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
-            <div class="row align-items-center">
-                <div class="col">
-                <h3 class="mb-0">{{ $user->name }} | Daftar Nilai</h3>
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <h3 class="mb-0">{{ $user->name }} | Daftar Nilai</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/simak/nilai/daftarmhs/{{$matkul->id}}/{{$matkul->slug}}" class="badge badge-warning float-right">kembali</a>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="card-body">
                 <h6 class="heading-small text-muted mb-4">User information</h6>
@@ -74,8 +81,8 @@
                     </div>
                     <div class="col-lg-6">
                     <div class="form-group">
-                        <label class="form-control-label" for="nip">NIP</label>
-                        <input type="text" id="nip" class="form-control form-control-alternative" value="{{ $mahasiswa->nim }}" readonly>
+                        <label class="form-control-label" for="nim">NIM</label>
+                        <input type="text" id="nim" class="form-control form-control-alternative" value="{{ $mahasiswa->nim }}" readonly>
                     </div>
                     </div>
                 </div>
@@ -98,9 +105,7 @@
                     <h5 class="text-white">{{ $errors->first('nilai') }}</h5>
                 </div>
                 @endif
-                <h6 class="heading-small text-muted mb-4">Daftar nilai
-                    <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
-                </h6>
+                <h6 class="heading-small text-muted mb-4">Daftar nilai</h6>
                 <div class="row mt-4">
                     <div class="col-lg">
                         <div class="table-responsive">
@@ -141,7 +146,7 @@
                                         <td scope="row">
                                         <div class="media align-items-center">
                                             <div class="media-body">
-                                            <span class="mb-0 text-sm"><a href="javascript:void(0)" id="edit-data" data-id="{{ $m->id }}">{{ $m->nilai }}</a></span>
+                                            <span class="mb-0 text-sm"><a class="b{{$m->id}}" href="javascript:void(0)" id="edit-data" data-id="{{ $m->id }}">{{ $m->nilai }}</a></span>
                                         </div>
                                         </div>
                                         </td>
@@ -191,50 +196,12 @@
         </div>
     </footer>
 
-    {{-- Modal --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="{{ route('nilai.addnilai') }}" method="post">
-            @csrf
-            <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
-            <input type="hidden" name="matkul_id" value="{{ $matkul->id }}">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="exampleModalLabel">
-                            Tambah Matkul
-                        </h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="jenis">Jenis nilai..</label>
-                            <select class="form-control" name="jenis" id="jenis" required>
-                                <option value="" selected disabled>Pilih jenis nilai</option>
-                                <option value="UTS">UTS</option>
-                                <option value="UKK">UKK</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="matkul">Masukkan nilai</label>
-                            <input class="form-control" type="number" name="nilai" id="nilai" value="{{ old('nilai') }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    </div>
-
-    <form id="userForm" name="userForm" class="form-horizontal">
-        @csrf
+    <form id="updateForm" action="post" name="updateForm" class="form-horizontal">
         <div class="modal fade" id="ajax-crud-modal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="userCrudModal"></h4>
+                        <h4 class="modal-title" id="updateCrudModal"></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -247,8 +214,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="btn-save" value="create">Save changes
-                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-update" value="update">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -261,7 +227,7 @@
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
-                headers: {
+                headers : {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
@@ -271,15 +237,30 @@
                 $.get('/simak/nilai/' + thisId + '/edit', function(data){
                     $('#userCrudModal').html("Edit Nilai Mahasiswa");
                     $('#btn-save').val("edit-user");
+                    $('.modal-title').html('Edit nilai mahasiswa');
                     $('#ajax-crud-modal').modal('show');
                     $('#my_id').val(data.id);
                     $('#score').val(data.nilai);
                 });
             });
 
-            $('body').on('click', '#btn-save', function(){
-                var id = $('#my_id').val();
-                console.log(id);
+            $('body').on('click', '#btn-update', function(){
+                var myId = $('#my_id').val();
+                $.ajax({
+                    data: $('#updateForm').serialize(),
+                    url: "/simak/nilai/update" +"/"+myId,
+                    type: "post",
+                    dataType: 'json',
+                    success: function(data){
+                        var score = $('#score').val();
+                        $('.b'+myId).html(score);
+                        $('#updateForm').trigger("reset");
+                        $('#ajax-crud-modal').modal('hide');
+                    },
+                    error: function(data, error){
+                        alert('Error', error);
+                    }
+                });
             });
 
         });

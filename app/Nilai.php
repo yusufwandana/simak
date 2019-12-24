@@ -14,5 +14,9 @@ class Nilai extends Model
     {
         return $this->belongsTo('App\Matkul');
     }
-    
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo('App\Mahasiswa');
+    }
 }

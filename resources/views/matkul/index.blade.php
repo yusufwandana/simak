@@ -9,6 +9,14 @@
 <div class="col">
     <div class="card shadow">
         <div class="card-header">
+
+        @if ($errors->all())
+        <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+        </div>
+        @endif
+        
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -28,6 +36,7 @@
                     <th scope="col">Mata Kuliah</th>
                     <th scope="col">Semester</th>
                     <th scope="col">SKS</th>
+                    <th scope="col">Slug</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Aksi</th>
                 </tr>
@@ -68,6 +77,15 @@
                         <div class="media-body">
                             <span class="mb-0 text-sm">
                             {{ $matkul->sks }}
+                            </span>
+                        </div>
+                        </div>
+                    </td>
+                    <td scope="row">
+                        <div class="media align-items-center">
+                        <div class="media-body">
+                            <span class="mb-0 text-sm">
+                            {{ $matkul->slug }}
                             </span>
                         </div>
                         </div>
@@ -119,23 +137,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="kd_matkul">Kode mata kuliah</label>
+                        <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ old('kd_matkul') }}">
                         @if ($errors->has('kd_matkul'))
-                            <label for="kd_matkul">Kode mata kuliah</label>
-                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ old('kd_matkul') }}">
                             <small class="text-danger">{{ $errors->first('kd_matkul') }}</small>
-                        @else
-                            <label for="kd_matkul">Kode mata kuliah</label>
-                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ old('kd_matkul') }}">
                         @endif
                     </div>
                     <div class="form-group">
+                        <label for="matakuliah">Nama mata kuliah</label>
+                        <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ old('matakuliah') }}">
                         @if ($errors->has('matakuliah'))
-                            <label for="matakuliah">Nama mata kuliah</label>
-                            <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ old('matakuliah') }}">
                             <small class="text-danger">{{ $errors->first('matakuliah') }}</small>
-                        @else
-                            <label for="matakuliah">Nama mata kuliah</label>
-                            <input type="text" class="form-control" placeholder="Masukan nama mata kuliah.." name="matakuliah" id="matakuliah" value="{{ old('matakuliah') }}">                            
                         @endif
                     </div>
                     <div class="form-group">
@@ -148,13 +160,10 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="sks">Jumlah SKS</label>
+                        <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." name="sks" id="sks" value="{{ old('sks') }}">
                         @if ($errors->has('sks'))
-                            <label for="sks">Jumlah SKS</label>
-                            <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." name="sks" id="sks" value="{{ old('sks') }}">
                             <small class="text-danger">{{ $errors->first('sks') }}</small>
-                        @else
-                            <label for="sks">Jumlah SKS</label>
-                            <input type="text" class="form-control" placeholder="Masukan jumlah SKS.." value="{{ old('sks') }}" name="sks" id="sks">
                         @endif
                     </div>
                     <div class="form-group">
@@ -164,6 +173,10 @@
                             <option value="pilihan">Pilihan</option>
                             <option value="wajib">Wajib</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" id="slug" class="form-control" placeholder="Masukan slug.." required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                 </div>

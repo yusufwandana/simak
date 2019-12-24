@@ -16,6 +16,12 @@
                     <h5 class="text-white">{{ $message }}</h5>
                 </div>
                 @endif
+                @if ($message = Session::get('failed'))
+                <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">{{ $message }}</h5>
+                </div>
+                @endif
                 <h3 class="mb-0 float-left">Jadwal Kuliah</h3>
                 <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
                 </div>
@@ -28,6 +34,7 @@
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Waktu</th>
                                 <th scope="col">Matkul</th>
+                                <th scope="col">Semester</th>
                                 <th scope="col">Dosen</th>
                                 <th scope="col">Ruangan</th>
                                 <th scope="col">Aksi</th>
@@ -47,7 +54,15 @@
                                     <div class="media align-items-center">
                                     <div class="media-body">
                                         <span class="mb-0 text-sm">
-                                            {{ $jadwal->tanggal }}
+                                            @php
+                                                $a = $jadwal->tanggal;
+                                                $b = explode('-', $a);
+                                                $year  = $b[0];
+                                                $month = $b[1];
+                                                $date  = $b[2];
+                                                echo $date . "/" . $month . "/" . $year;
+                                            @endphp
+                                            
                                         </span>
                                     </div>
                                     </div>
@@ -65,7 +80,7 @@
                                     <div class="media align-items-center">
                                         <div class="media-body">
                                             <span class="mb-0 text-sm">
-                                                {{ $jadwal->matkul->kd_matkul }}
+                                                {{ $jadwal->matkul->matakuliah }}
                                             </span>
                                         </div>
                                     </div>
@@ -74,7 +89,16 @@
                                     <div class="media align-items-center">
                                     <div class="media-body">
                                         <span class="mb-0 text-sm">
-                                            {{ $jadwal->dosen_id }}
+                                            Semester {{ $jadwal->semester->semester }}
+                                        </span>
+                                    </div>
+                                    </div>
+                                </td>
+                                <td scope="row">
+                                    <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <span class="mb-0 text-sm">
+                                            {{ $jadwal->dosen->nama }}
                                         </span>
                                     </div>
                                     </div>
@@ -109,123 +133,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-5">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h4 class="mb-0 float-left">Daftar Dosen</h4>
-                </div>
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Kode Dosen</th>
-                                <th scope="col">Nama Dosen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($dosens as $key => $dosen)
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                {{ 1 + $key }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                {{ $dosen->id }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                {{ $dosen->nama }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>    
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h4 class="mb-0 float-left">Daftar Matkul</h4>
-                </div>
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Kode Matkul</th>
-                                <th scope="col">Mata Kuliah</th>
-                                <th scope="col">Semester</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($matkuls as $key => $matkul)
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                {{ $matkuls->firstItem() + $key }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                {{ $matkul->kd_matkul }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                {{ $matkul->matakuliah }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="mb-0 text-sm">
-                                                Semester {{ $matkul->semester->semester }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>    
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer">
-                    {{ $matkuls->links() }}
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -254,18 +161,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="date">Tanggal</label>
-                                <input type="date" required class="form-control" name="date" id="date">
+                                <input type="date" required class="form-control" name="date" id="date" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="dosen">Pilih Dosen</label>
-                                <select name="dosenId" id="dosenId" class="form-control" required>
-                                    <option value="" selected disabled>Pilih dosen</option>
-                                    @foreach ($dosens as $dosen)
-                                        <option value="{{ $dosen->id }}">{{ $dosen->nama }}</option>
+                                <label for="semester">Pilih semester</label>
+                                <select name="semesterId" id="semesterId" class="form-control" required>
+                                    <option value="" selected disabled>Pilih semester</option>
+                                    @foreach ($semesters as $semester)
+                                        <option value="{{ $semester->id }}">Semester {{ $semester->semester }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -277,6 +184,16 @@
                                 <label for="matkul">Pilih matkul</label>
                                 <select name="matkulId" id="matkul" class="form-control" required>
                                     <option value="" selected disabled>Pilih mata kuliah..</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="dosen">Pilih Dosen</label>
+                                <select name="dosenId" id="dosenId" class="form-control" required>
+                                    <option value="" selected disabled>Pilih dosen..</option>
                                 </select>
                             </div>
                         </div>
@@ -307,17 +224,34 @@
 @section('customjs')
     <script>
         $(document).ready(function(){
-            $('#dosenId').on('change', function(e){
-                var thisId = $(this).val();
-
+            $('#semesterId').on('change', function(e){
+                var sId = $(this).val();
+                
                 $.ajax({
-                    url : "{{ url('getmatkuls') }}/" + thisId,
+                    url : "{{ url('getmatkuls') }}/" + sId,
                     dataType : 'json',
                     type : 'get',
                     success : function(response){
-                        $('#matkul').html('<option value="">Pilih mata kuliah..</option>');
-                        $.each(response.results, function(e,i){
-                            $('#matkul').append($("<option value="+ i.id +">"+ i.matakuliah +"</option>"))
+                        $('#matkul').html('<option value="" selected disabled>Pilih mata kuliah..</option>');
+                        $('#dosenId').html('<option value="" selected disabled>Pilih dosen..</option>');
+                        $.each(response.results, function(e, i){
+                            $('#matkul').append($("<option value="+ i.id +">" + i.matakuliah + "</option>"))
+                        });
+                    }
+                });
+            });
+
+            $('#matkul').on('change', function(e){
+                var mId = $(this).val();
+                
+                $.ajax({
+                    url: "{{url('getdosens')}}/" + mId,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function(response){
+                        $('#dosenId').html('<option value="" selected disabled>Pilih dosen..</option>');
+                        $.each(response.results, function(e, i){
+                            $('#dosenId').append($("<option value="+i.id+">"+i.nama+"</option>"))
                         });
                     }
                 });

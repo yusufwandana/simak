@@ -9,7 +9,7 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $ruangans = Ruangan::paginate(10);
+        $ruangans = Ruangan::orderBy('ruangan', 'asc')->paginate(10);
         return view('ruangan.index', compact('ruangans'));
     }
 
@@ -24,7 +24,7 @@ class RuanganController extends Controller
     {
         $this->validate($request, [
             'ruangan' => 'required',
-            ]);
+        ]);
 
         Ruangan::create([
             'ruangan' => $request->ruangan,

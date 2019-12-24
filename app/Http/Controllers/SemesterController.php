@@ -49,6 +49,10 @@ class SemesterController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'semester' => 'required|numeric|digits:1|unique:semesters'
+        ]);
+        
         $semester = Semester::find($id);
         $semester->semester = $request->semester;
         $semester->save();

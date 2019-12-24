@@ -10,7 +10,7 @@ class MatkulController extends Controller
 {
     public function index()
     {
-        $matkuls = Matkul::paginate(5);
+        $matkuls = Matkul::orderBy('kd_matkul', 'asc')->paginate(10);
         $semesters = Semester::all();
         return view('matkul.index', compact('matkuls', 'semesters'));
     }
@@ -23,13 +23,19 @@ class MatkulController extends Controller
         $this->validate($request, [
             'kd_matkul'   => 'required|min:8|max:8|unique:matkuls',
             'matakuliah'  => 'required|unique:matkuls',
+            'slug'        => 'unique:matkuls',
             'sks'         => 'required|numeric|digits:1'
         ]);
+
+        $test = strtolower($request->slug);
+        $slug = str_replace(' ', '-', $test);
+        
         $a = Matkul::create([
-            'kd_matkul'   => $request->kd_matkul,
-            'matakuliah'  => $request->matakuliah,
+            'kd_matkul'   => strtoupper($request->kd_matkul),
+            'matakuliah'  => ucwords($request->matakuliah),
             'semester_id' => $request->semester,
             'sks'         => $request->sks,
+            'slug'        => $slug,
             'kategori'    => $request->kategori
         ]);
 
@@ -52,11 +58,19 @@ class MatkulController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'sks'         => 'required|numeric|digits:1'
+        ]);
+
+        $test = strtolower($request->slug);
+        $slug = str_replace(' ', '-', $test);
+
         $matkul = Matkul::find($id);
-        $matkul->kd_matkul   = $request->kode_matkul;
-        $matkul->matakuliah  = $request->mata_kuliah;
+        $matkul->kd_matkul   = strtoupper($request->kd_matkul);
+        $matkul->matakuliah  = ucwords($request->mata_kuliah);
         $matkul->semester_id = $request->semester;
         $matkul->sks         = $request->sks;
+        $matkul->slug        = $slug;
         $matkul->kategori    = $request->kategori;
         $matkul->save();
 

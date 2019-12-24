@@ -9,6 +9,14 @@
     <div class="col">
         <div class="card shadow">
             <div class="card-header">
+            
+            @if ($errors->all())
+            <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+            </div>
+            @endif
+
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -87,7 +95,7 @@
                         <div class="form-group">
                             @if ($errors->has('semester'))
                                 <label for="semester">Nama Semester</label>
-                                <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" autofocus>
+                                <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" autofocus="on">
                                 <small class="text-danger">{{ $errors->first('semester') }}</small>
                             @else
                                 <label for="semester">Nama Semester</label>

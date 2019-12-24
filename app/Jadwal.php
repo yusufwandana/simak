@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     protected $fillable = [
-        'waktu', 'tanggal', 'dosen_id', 'matkul_id', 'ruangan_id'
+        'waktu', 'tanggal', 'dosen_id', 'matkul_id', 'semester_id', 'ruangan_id'
     ];
 
     public function ruangan()
@@ -18,5 +18,15 @@ class Jadwal extends Model
     public function matkul()
     {
         return $this->belongsTo('App\Matkul');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo('App\Dosen');
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo('App\Semester');
     }
 }

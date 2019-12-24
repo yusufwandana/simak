@@ -15,34 +15,105 @@
                             <h3 class="mb-0 float-left">Absen Mahasiswa</h3>
                         </div>
                         <div class="col-md-3">
-                            <h4 class="mb-0 float-left">{{ $tgl }}</h4>
                             <a href="{{ route('absen.index') }}" class="badge badge-warning float-right">kembali</a>
                         </div>
                     </div>
                     <br>
-                    <br>
-                    <table>
-                        <tr>
-                            <td>Dosen</td>
-                            <td>:</td>
-                            <td>{{ auth()->user()->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Tahun masuk &nbsp;</td>
-                            <td>:</td>
-                            <td>{{ $thn }}</td>
-                        </tr>
-                        <tr>
-                            <td>Mata kuliah</td>
-                            <td>:</td>
-                            <td>{{ $matkul->matakuliah }} / {{ $matkul->sks }} sks</td>
-                        </tr>
-                        <tr>
-                            <td>Semester </td>
-                            <td>: &nbsp; </td>
-                            <td>Semester {{ $semester->semester }}</td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table>
+                                <tr>
+                                    <td>Dosen</td>
+                                    <td>:</td>
+                                    <td>{{ auth()->user()->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mata kuliah &nbsp;</td>
+                                    <td>:</td>
+                                    <td>{{ $matkul->matakuliah }} / {{ $matkul->sks }} sks</td>
+                                </tr>
+                                <tr>
+                                    <td>Semester</td>
+                                    <td>: &nbsp;</td>
+                                    <td>Semester {{ $semester->semester }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            @php
+                                $ex = explode('-', $tgl);
+                                $year  = $ex[0];
+                                $month = $ex[1];
+                                $date  = $ex[2];
+
+                                switch ($month) {
+                                    case '01':
+                                        $month = "Januari";
+                                        break;
+
+                                    case '02':
+                                        $month = "Februari";
+                                        break;
+
+                                    case '03':
+                                        $month = "Maret";
+                                        break;
+
+                                    case '04':
+                                        $month = "April";
+                                        break;
+
+                                    case '05':
+                                        $month = "Mei";
+                                        break;
+
+                                    case '06':
+                                        $month = "Juni";
+                                        break;
+
+                                    case '07':
+                                        $month = "Juli";
+                                        break;
+
+                                    case '08':
+                                        $month = "Agustus";
+                                        break;
+
+                                    case '09':
+                                        $month = "September";
+                                        break;
+                                    case '10':
+                                        $month = "Oktober";
+                                        break;
+
+                                    case '11':
+                                        $month = "November";
+                                        break;
+
+                                    case '12':
+                                        $month = "Desember";
+                                        break;
+                                    
+                                    default:
+                                        $month = false;
+                                        break;
+                                }
+                                // dd($ex);
+                            @endphp
+                            <table>
+                                <tr>
+                                    <td>Tahun masuk &nbsp;</td>
+                                    <td>: &nbsp;</td>
+                                    <td>{{ $thn }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal &nbsp;</td>
+                                    <td>: &nbsp;</td>
+                                    <td>{{ $date }} {{ $month }} {{ $year }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>  
                 <div class="card-body">
                     <form action="{{ route('absen.postabsen') }}" method="post">

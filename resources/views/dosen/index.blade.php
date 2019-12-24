@@ -77,22 +77,18 @@
                           </div>
                         </div>
                       </td>
-                    <td scope="row">
-                      <a title="profile" class="btn btn-primary btn-sm btn-success" href="/simak/dosen/{{ $dosen->id }}/profile"><i class="ni ni-books"></i></a>
-                      <a title="edit" class="btn btn-info btn-sm" href="/simak/dosen/{{ $dosen->id }}/edit"><i class="fa fa-cog"></i></a>
-                      <a title="delete" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->id }}/delete"><i class="fa fa-trash"></i></a>
-                    </td>
-                    {{-- <td class="text-right">
+                    <td class="text-right">
                       <div class="dropdown">
                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
-                            <a class="dropdown-item" class="btn btn-warning" href="/simak/dosen/{{ $dosen->id }}/edit">Edit</a>
-                            <a class="dropdown-item" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/dosen/{{ $dosen->id }}/delete">Hapus</a>
+                            <a class="dropdown-item btn-sm" href="/simak/dosen/{{ $dosen->id }}/profile"><i class="ni ni-books text-info"></i>Mata kuliah</a>
+                            <a class="dropdown-item btn-sm" href="{{ route('dosen.edit', $dosen->id) }}"><i class="fa fa-cog text-dark"></i>Edit</a>
+                            <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('dosen.delete', $dosen->id) }}"><i class="fa fa-trash text-red"></i>Hapus</button>
                         </div>
                       </div>
-                    </td> --}}
+                    </td>
                   </tr>    
                 @endforeach
               </tbody>

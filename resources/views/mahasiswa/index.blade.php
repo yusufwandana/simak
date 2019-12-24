@@ -9,12 +9,21 @@
   <div class="col">
       <div class="card shadow">
         <div class="card-header">
+
+          @if ($errors->all())
+            <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+            </div>
+            @endif
+
           @if ($message = Session::get('success'))
             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
               <h5 class="text-white">{{ $message }}</h5>
             </div>
           @endif
+          
           <h3 class="mb-0 float-left">Daftar Mahasiswa</h3>
           <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
         </div>
@@ -99,8 +108,12 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
-                            <a class="dropdown-item btn-sm" href="/simak/mhs/{{ $mhs->id }}/edit"><i class="fa fa-cog"></i>Edit</a>
-                            <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="/simak/mhs/{{ $mhs->id }}/delete"><i class="fa fa-trash"></i>Hapus</a>
+                          <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <a class="dropdown-item btn-sm" href="{{route('mahasiswa.edit', $mhs->id)}}"><i class="fa fa-cog text-dark"></i>Edit</a>
+                            <button type="submit" class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href=""><i class="fa fa-trash text-red"></i>Hapus</button>
+                          </form>
                         </div>
                       </div>
                     </td>

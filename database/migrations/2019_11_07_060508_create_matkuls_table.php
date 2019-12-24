@@ -19,6 +19,7 @@ class CreateMatkulsTable extends Migration
             $table->string('matakuliah');
             $table->integer('sks');
             $table->string('kategori');
+            $table->string('slug');
             $table->integer('semester_id')->unsigned();
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
             $table->timestamps();

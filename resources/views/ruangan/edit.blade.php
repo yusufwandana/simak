@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nama">Nama Ruangan</label>
-                    <input type="text" class="form-control" placeholder="Masukan nama ruangan.." name="ruangan" id="ruangan" value="{{ $ruangan->ruangan }}">
+                    <input type="text" class="form-control" placeholder="Masukan nama ruangan.." name="ruangan" id="ruangan" value="{{ $ruangan->ruangan }}" required>
                 </div>
                 <div class="form-group">
                     @if ($errors->has('jenis'))
@@ -34,8 +34,8 @@
                         <label for="jenis">jenis</label>
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="" selected disabled>Pilih jenis ruangan..</option>
-                            <option value="Kelas" @if ($ruangan->jenis == 'Kelas') selected @endif>Kelas</option>
-                            <option value="Lab.Komputer" @if ($ruangan->jenis == 'Lab.Komputer') selected @endif>Lab.Komputer</option>
+                            <option value="Kelas" @if ($ruangan->jenis == 'Kelas') selected @endif>Ruang Kelas</option>
+                            <option value="Lab.Komputer" @if ($ruangan->jenis == 'Lab.Komputer') selected @endif>Ruang Praktik</option>
                         </select>
                     @endif
                 </div>

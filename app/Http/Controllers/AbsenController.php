@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RekapAbsenExport;
 use App\Absen;
 use App\Matkul;
 use App\Dosen;
@@ -27,7 +29,11 @@ class AbsenController extends Controller
         $semester = Semester::find($matkul->semester_id);
         $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
         $tahun = Mahasiswa::where('semester_id', $semester->id)->first();
-        $thn = $tahun->tahun_masuk;
+        if ($mahasiswa->count() === 0) {
+            return back()->with('failed', 'Tidak ada mahasiswa yang mengemban mapel ini!');
+        } else {
+            $thn = $tahun->tahun_masuk;
+        }
         $no = 1;
         if ($request->tanggal == null) {
             $tgl = date('Y-m-d');
@@ -80,43 +86,150 @@ class AbsenController extends Controller
 
     public function rekapPost(Request $request)
     {
-        $matkul = Matkul::find($request->matkul_id);
-        $semester = Semester::find($matkul->semester_id);
-        $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
-        $a = explode('-', $request->tanggal);
-        $tahun = $a[0];
-        $bulan = $a[1];
-        $tanggal = $a[2];
+        //DARI
+        $dari = explode('-', $request->from);
+        $month = $dari[1];
+        switch ($month) {
+            case '01':
+                $month = "Januari";
+                break;
+
+            case '02':
+                $month = "Februari";
+                break;
+
+            case '03':
+                $month = "Maret";
+                break;
+
+            case '04':
+                $month = "April";
+                break;
+
+            case '05':
+                $month = "Mei";
+                break;
+
+            case '06':
+                $month = "Juni";
+                break;
+
+            case '07':
+                $month = "Juli";
+                break;
+
+            case '08':
+                $month = "Agustus";
+                break;
+
+            case '09':
+                $month = "September";
+                break;
+            case '10':
+                $month = "Oktober";
+                break;
+
+            case '11':
+                $month = "November";
+                break;
+
+            case '12':
+                $month = "Desember";
+                break;
+
+            default:
+                $month = false;
+                break;
+        }
+
+        $from = $dari[2] . ' ' . $month . ' ' . $dari[0];
+
+
+        //SAMPAI
+        $sampai = explode('-', $request->to);
+        $bulan = $sampai[1];
+        switch ($bulan) {
+            case '01':
+                $bulan = "Januari";
+                break;
+
+            case '02':
+                $bulan = "Februari";
+                break;
+
+            case '03':
+                $bulan = "Maret";
+                break;
+
+            case '04':
+                $bulan = "April";
+                break;
+
+            case '05':
+                $bulan = "Mei";
+                break;
+
+            case '06':
+                $bulan = "Juni";
+                break;
+
+            case '07':
+                $bulan = "Juli";
+                break;
+
+            case '08':
+                $bulan = "Agustus";
+                break;
+
+            case '09':
+                $bulan = "September";
+                break;
+            case '10':
+                $bulan = "Oktober";
+                break;
+
+            case '11':
+                $bulan = "November";
+                break;
+
+            case '12':
+                $bulan = "Desember";
+                break;
+
+            default:
+                $bulan = false;
+                break;
+        }
+
+        $to = $sampai[2] . ' ' . $bulan . ' ' . $sampai[0];
 
         $matkul = Matkul::find($request->matkul_id);
-        $mahasiswa = Mahasiswa::with('absen')->where('semester_id', $matkul->semester_id)->orderBy('id', 'asc')->get();
-        // foreach ($mahasiswa as $m) {
-        //     dd($m->absen);
-        // }
+        // $mahasiswa = Mahasiswa::with('absen')->where('semester_id', $matkul->semester_id)->orderBy('id', 'asc')->get(); 
+        $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
+            ->where([
+                'dosen_id'     => $request->dosen_id,
+                'matkul_id'    => $request->matkul_id
+            ])->orderBy('tanggal', 'asc')->get();
 
-        $absen = Absen::where([
-            'dosen_id'     => $request->dosen_id,
-            'matkul_id'    => $request->matkul_id
-        ])->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->orderBy('tanggal', 'asc')->get();
-        
-        // foreach ($mahasiswa as $m) {
-        //     foreach ($m->absen as $l) {
-        //         dd($l->keterangan);
-        //     }
-        // }
-            // foreach ($mahasiswa as $m) {
-            // }
-        // $absen = DB::table('absens')->where([
-        //     'dosen_id'  => $request->dosen_id,
-        //     'matkul_id' => $request->matkul_id
-        // ])->whereMonth('tanggal', $bulan)->whereYear('tanggal', 2019)->get();
-        // dd($absen);
+        $data = [
+            'matkul_id' => $request->matkul_id,
+            'dosen_id'  => $request->dosen_id,
+            'dari' => $request->from,
+            'sampai' => $request->to,
+            'from' => $from,
+            'to' => $to
+        ];
 
-        // foreach ($absen as $a) {
-        //     $b[] = explode('-', $a->tanggal);
-        // }
-        // dd($b);
+        return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'data'));
+    }
 
-        return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'semester'));
+    public function export_absen($matkulId, $dosenId, $dari, $sampai)
+    {
+        $matkul = Matkul::find($matkulId);
+        $nama =  str_replace(' ', '', $matkul->matakuliah);
+        $from = str_replace('-', '', $dari);
+        $to = str_replace('-', '', $sampai);
+
+        return Excel::download(new RekapAbsenExport($matkulId, $dosenId, $dari, $sampai),  $from . "_" . $to . "_" . $nama . ".xlsx");
     }
 }

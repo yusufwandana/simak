@@ -11,10 +11,10 @@
             <div class="card shadow">
                 <div class="card-header bg-transparent">
                     @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h5 class="text-white">{{ $message }}</h5>
-                    </div>
+                        <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h5 class="text-white">{{ $message }}</h5>
+                        </div>
                     @endif
                     @php
                         $a = date('D');
@@ -54,28 +54,24 @@
                             <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
                         </div>
                     </div>
-                </div>  
-                <form action="{{ route('nilai.daftarmhs') }}" method="post">
-                    @csrf          
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Mata kuliah</label>
-                                    <select name="matkul_id" id="matkul_id" class="form-control mb-3" required>
-                                        <option value="" selected disabled>Pilih matkul</option>
-                                        @foreach ($dosen as $m)
-                                            @foreach ($m->Matkul as $mm)
-                                                <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
-                                            @endforeach
-                                        @endforeach
-                                    </select>
-                                    <button type="submit" class="btn btn-primary btn-sm">Tampilkan</button>
-                                </div>  
+                </div>
+                <div class="row mx-1">
+                    @foreach ($dosen as $m)
+                        @foreach ($m->Matkul as $mm)
+                            <div class="col-sm-4 my-4">
+                                <a href="{{ route('nilai.daftarmhs', [$mm->id, $mm->slug]) }}">
+                                    <div class="card shadow bg-light">
+                                        <div class="card-body">
+                                            <h3>{{ $mm->matakuliah }}</h3>
+                                            <h4>Semester {{ $mm->semester->semester }}</h4>
+                                            <h5 class="text-dark">Tampilkan siswa dengan mapel ini..</h5>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </div>
-                    </div>       
-                </form>
+                        @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

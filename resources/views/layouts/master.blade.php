@@ -24,7 +24,27 @@
   <!-- CSS Files -->
   <link href="{{ asset('public/template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
 </head>
+  <style>
+      .gambir{
+          width: 65%;
+      }
+      .kata{
+          display: none;
+      }
+      @media only screen and (max-width:425px){
+          .gambir{
+              display: none;
+          }
 
+          .kata{
+              display: inline;
+          }
+      }
+
+      /* @media only screen and (min-width:000px){
+
+      } */
+  </style>
 <body>
     @include('layouts.includes._sidebar')
   <div class="main-content">

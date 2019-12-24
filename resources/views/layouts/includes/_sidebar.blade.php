@@ -6,7 +6,8 @@
       </button>
       <!-- Brand -->
       <div class="row justify-content-center" style="">
-        <img src="{{ asset('public/template/assets/img/brand/logo.png') }}" class="" width="60%" alt="...">
+        <img src="{{ asset('public/template/assets/img/brand/logo.png') }}" class="gambir" alt="..." style="">
+        <h3 class="kata">SIMAK APPS</h3>
       </div>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -45,7 +46,8 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="">
-                <img src="{{asset('public/template/assets/img/brand/blue.png')}}">
+                <h2>SIMAK APPS</h2>
+                {{-- <img src="{{asset('public/template/assets/img/brand/logo.png')}}"> --}}
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -127,7 +129,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/lihatjadwal">
+            <a class="nav-link " href="/simak/dosen/lihat-jadwal">
               <i class="ni ni-calendar-grid-58 text-red"></i>Lihat Jadwal
             </a>
           </li>

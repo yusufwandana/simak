@@ -47,8 +47,7 @@
                                 $a = 'False';
                                 break;
                         }
-
-                        @endphp
+                    @endphp
 
                     <h4 class="mb-0 float-right"> @php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
                 </div>  
@@ -70,11 +69,16 @@
                                     </select>
                                 </div> 
                             </div>
-                            <div class="col-md-2"></div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="tanggal">Tanggal absen</label>
-                                    <input type="date" class="form-control" name="tanggal" id="tanggal" required>
+                                    <label for="from">Dari</label>
+                                    <input type="date" class="form-control" name="from" id="from" required>
+                                </div> 
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="to">Sampai</label>
+                                    <input type="date" class="form-control" name="to" id="to" required>
                                 </div>                                
                             </div>
                         </div>

@@ -9,6 +9,12 @@
     <div class="col">
         <div class="card shadow">
             <div class="card-header">
+            @if ($errors->all())
+            <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+            </div>
+            @endif
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -84,19 +90,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @if ($errors->has('jurusan'))
-                        <div class="form-group">
-                            <label for="jurusan">Nama jurusan</label>
-                            <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan">
-                            <small class="text-danger">{{ $errors->first('jurusan') }}</small>
-                        </div>
-                    @else
                     <div class="form-group">
                         <label for="jurusan">Nama jurusan</label>
-                        <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan">
+                        <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan" value="{{ old('jurusan') }}">
+                        @if ($errors->has('jurusan'))
+                        <small class="text-danger">{{ $errors->first('jurusan') }}</small>
+                        @endif
                     </div>
-                    @endif
+                </div>
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+
                 </div>
             </div>
         </form>
@@ -112,5 +116,13 @@
       });
         $('#ini_table_wrapper .row  .col-sm-12').removeClass('col-md-6');
         $('#ini_table_wrapper .row  .col-sm-12 #ini_table_filter label').addClass('pb-2');
+
+      $('#edit').on('click', function(){
+        var idJurusan = $(this).data('id');
+        var jurusan = $(this).data('jurusan');
+        $('#jurusan-id').val(idJurusan);
+        $('#jurusan-edit').val(jurusan);
+        console.log(idJurusan);
+      })
     </script>
 @endsection

@@ -6,12 +6,9 @@
 
 @section('content')
 @php
-if ($errors->has('matkul_id')){
-    echo "<script>alert('Harap isi kolom dengan benar!');</script>";
-}else{
-
-}
-    
+    if ($errors->has('matkul_id')){
+        echo "<script>alert('Harap isi kolom dengan benar!');</script>";
+    }   
 @endphp
     
 <div class="container-fluid mt--9">
@@ -60,9 +57,9 @@ if ($errors->has('matkul_id')){
                             <h3 class="mb-0">Rekap Absen Mahasiswa</h3>
                         </div>
                         <div class="col-md-3">
-                            <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
+                            <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}<a href="{{ route('absen.rekap') }}" class="badge badge-warning float-right">kembali</a></h4>
                         </div>
-                    </div>                    
+                    </div>                  
                     <table class="table-responsive mt-3">
                             <tr>
                                 <td>Dosen</td>
@@ -76,35 +73,38 @@ if ($errors->has('matkul_id')){
                             </tr>
                             <tr>
                                 <td>Semester </td>
-                                <td>: &nbsp; </td>
-                                <td>Semester {{ $semester->semester }}</td>
+                                <td>:</td>
+                                <td>Semester {{ $matkul->semester->semester }}</td>
+                            </tr>
+                            <tr>
+                                <td>Rentang Waktu &nbsp;</td>
+                                <td>: &nbsp;</td>
+                                <td>{{$data['from']}} - {{$data['to']}}</td>
                             </tr>
                         </table>
-                </div>  
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md">
+                            <a href="/simak/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dosen_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-md">
                             <div class="table-responsive">
-                                <table class="table align-items-center table-flush">
+                                <table class="table align-items-center table-flush" id="data-table">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">No</th>
+                                            <th scope="col">Tanggal</th>
                                             <th scope="col">NIM</th>
-                                            <th scope="col">Nama</th>
-                                            @foreach ($absen->unique('tanggal') as $a)
-                                                @php
-                                                    $b = explode('-', $a->tanggal);
-                                                    $c = $b[2].'/'.$b[1];
-                                                @endphp
-                                                <th scope="col">{{$c}}</th>
-                                            @endforeach                                           
+                                            <th scope="col">Nama</th>                                         
+                                            <th scope="col">Keterangan</th>                                         
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach($mahasiswa as $m)
+                                        @php $no = 1; @endphp
+                                        @foreach($absen as $a)
                                         <tr>
                                             <td scope="row">
                                                 <div class="media align-items-center">
@@ -117,7 +117,7 @@ if ($errors->has('matkul_id')){
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
                                                         <span class="mb-0 text-sm">
-                                                        {{ $m->nim }}
+                                                        {{ $a->tanggal }}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -126,22 +126,30 @@ if ($errors->has('matkul_id')){
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
                                                         <span class="mb-0 text-sm">
-                                                        {{ $m->nama }}
+                                                        {{ $a->mahasiswa->nim }}
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </td>                                            
-                                            @foreach ($m->absen as $a)
-                                                <td scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">
-                                                            {{ $a->keterangan }}
-                                                            </span>
-                                                        </div>
+                                            </td>
+                                            <td scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        <span class="mb-0 text-sm">
+                                                        {{ $a->mahasiswa->nama }}
+                                                        </span>
                                                     </div>
-                                                </td>                                                                                            
-                                            @endforeach
+                                                </div>
+                                            </td>
+                                            <td scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        
+                                                        <span class="mb-0 text-sm @if ($a->keterangan == 1) text-green @else text-red @endif">
+                                                        {{ $a->keterangan }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -157,4 +165,18 @@ if ($errors->has('matkul_id')){
         </div>
     </div>
 </div>
+@endsection
+
+@section('customjs')
+    <script>
+      $(document).ready(function(){
+        $('#data-table').dataTable({
+          paging:false,
+          info:false
+        });
+
+        $('#data-table_wrapper .row .col-sm-12').removeClass('col-md-6');
+        $('#data-table_wrapper .row .col-sm-12 #data-table_filter label').addClass('pb-2');
+      });
+    </script>
 @endsection

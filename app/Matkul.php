@@ -8,7 +8,7 @@ class Matkul extends Model
 {
     protected $table = 'matkuls';
     protected $fillable = [
-        'kd_matkul', 'matakuliah', 'semester_id', 'sks', 'kategori'
+        'kd_matkul', 'matakuliah', 'semester_id', 'sks', 'kategori', 'slug'
     ];
 
     public function semester()

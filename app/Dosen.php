@@ -20,4 +20,9 @@ class Dosen extends Model
     {
         return $this->belongsToMany(Matkul::class)->withPivot(['id']);
     }
+
+    public function jadwal()
+    {
+        return $this->hasMany('App\Jadwal');
+    }
 }

@@ -25,6 +25,12 @@ if ($errors->has('matkul_id')){
                         <h5 class="text-white">{{ $message }}</h5>
                     </div>
                     @endif
+                    @if ($message = Session::get('failed'))
+                    <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h5 class="text-white">{{ $message }}</h5>
+                    </div>
+                    @endif
                     @php
                         $a = date('D');
                         switch ($a) {

@@ -9,6 +9,12 @@
 <div class="col">
     <div class="card shadow">
         <div class="card-header">
+        @if ($errors->all())
+        <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+        </div>
+        @endif
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -97,7 +103,7 @@
                     <div class="form-group">
                         @if ($errors->has('ruangan'))
                             <label for="ruangan">Nama Ruangan</label>
-                            <input type="text" class="form-control" placeholder="Masukan nama ruangan.." name="ruangan" id="ruangan">
+                            <input type="text" class="form-control" placeholder="Masukan nama ruangan.." name="ruangan" id="ruangan" required>
                             <small class="text-danger">{{ $errors->first('ruangan') }}</small>
                         @else
                             <label for="ruangan">Nama Ruangan</label>
@@ -117,8 +123,8 @@
                             <label for="jenis">jenis</label>
                             <select name="jenis" id="jenis" class="form-control" required>
                                 <option value="" selected disabled>Pilih jenis ruangan..</option>
-                                <option value="Kelas">Kelas</option>
-                                <option value="Lab.Komputer">Lab.Komputer</option>
+                                <option value="Kelas">Ruang Kelas</option>
+                                <option value="Lab.Komputer">Ruang Praktik</option>
                             </select>
                         @endif
                     </div>

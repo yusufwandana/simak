@@ -9,7 +9,7 @@ class JurusanController extends Controller
 {
     public function index()
     {
-        $jurusans = Jurusan::paginate(5);
+        $jurusans = Jurusan::paginate(10);
         return view('jurusan.index', compact('jurusans'));
     }
 
@@ -26,7 +26,7 @@ class JurusanController extends Controller
         ]);
 
         Jurusan::create([
-            'jurusan' => $request->jurusan
+            'jurusan' => ucwords($request->jurusan)
         ]);
 
         return redirect()->route('jurusan.index')->with('success', 'Jurusan telah berhasil ditambahkan');
@@ -48,15 +48,11 @@ class JurusanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'jurusan' => 'required|unique:jurusans'
-        ]);
-
         $jurusan = Jurusan::find($id);
-        $jurusan->jurusan = $request->jurusan;
+        $jurusan->jurusan = ucwords($request->jurusan);
         $jurusan->save();
 
-        return redirect()->route('jurusan.index');
+        return redirect()->route('jurusan.index')->with('success', 'Jurusan telah berhasil diupdate!');
     }
 
 

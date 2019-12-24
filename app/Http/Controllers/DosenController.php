@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Dosen;
 use App\User;
 use App\Matkul;
+use App\Jadwal;
 use App\DosenMatkul;
 
 class DosenController extends Controller
 {
     public function index()
     {
-        $dosens = Dosen::orderBy('nip', 'asc')->paginate(5);
+        $dosens = Dosen::orderBy('nip', 'asc')->paginate(20);
         $matakuliah = Matkul::all();
         return view('dosen.index', compact('dosens', 'matakuliah'));
     }
@@ -27,8 +28,8 @@ class DosenController extends Controller
 
         //Input ke table user
         $user = new \App\User;
-        $user->name = $request->nama;
-        $user->email = $request->email;
+        $user->name = ucwords($request->nama);
+        $user->email = strtolower($request->email);
         $user->password = bcrypt($request->nip);
         $user->avatar  = 'default.png';
         $user->role = 'dosen';
@@ -40,9 +41,9 @@ class DosenController extends Controller
         $a = $user->id;
         Dosen::create([
             'nip'     => $request->nip,
-            'nama'    => $request->nama,
+            'nama'    => ucwords($request->nama),
             'jk'      => $request->jk,
-            'alamat'  => $request->alamat,
+            'alamat'  => ucwords($request->alamat),
             'user_id' => $a
         ]);
 
@@ -66,12 +67,15 @@ class DosenController extends Controller
             'alamat' => 'required'
         ]);
 
-        $dosen = Dosen::where('id', $id)->update([
-            'nip'    => $request->nip,
-            'nama'   => $request->nama,
-            'alamat' => $request->alamat,
-            'jk'     => $request->jk
-        ]);
+        $dosen = Dosen::find($id);
+        $dosen->nama   = ucwords($request->nama);
+        $dosen->jk     = $request->jk;
+        $dosen->alamat = ucwords($request->alamat);
+        $dosen->save();
+
+        $user = User::find($dosen->user_id);
+        $user->name = ucwords($request->nama);
+        $user->save();
 
         return redirect('dosen')->with('success', 'Dosen telah berhasil diupdate!');
     }
@@ -127,5 +131,13 @@ class DosenController extends Controller
         $dm->delete();
 
         return redirect()->back()->with('success', 'Matkul dosen telah dihapus!');
+    }
+
+    public function lihatJadwal()
+    {
+        $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
+        $jadwal = Jadwal::where('dosen_id', $dosen->id)->paginate(20);
+        // dd($jadwal);
+        return view('jadwal.dosen-lihat-jadwal', compact('jadwal'));
     }
 }

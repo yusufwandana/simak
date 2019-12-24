@@ -32,9 +32,9 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
     //CRUD DOSEN
     Route::get('dosen', 'DosenController@index')->name('dosen');
     Route::post('dosen/create', 'DosenController@create');
-    Route::get('dosen/{id}/edit', 'DosenController@edit');
-    Route::post('dosen/{id}/update', 'DosenController@update');
-    Route::get('dosen/{id}/delete', 'DosenController@delete');
+    Route::get('dosen/{id}/edit', 'DosenController@edit')->name('dosen.edit');
+    Route::post('dosen/{id}/update', 'DosenController@update')->name('dosen.update');
+    Route::get('dosen/{id}/delete', 'DosenController@delete')->name('dosen.delete');
     Route::get('dosen/{id}/profile', 'DosenController@profile')->name('profile');
 
     // DosenMatkul Relationshipx
@@ -51,14 +51,22 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
     Route::resource('matkul', 'MatkulController');
 
     // CRUD JADWAL
-    Route::resource('jadwal', 'JadwalController');
+    Route::resource('jadwal', 'JadwalController')->except(
+        'create',
+        'show'
+    );
+    Route::get('jadwal/mailing', 'JadwalController@mailing')->name('jadwal.mailing');
     Route::get('getmatkuls/{id}', 'JadwalController@getmatkuls');
+    Route::get('getdosens/{id}', 'JadwalController@getdosens');
 
     // CRUD JURUSAN
     Route::resource('jurusan', 'JurusanController');
 
     //CRUD RUANGAN
     Route::resource('ruangan', 'RuanganController');
+    // Route::get('test', function(){
+    //     return view('jadwal.myEmail');
+    // });
 });
 
 
@@ -72,11 +80,21 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::get('absen/rekap', 'AbsenController@rekapAbsen')->name('absen.rekap');
     Route::post('absen/rekap/result', 'AbsenController@rekapPost')->name('absen.rekapost');
 
+    //Jadwal
+    Route::get('dosen/lihat-jadwal', 'DosenController@lihatJadwal')->name('dosen.jadwal');
+
     //Nilai
-    Route::resource('nilai', 'NilaiController');
+    Route::resource('nilai', 'NilaiController')->except(
+        'show'
+    );
     Route::get('nilai/show/{mhsId}/{matkulId}', 'NilaiController@show');
     Route::post('nilai/addnilai', 'NilaiController@addnilai')->name('nilai.addnilai');
-    Route::post('nilai/daftarmhs', 'NilaiController@daftarmhs')->name('nilai.daftarmhs');
+    Route::get('nilai/daftarmhs/{id}/{slug}', 'NilaiController@daftarmhs')->name('nilai.daftarmhs');
+    Route::post('nilai/update/{id}', 'NilaiController@nilaiUpdate')->name('update.nilai ');
+
+    //Export
+    Route::post('nilai/export/{matkulId}/{semesterId}', 'NilaiController@export_nilai');
+    Route::get('absen/rekap/export/{matkulId}/{dosenId}/{dari}/{sampai}', 'AbsenController@export_absen')->name('absen.export');
 });
 
 

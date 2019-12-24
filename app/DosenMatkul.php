@@ -11,4 +11,9 @@ class DosenMatkul extends Model
     protected $fillable = [
         'dosen_id', 'matkul_id'
     ];
+
+    public function matkul()
+    {
+        return $this->belongsTo('App/Matkul');
+    }
 }
