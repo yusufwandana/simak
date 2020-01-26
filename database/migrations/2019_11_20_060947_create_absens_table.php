@@ -19,10 +19,12 @@ class CreateAbsensTable extends Migration
             $table->integer('dosen_id')->unsigned();
             $table->integer('mahasiswa_id')->unsigned();
             $table->integer('matkul_id')->unsigned();
+            $table->integer('semester_id')->unsigned();
             $table->integer('keterangan');
             $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('cascade');
             $table->foreign('matkul_id')->references('id')->on('matkuls')->onDelete('cascade');
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->onDelete('cascade');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -55,9 +55,7 @@
 
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-      <div class="row">
-        @yield('dashboard_admin')
-      </div>
+        @yield('dashboard')
     </div>
       @yield('content')
   </div>

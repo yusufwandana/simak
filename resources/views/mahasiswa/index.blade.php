@@ -2,7 +2,7 @@
 
 @section('head', 'Mahasiswa')
 
-@section('title', 'SIMAK2019 | Mahasiswa')
+@section('title', 'SIMAK | Mahasiswa')
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">

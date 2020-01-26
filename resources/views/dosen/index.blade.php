@@ -2,7 +2,7 @@
 
 @section('head', 'dosen')
 
-@section('title', 'SIMAK2019 | Dosen')
+@section('title', 'SIMAK | Dosen')
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">

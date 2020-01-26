@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Rekap Absen')
+@section('title', 'SIMAK | Rekap Absen')
 
 @section('head', 'Absen Mahasiswa ')
 

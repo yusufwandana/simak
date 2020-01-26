@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Semester')
+@section('title', 'SIMAK | Semester')
 
 @section('head', 'Semester')
 

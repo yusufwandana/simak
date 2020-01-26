@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Absen Mahasiswa')
+@section('title', 'SIMAK | Absen Mahasiswa')
 
 @section('head', 'Absen Mahasiswa')
 
@@ -21,7 +21,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6">
-                            <table>
+                            <table class="table-responsive" style="border: none;">
                                 <tr>
                                     <td>Dosen</td>
                                     <td>:</td>
@@ -177,16 +177,10 @@
                                             </div>
                                         </td>
                                         <td scope="row">
-                                            {{-- <div class="custom-control custom-control-alternative custom-checkbox"> --}}
-                                                <select class="form-control form-control-sm check-class" name="absen[]" id="check-{{ $mhs->id }}">
-                                                    <option value="{{$mhs->id}}-1">Hadir</option>
-                                                    <option value="{{$mhs->id}}-0">Tidak Hadir</option>
-                                                </select>
-                                                {{-- <input class="custom-control-input check-class" id="check-{{ $mhs->id }}" type="checkbox" name="absen[]" value="{{ $mhs->id }}">
-                                                <label class="custom-control-label" for="check-{{ $mhs->id }}">
-                                                    <span class="text-muted">Hadir</span>
-                                                </label> --}}
-                                            {{-- </div> --}}
+                                            <select class="form-control form-control-sm check-class" name="absen[]" id="check-{{ $mhs->id }}">
+                                                <option value="{{$mhs->id}}-1">Hadir</option>
+                                                <option value="{{$mhs->id}}-0">Tidak Hadir</option>
+                                            </select>
                                         </td>
                                     </tr>    
                                     @endforeach

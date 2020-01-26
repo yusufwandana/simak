@@ -60,11 +60,11 @@
                         @foreach ($m->Matkul as $mm)
                             <div class="col-sm-4 my-4">
                                 <a href="{{ route('nilai.daftarmhs', [$mm->id, $mm->slug]) }}">
-                                    <div class="card shadow bg-light">
+                                    <div class="card shadow bg-gradient-info">
                                         <div class="card-body">
-                                            <h3>{{ $mm->matakuliah }}</h3>
-                                            <h4>Semester {{ $mm->semester->semester }}</h4>
-                                            <h5 class="text-dark">Tampilkan siswa dengan mapel ini..</h5>
+                                            <h3 class="text-white">{{ $mm->matakuliah }}</h3>
+                                            <h4 class="text-white">Semester {{ $mm->semester->semester }}</h4>
+                                            <h5 class="text-white">Tampilkan siswa dengan mapel ini..</h5>
                                         </div>
                                     </div>
                                 </a>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Mata Kuliah')
+@section('title', 'SIMAK | Mata Kuliah')
 
 @section('head', 'Mata Kuliah')
 
@@ -176,7 +176,10 @@
                     </div>
                     <div class="form-group">
                         <label for="slug">Slug</label>
-                        <input type="text" name="slug" id="slug" class="form-control" placeholder="Masukan slug.." required>
+                        <input type="text" name="slug" id="slug" class="form-control" placeholder="Masukan slug.." value="{{ old('slug') }}" required>
+                        @if ($errors->has('slug'))
+                            <small class="text-danger">{{ $errors->first('slug') }}</small>
+                        @endif
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                 </div>

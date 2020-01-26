@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Jadwal')
+@section('title', 'SIMAK | Jadwal')
 
 @section('head', 'Jadwal')
 
@@ -116,7 +116,7 @@
                                     <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <a class="btn btn-info btn-sm" href="{{ route('jadwal.edit', $jadwal->id) }}"><i class="fa fa-cog"></i></a>
+                                        {{-- <a class="btn btn-info btn-sm" href="{{ route('jadwal.edit', $jadwal->id) }}"><i class="fa fa-cog"></i></a> --}}
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('jadwal.destroy', $jadwal->id) }}"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </td>

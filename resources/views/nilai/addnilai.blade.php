@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Detail')
+@section('title', 'SIMAK | Detail')
 
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">

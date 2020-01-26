@@ -22,38 +22,48 @@ class AbsenController extends Controller
 
     public function daftarMhs(Request $request)
     {
-        $this->validate($request, [
-            'matkul_id' => 'required'
-        ]);
-        $matkul = Matkul::find($request->matkul_id);
-        $semester = Semester::find($matkul->semester_id);
-        $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
-        $tahun = Mahasiswa::where('semester_id', $semester->id)->first();
-        if ($mahasiswa->count() === 0) {
-            return back()->with('failed', 'Tidak ada mahasiswa yang mengemban mapel ini!');
-        } else {
-            $thn = $tahun->tahun_masuk;
-        }
-        $no = 1;
-        if ($request->tanggal == null) {
-            $tgl = date('Y-m-d');
-        } else {
-            $tgl = $request->tanggal;
-        }
+        $cek = Absen::where([
+            'tanggal' => $request->tanggal,
+            'matkul_id' => $request->matkul_id
+        ])->first();
 
-        return view('absen.daftarmhs', compact('no', 'mahasiswa', 'thn', 'matkul', 'semester', 'tgl'));
+        if ($cek) {
+            return back()->with('failed', 'Anda telah mengabsen pada mata kuliah dan tanggal tersebut!');
+        } else {
+            $matkul = Matkul::find($request->matkul_id);
+            $semester = Semester::find($matkul->semester_id);
+            $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
+            $tahun = Mahasiswa::where('semester_id', $semester->id)->first();
+            if ($mahasiswa->count() === 0) {
+                return back()->with('failed', 'Tidak ada mahasiswa yang mengemban mapel ini!');
+            } else {
+                $thn = $tahun->tahun_masuk;
+            }
+            $no = 1;
+            if ($request->tanggal == null) {
+                $tgl = date('Y-m-d');
+            } else {
+                $tgl = $request->tanggal;
+            }
+
+            return view('absen.daftarmhs', compact('no', 'mahasiswa', 'thn', 'matkul', 'semester', 'tgl'));
+        }
     }
 
     public function postabsen(Request $request)
     {
         $absen = [];
 
+        // $cek = Absen::
+
         $tgl = $request->tanggal;
         $dosen = Dosen::where('user_id', auth()->user()->id)->first();
         $now = date('Y-m-d H:i:s');
+        $matkul = Matkul::find($request->matkul_id);
+        // dd($matkul->semester_id);
 
         if ($request->absen == null) {
-            return redirect()->route('absen.index');
+            return redirect()->route('absen.index')->with('failed', 'Anda telah mengabsen pada tanggal tersebut!');
         } else {
             foreach ($request->absen as $val) {
 
@@ -66,6 +76,7 @@ class AbsenController extends Controller
                     'dosen_id' => $dosen->id,
                     'mahasiswa_id' => $mhs,
                     'matkul_id' => $request->matkul_id,
+                    'semester_id' => $matkul->semester_id,
                     'keterangan' => $ket,
                     'created_at' => $now,
                     'updated_at' => $now
@@ -204,7 +215,6 @@ class AbsenController extends Controller
         $to = $sampai[2] . ' ' . $bulan . ' ' . $sampai[0];
 
         $matkul = Matkul::find($request->matkul_id);
-        // $mahasiswa = Mahasiswa::with('absen')->where('semester_id', $matkul->semester_id)->orderBy('id', 'asc')->get(); 
         $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
             ->where([
                 'dosen_id'     => $request->dosen_id,

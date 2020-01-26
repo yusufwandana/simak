@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Ruangan')
+@section('title', 'SIMAK | Ruangan')
 
 @section('head', 'Ruangan')
 

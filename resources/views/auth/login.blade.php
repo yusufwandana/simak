@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    SIMAK2019 | Login page
+    SIMAK | Login page
   </title>
   <!-- Favicon -->
   <link href="{{ asset('public/template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
@@ -16,45 +16,28 @@
   <!-- CSS Files -->
   <link href="{{ asset('public/template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
 </head>
+<style>
+  @media only screen and (max-width:991px){
+      .mm{
+          margin-top: 3rem !important;
+      }
+  }
+
+  /* @media only screen and (min-width:000px){
+
+  } */
+</style>
 
 <body>
   <div class="main-content">
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md bg-primary navbar-dark p-1">
       <div class="container px-0">
-        <a class="navbar-brand" href="{{ asset('public/template/index.html') }}">
-          <img src="{{ asset('public/template/assets/img/brand/white.png') }}" />
+        {{-- <marquee behavior="" direction=""> --}}
+        <a class="navbar-brand" href="">
+          <h2 class="text-white py-1 my-1 ml-3">SIMAK APPS</h2>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-collapse-main">
-          <!-- Collapse header -->
-          <div class="navbar-collapse-header d-md-none">
-            <div class="row">
-              <div class="col-6 collapse-brand">
-                <a href="{{ asset('public/template/index.html') }}">
-                  <img src="{{ asset('public/template/assets/img/brand/blue.png') }}">
-                </a>
-              </div>
-              <div class="col-6 collapse-close">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                  <span></span>
-                  <span></span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ asset('public/asset/examples/login.html') }}">
-                <i class="ni ni-key-25"></i>
-                <span class="nav-link-inner--text">Login</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+      {{-- </marquee> --}}
       </div>
     </nav>
     <!-- Header -->
@@ -65,11 +48,15 @@
     <div class="container mt--8 pb-5">
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-lg-5">
-              <h2 class="text-center">Login page</h2>
+          <div class="card bg-secondary shadow border-0 mm mt--3">
+            <div class="card-body px-lg-5 py-lg-4">
+                  <div class="col-md text-center">
+                    <img src="{{ asset('public/template/assets/img/brand/logo.png') }}" class="mb-4 text-center" width="50%" alt="">
+                  </div>
+              
+              <h2 class="text-center">Form Login</h2>
               <div class="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
+                <small>SIMAK APPS 2019</small>
               </div>
               
               @if ($message = Session::get('failed'))
@@ -111,7 +98,9 @@
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              © 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+              © @php
+                  echo date('Y');
+              @endphp <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
             </div>
           </div>
           <div class="col-xl-6">

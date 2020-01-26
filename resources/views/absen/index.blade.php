@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Absen Mahasiswa')
+@section('title', 'SIMAK | Absen Mahasiswa')
 
 @section('head', 'Absen Mahasiswa')
 
@@ -77,7 +77,7 @@ if ($errors->has('matkul_id')){
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="matkul_id">Mata kuliah</label>
-                                    <select name="matkul_id" id="matkul_id" class="form-control mb-3">
+                                    <select name="matkul_id" id="matkul_id" class="form-control mb-3" required>
                                         <option value="" selected disabled>Pilih mata kuliah</option>
                                         @foreach ($dosen as $m)
                                             @foreach ($m->Matkul as $mm)

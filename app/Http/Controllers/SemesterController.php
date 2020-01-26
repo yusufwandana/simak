@@ -9,16 +9,9 @@ class SemesterController extends Controller
 {
     public function index()
     {
-        $semesters = Semester::paginate(10);
+        $semesters = Semester::orderBy('semester', 'asc')->paginate(10);
         return view('semester.index', compact('semesters'));
     }
-
-
-    public function create()
-    {
-        //
-    }
-
 
     public function store(Request $request)
     {
@@ -32,13 +25,6 @@ class SemesterController extends Controller
 
         return redirect()->route('semester.index')->with('success', 'Semester berhasil ditambahkan!');;
     }
-
-
-    public function show($id)
-    {
-        //
-    }
-
 
     public function edit($id)
     {

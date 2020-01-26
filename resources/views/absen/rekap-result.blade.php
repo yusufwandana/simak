@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Absen Mahasiswa')
+@section('title', 'SIMAK | Absen Mahasiswa')
 
 @section('head', 'Absen Mahasiswa')
 
@@ -96,7 +96,7 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Tanggal</th>
+                                            <th rowspan="7">Tanggal</th>
                                             <th scope="col">NIM</th>
                                             <th scope="col">Nama</th>                                         
                                             <th scope="col">Keterangan</th>                                         
@@ -113,7 +113,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td scope="row">
+                                            <td>
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
                                                         <span class="mb-0 text-sm">

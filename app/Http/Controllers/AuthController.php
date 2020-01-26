@@ -31,11 +31,11 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             if (auth()->user()->role == 'admin') {
-                return redirect('dashboard/admin');
+                return redirect('dashboard/admin')->with('success', 'Login berhasil.');
             } elseif (auth()->user()->role == 'dosen') {
-                return redirect('dashboard/dosen');
+                return redirect('dashboard/dosen')->with('success', 'Login berhasil.');
             } elseif (auth()->user()->role == 'mahasiswa') {
-                return redirect('dashboard/mahasiswa');
+                return redirect('dashboard/mahasiswa')->with('success', 'Login berhasil.');
             }
         } else {
             return redirect('login')->with('failed', 'Username atau password salah!');
