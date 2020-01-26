@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
-    Route::get('dashboard/admin', 'DashboardController@index');
+    Route::get('dashboard/admin', 'DashboardController@admin');
 
     //CRUD DOSEN
     Route::get('dosen', 'DosenController@index')->name('dosen');
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
-    Route::get('dashboard/dosen', 'DashboardController@index');
+    Route::get('dashboard/dosen', 'DashboardController@dosen');
 
     //ABSEN
     Route::get('absen', 'AbsenController@index')->name('absen.index');
@@ -99,5 +99,5 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
 
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () {
-    Route::get('dashboard/mahasiswa', 'DashboardController@index');
+    Route::get('dashboard/mahasiswa', 'DashboardController@mahasiswa');
 });
