@@ -155,17 +155,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/Kehadiran/{{ auth()->user()->role }}">
-              <i class="ni ni-tv-2 text-primary"></i> Kehadiran
+            <a class=" nav-link " href="/simak/kehadiran/{{ auth()->user()->role }}">
+              <i class="ni ni-circle-08 text-warning"></i> Kehadiran
             </a>
           </li>
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/KRS/{{ auth()->user()->role }}">
-              <i class="ni ni-tv-2 text-primary"></i> KRS
+            <a class=" nav-link " href="/simak/krs/{{ auth()->user()->role }}">
+              <i class="ni ni-hat-3 text-default text-primary"></i> KRS
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/nilai">
+            <a class="nav-link " href="/simak/nilai/{{ auth()->user()->role }}">
               <i class="ni ni-planet text-primary"></i>Nilai
             </a>
           </li>

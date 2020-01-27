@@ -28,8 +28,8 @@
                 <div class="card-body">
                 <div class="row">
                     <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                    <span class="h2 font-weight-bold mb-0">350,897</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Mata Kuliah</h5>
+                    <span class="h2 font-weight-bold mb-0">{{ $matkul->count() }}</span>
                     </div>
                     <div class="col-auto">
                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -49,8 +49,8 @@
                 <div class="card-body">
                 <div class="row">
                     <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Dosen</h5>
-                    <span class="h2 font-weight-bold mb-0">332.2</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Jadwal</h5>
+                    <span class="h2 font-weight-bold mb-0">{{ $jadwal->count() }}</span>
                     </div>
                     <div class="col-auto">
                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">

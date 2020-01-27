@@ -30,4 +30,10 @@ class Matkul extends Model
     {
         return $this->hasMany('App\Jadwal');
     }
+
+    public function absen()
+    {
+        return $this->hasMany('App\Absen');
+    }
+
 }

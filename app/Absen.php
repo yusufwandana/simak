@@ -14,4 +14,14 @@ class Absen extends Model
     {
         return $this->belongsTo('App\Mahasiswa');
     }
+
+    public function dosen()
+    {
+        return $this->belongsTo('App\Dosen');
+    }
+
+    public function matkul()
+    {
+        return $this->belongsTo('App\Matkul');
+    }
 }

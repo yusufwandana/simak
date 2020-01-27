@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 use App\Mahasiswa;
 use App\Semester;
 use App\Jurusan;
 use App\User;
+use App\Absen;
+use App\Matkul;
+use App\Nilai;
 
 class MahasiswaController extends Controller
 {
@@ -97,5 +102,87 @@ class MahasiswaController extends Controller
         $mahasiswa->delete();
         $user->delete();
         return redirect()->back()->with('success', 'Mahasiwa telah berhasil dihapus');
+    }
+
+    public function kehadirano()
+    {
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
+        $hadir = Absen::where([
+            'mahasiswa_id' => $mahasiswa->id,
+            'keterangan' => '1',
+        ])->get();
+        $tglhdrs = $hadir;
+        $hadir = count($hadir);
+
+        $tdkhadir = Absen::where([
+            'mahasiswa_id' => $mahasiswa->id,
+            'keterangan' => '0',
+        ])->get();
+        $tglhdr = $tdkhadir;
+        $absen = count($tdkhadir);
+        
+        return view('mahasiswa.tdkhadir', compact('absen', 'hadir','tglhdrs','tglhdr','mahasiswa'));
+    }
+
+    public function kehadirans()
+    {
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
+        $hadir = Absen::where([
+            'mahasiswa_id' => $mahasiswa->id,
+            'keterangan' => '1',
+        ])->get();
+        $tglhdr = $hadir;
+        $hadir = count($hadir);
+
+        $tdkhadir = Absen::where([
+            'mahasiswa_id' => $mahasiswa->id,
+            'keterangan' => '0',
+        ])->get();
+        $absen = count($tdkhadir);
+
+        return view('mahasiswa.kehadiran', compact('absen', 'hadir','tglhdr','mahasiswa'));
+    }
+    public function kehadiran()
+    {
+        $mahasiswas = Mahasiswa::all();
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
+// dd($mahasiswa->nama);
+        $hadir = Absen::where([
+            'mahasiswa_id' => $mahasiswa->id,
+            'keterangan' => '1',
+        ])->get();
+        $hadir = count($hadir);
+
+        $tdkhadir = Absen::where([
+            'mahasiswa_id' => $mahasiswa->id,
+            'keterangan' => '0',
+        ])->get();
+        $absen = count($tdkhadir);
+
+
+
+        return view('mahasiswa.absen', compact('absen', 'hadir','mahasiswa'));
+    }
+
+    public function krs()
+    {
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
+
+        $semester = Semester::all();
+
+        $matkul = Matkul::where('semester_id', $mahasiswa->semester_id)->get();
+
+        return view('mahasiswa.Krs', ['matkul' => $matkul, 'semester' => $semester, 'mahasiswa' => $mahasiswa]);
+    }
+
+    public function Nilai()
+    {
+        // $mahasiswa = Mahasiswa::where('id', auth()->user()->mahasiswa_id)->first();
+
+        $user = Auth::user();
+        $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+
+        $nilai = Nilai::where('mahasiswa_id', $mahasiswa->id)->get();
+        return view('mahasiswa.nilai', ['nilai' => $nilai, 'mahasiswa' => $mahasiswa]);
     }
 }

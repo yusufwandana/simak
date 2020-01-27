@@ -100,4 +100,9 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () {
     Route::get('dashboard/mahasiswa', 'DashboardController@mahasiswa');
+    Route::get('kehadiran/mahasiswa', 'MahasiswaController@kehadiran');
+    Route::get('kehadiran/mahasiswa/tdkhadir', 'MahasiswaController@kehadirano');
+    Route::get('kehadiran/mahasiswa/kehadiran', 'MahasiswaController@kehadirans');
+    Route::get('krs/mahasiswa', 'MahasiswaController@krs');
+    Route::get('nilai/mahasiswa', 'MahasiswaController@Nilai');
 });
