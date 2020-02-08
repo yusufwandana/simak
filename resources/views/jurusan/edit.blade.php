@@ -31,7 +31,7 @@
                     </div>
                 @endif
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
             </form>

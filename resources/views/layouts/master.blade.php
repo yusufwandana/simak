@@ -54,7 +54,7 @@
     <!-- End Navbar -->
 
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-info pb-8 pt-5 pt-md-8">
         @yield('dashboard')
     </div>
       @yield('content')

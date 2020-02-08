@@ -71,21 +71,25 @@
                       </div>
                     </td>
                     <td scope="row">
-                        <div class="media align-items-center">
-                          <div class="media-body">
-                            <span class="mb-0 text-sm">{{ $dosen->alamat }}</span>
-                          </div>
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{ $dosen->alamat }}</span>
                         </div>
-                      </td>
+                      </div>
+                    </td>
                     <td class="text-right">
                       <div class="dropdown">
                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(32px, 32px, 0px);">
-                            <a class="dropdown-item btn-sm" href="/simak/dosen/{{ $dosen->id }}/profile"><i class="ni ni-books text-info"></i>Mata kuliah</a>
-                            <a class="dropdown-item btn-sm" href="{{ route('dosen.edit', $dosen->id) }}"><i class="fa fa-cog text-dark"></i>Edit</a>
-                            <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('dosen.delete', $dosen->id) }}"><i class="fa fa-trash text-red"></i>Hapus</button>
+                          <form action="" method="post">
+                            @csrf
+                            {{-- @method('delete') --}}
+                            <a class="dropdown-item btn-sm" href="{{route('profile', $dosen->id)}}"><i class="ni ni-books text-info"></i>Mata kuliah</a>
+                            <a class="dropdown-item btn-sm" href="{{route('dosen.edit', $dosen->id)}}"><i class="fa fa-cog text-dark"></i>Edit</a>
+                            <a class="dropdown-item btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('dosen.delete', $dosen->id) }}"><i class="fa fa-trash text-red"></i>Hapus</a>
+                          </form>
                         </div>
                       </div>
                     </td>
@@ -135,7 +139,7 @@
                                 <small class="text-danger">{{ $errors->first('nama') }}</small>
                             @else
                                 <label for="nama">Nama lengkap</label>
-                                <input type="text" class="form-control" placeholder="Masukan nama.." name="nama" id="nama" value="{{ old('nama') }}">
+                                <input type="text" class="form-control" placeholder="Masukan nama.." name="nama" id="nama" value="{{ old('nama') }}" required>
                             @endif
                         </div>
                         <div class="form-group">
@@ -161,7 +165,7 @@
                             <label for="signin-alamat" class="control-label">Alamat</label>
                             <textarea name="alamat" class="form-control" placeholder="Masukan alamat.." required>{{ old('alamat') }}</textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                     </div>
                 </div>
             </form>

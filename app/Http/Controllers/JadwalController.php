@@ -28,7 +28,8 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         $roomTimeExist = Jadwal::where([
-            'waktu' => $request->time,
+            'mulai' => $request->mulai,
+            'selesai' => $request->selesai,
             'tanggal' => $request->date,
             'ruangan_id' => $request->ruanganId,
         ])->first();
@@ -37,7 +38,8 @@ class JadwalController extends Controller
             return redirect()->back()->with('failed', 'Ruangan dan waktu telah diatur sebelumnya!');
         } else {
             Jadwal::create([
-                'waktu'       => $request->time,
+                'mulai'       => $request->mulai,
+                'selesai'     => $request->selesai,
                 'tanggal'     => $request->date,
                 'dosen_id'    => $request->dosenId,
                 'matkul_id'   => $request->matkulId,
@@ -49,7 +51,8 @@ class JadwalController extends Controller
         $dosen     = Dosen::find($request->dosenId);
         $user      = User::find($dosen->user_id);
         $m         = Matkul::find($request->matkulId);
-        $waktu     = $request->time;
+        $mulai     = $request->mulai;
+        $selesai   = $request->selesai;
         $date   = $request->date;
         $d = explode('-', $date);
         $tahun   = $d[0];
@@ -108,14 +111,15 @@ class JadwalController extends Controller
 
         $data = [
             'nama'      => $dosen->nama,
-            'waktu'     => $waktu,
+            'mulai'     => $mulai,
+            'selesai'   => $selesai,
             'event'     => $event,
             'matkul'    => $matkul,
             'semester'  => $semester,
             'ruangan'   => $ruangan
         ];
 
-        Mail::to($email)->send(new JadwalEmail($data));
+        // Mail::to($email)->send(new JadwalEmail($data));
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal telah berhasil diatur!');
     }
@@ -163,7 +167,4 @@ class JadwalController extends Controller
             'results' => $dosen
         ]);
     }
-
-    public function exportJadwal()
-    { }
 }

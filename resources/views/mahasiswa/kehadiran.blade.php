@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('head', 'Mahasiswa')
+@section('head', 'Kehadiran')
 
 @section('title', 'SIMAK2019 | Mahasiswa')
 
@@ -11,9 +11,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="row">
-
-                
+                <div class="row">                
                     <!-- Data Kehadiran --> 
                         <div class="col-xl-6 col-lg-4">
                             <div class="card card-stats mb-4 mb-xl-4">
@@ -30,7 +28,7 @@
                                         </div>
                                     </div>
                                     <p class="mt-3 mb-0 text-muted text-sm">
-                                        <a href="/simak/kehadiran/mahasiswa/kehadiran" class="btn btn-info btn-sm btn-block">Go To</a>
+                                        <a href="/simak/kehadiran/mahasiswa/kehadiran" class="btn btn-info btn-sm btn-block">Detail</a>
                                     </p>
                                 </div>
                                 {{-- <button type="button" class="btn btn-info btn-lg btn-block btn-sm" href="/simak/kehadiran/mahasiswa/kehadiran">Deatail</button> --}}
@@ -54,7 +52,7 @@
                                     </div>
                                     
                                     <p class="mt-3 mb-0 text-muted text-sm">
-                                        <a href="/simak/kehadiran/mahasiswa/tdkhadir" class="btn btn-info btn-sm btn-block">Go To</a>
+                                        <a href="/simak/kehadiran/mahasiswa/tdkhadir" class="btn btn-info btn-sm btn-block">Detail</a>
                                     </p>
                                 </div>
                                 {{-- <a href="/simak/kehadiran/mahasiswa/tdkhadir" class="btn btn-info btn-lg btn-block btn-sm">Deatail</a> --}}
@@ -72,7 +70,7 @@
                                     <h5 class="text-white">{{ $message }}</h5>
                                 </div>
                                 @endif
-                                <h3 class="mb-0 float-left">Nilai Mata Kuliah</h3>
+                                <h3 class="mb-0 float-left">Kehadiran</h3>
                             </div>
                             <div class="table-responsive ">
                                 <table class="table align-items-center table-flush">

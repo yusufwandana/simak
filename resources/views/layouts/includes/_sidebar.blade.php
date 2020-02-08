@@ -165,6 +165,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link " href="/simak/jadwal/mahasiswa">
+              <i class="ni ni-calendar-grid-58 text-red"></i>Lihat Jadwal
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link " href="/simak/nilai/{{ auth()->user()->role }}">
               <i class="ni ni-planet text-primary"></i>Nilai
             </a>

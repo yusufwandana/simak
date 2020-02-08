@@ -38,7 +38,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/mahasiswa" class="btn btn-primary btn-sm btn-block">Go To</a>
+                  <a href="/simak/mahasiswa" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -58,7 +58,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/dosen" class="btn btn-primary btn-sm btn-block">Go To</a>
+                  <a href="/simak/dosen" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -78,7 +78,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/matkul" class="btn btn-primary btn-sm btn-block">Go To</a>
+                  <a href="/simak/matkul" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/jurusan" class="btn btn-primary btn-sm btn-block">Go To</a>
+                  <a href="/simak/jurusan" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>

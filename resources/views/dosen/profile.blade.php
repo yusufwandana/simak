@@ -215,7 +215,7 @@
                             <input type="hidden" name="dosen_id" value="{{ $dosen->id }}">
                             <label for="matkul">Tambah Matkul</label>
                             @if ($errors->has('matkul_id'))
-                                <select class="form-control" name="matkul_id" id="matkul_id">
+                                <select class="form-control" name="matkul_id" id="matkul_id" required>
                                     <option value="" selected disabled>Pilih matkul</option>
                                     @foreach ($matkul as $m)
                                         <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
@@ -223,7 +223,7 @@
                                 </select>
                                 <small class="text-danger">{{ $errors->first('jk') }}</small>
                             @else
-                                <select class="form-control" name="matkul_id" id="matkul_id">
+                                <select class="form-control" name="matkul_id" id="matkul_id" required>
                                     <option value="" selected disabled>Pilih matkul</option>
                                     @foreach ($matkul as $m)
                                         <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
@@ -231,7 +231,7 @@
                                 </select>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                     </div>
                 </div>
             </form>

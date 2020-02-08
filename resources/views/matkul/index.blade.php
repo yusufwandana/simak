@@ -181,7 +181,7 @@
                             <small class="text-danger">{{ $errors->first('slug') }}</small>
                         @endif
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                    <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                 </div>
             </div>
         </form>

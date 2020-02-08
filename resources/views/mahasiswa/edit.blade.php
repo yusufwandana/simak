@@ -61,7 +61,7 @@
                                 <small class="text-danger">{{ $errors->first('alamat') }}</small>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

@@ -35,4 +35,18 @@ class DashboardController extends Controller
     {
         return view('dashboard.mahasiswa');
     }
+
+    public function jadwalMahasiswa()
+    {
+        $id = auth()->user()->id;
+        $mahasiswa = Mahasiswa::where('user_id', $id)->first();
+        $jadwals   = Jadwal::where('semester_id', $mahasiswa->semester->id)->orderBy('tanggal', 'DESC')->paginate(10);
+
+        return view('mahasiswa.jadwal', compact('jadwals'));
+    }
+
+    public function krsmatkul()
+    {
+        
+    }
 }

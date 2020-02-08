@@ -102,7 +102,7 @@
                                 <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" autofocus>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                     </div>
                 </div>
             </form>

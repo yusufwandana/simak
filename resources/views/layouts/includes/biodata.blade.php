@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                    <div>
+                                    {{-- <div>
                                         <span class="heading">22</span>
                                         <span class="description">Friends</span>
                                     </div>
@@ -26,7 +26,7 @@
                                     <div>
                                         <span class="heading">89</span>
                                         <span class="description">Comments</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

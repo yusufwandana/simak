@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     protected $fillable = [
-        'waktu', 'tanggal', 'dosen_id', 'matkul_id', 'semester_id', 'ruangan_id'
+        'mulai', 'selesai', 'tanggal', 'dosen_id', 'matkul_id', 'semester_id', 'ruangan_id'
     ];
 
     public function ruangan()

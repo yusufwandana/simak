@@ -64,9 +64,6 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
     //CRUD RUANGAN
     Route::resource('ruangan', 'RuanganController');
-    // Route::get('test', function(){
-    //     return view('jadwal.myEmail');
-    // });
 });
 
 
@@ -105,4 +102,6 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () 
     Route::get('kehadiran/mahasiswa/kehadiran', 'MahasiswaController@kehadirans');
     Route::get('krs/mahasiswa', 'MahasiswaController@krs');
     Route::get('nilai/mahasiswa', 'MahasiswaController@Nilai');
+    Route::get('jadwal/mahasiswa', 'DashboardController@jadwalMahasiswa')->name('mahasiswa.jadwal');
+    Route::get('krsmatkul/{id}', 'MahasiswaController@krsmatkul')->name('krs.matkul');
 });

@@ -61,7 +61,7 @@ class MahasiswaController extends Controller
             'user_id' => $id
         ]);
 
-        return redirect()->back();
+        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan!');
     }
 
     public function show($id)
@@ -146,7 +146,6 @@ class MahasiswaController extends Controller
     {
         $mahasiswas = Mahasiswa::all();
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
-// dd($mahasiswa->nama);
         $hadir = Absen::where([
             'mahasiswa_id' => $mahasiswa->id,
             'keterangan' => '1',
@@ -168,17 +167,24 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
 
-        $semester = Semester::all();
+        $semester = Semester::orderBy('semester', 'asc')->get();
 
         $matkul = Matkul::where('semester_id', $mahasiswa->semester_id)->get();
 
         return view('mahasiswa.Krs', ['matkul' => $matkul, 'semester' => $semester, 'mahasiswa' => $mahasiswa]);
     }
 
+    public function krsmatkul($id)
+    {
+        $matkul = Matkul::where('semester_id', $id)->orderBy('matakuliah', 'asc')->get();
+
+        return response()->json([
+            'results' => $matkul
+        ]);
+    }
+
     public function Nilai()
     {
-        // $mahasiswa = Mahasiswa::where('id', auth()->user()->mahasiswa_id)->first();
-
         $user = Auth::user();
         $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
 

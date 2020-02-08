@@ -16,22 +16,21 @@
                 <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
             </div>
             @endif
-
-          @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-              <h5 class="text-white">{{ $message }}</h5>
-            </div>
-          @endif
-          
-          <h3 class="mb-0 float-left">Daftar Mahasiswa</h3>
-          <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
-        </div>
-        <div class="card-body">
+            <h3 class="mb-0 float-left">Daftar Mahasiswa</h3>
+            <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
+          </div>
+          <div class="card-body">
+            @if ($message = Session::get('success'))
+              <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="text-white">{{ $message }}</h5>
+              </div>
+            @endif
           <div class="table-responsive">
             <table class="table align-items-center table-flush" id="ini_table">
               <thead class="thead-light">
                 <tr>
+                  <th scope="col">No</th>
                   <th scope="col">Tahun Masuk</th>
                   <th scope="col">NIM</th>
                   <th scope="col">Nama lengkap</th>
@@ -43,8 +42,15 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($mahasiswa as $mhs)
+                @foreach ($mahasiswa as $key => $mhs)
                   <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{ $mahasiswa->firstItem() + $key }}</span>
+                        </div>
+                      </div>
+                    </th>
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
@@ -149,21 +155,21 @@
                         <div class="form-group">
                             @if ($errors->first('nim'))
                                 <label for="nim">NIM</label>
-                                <input type="text" class="form-control" name="nim" placeholder="Masukan nim.." id="nim">
+                                <input type="text" class="form-control" name="nim" placeholder="Masukan nim.." id="nim" value="{{ old('nim') }}">
                                 <small class="text-danger">{{ $errors->first('nim') }}</small>
                             @else
                                 <label for="nim">NIM</label>
-                                <input type="text" class="form-control" placeholder="Masukan NIM.." name="nim" id="nim">
+                                <input type="text" class="form-control" placeholder="Masukan NIM.." name="nim" id="nim" value="{{ old('nim') }}">
                             @endif
                         </div>
                         <div class="form-group">
                             @if ($errors->first('nama'))
                                 <label for="nama">Nama lengkap</label>
-                                <input type="text" class="form-control" name="nama" placeholder="Masukan nama.." id="nama">
+                                <input type="text" class="form-control" name="nama" placeholder="Masukan nama.." id="nama" value="{{ old('nama') }}">
                                 <small class="text-danger">{{ $errors->first('nama') }}</small>
                             @else
                                 <label for="nama">Nama lengkap</label>
-                                <input type="text" class="form-control" placeholder="Masukan nama.." name="nama" id="nama">
+                                <input type="text" class="form-control" placeholder="Masukan nama.." name="nama" id="nama" value="{{ old('nama') }}">
                             @endif
                         </div>
                         <div class="form-group">
@@ -205,24 +211,24 @@
                         <div class="form-group">
                           @if ($errors->has('email'))
                             <label for="signin-email" class="control-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="signin-email" placeholder="Masukan Email..">
+                            <input type="email" name="email" class="form-control" placeholder="Masukan Email.." value="{{ old('email') }}">
                             <small class="text-danger">{{ $errors->first('email') }}</small>
                           @else
                             <label for="signin-email" class="control-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="signin-email" placeholder="Masukan Email..">
+                            <input type="email" name="email" class="form-control" placeholder="Masukan Email.." value="{{ old('email') }}">
                           @endif
                         </div>
                         <div class="form-group">
                           @if ($errors->has('alamat'))
                             <label for="alamat" class="control-label">Alamat</label>
-                            <textarea name="alamat" class="form-control" placeholder="Masukan alamat.."></textarea>
+                            <textarea name="alamat" class="form-control" placeholder="Masukan alamat..">{{ old('alamat') }}</textarea>
                             <small class="text-danger">{{ $errors->first('alamat') }}</small>
                           @else
                             <label for="signin-alamat" class="control-label">Alamat</label>
-                            <textarea name="alamat" class="form-control" placeholder="Masukan alamat.."></textarea>
+                            <textarea name="alamat" class="form-control" placeholder="Masukan alamat..">{{ old('alamat') }}</textarea>
                           @endif
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                     </div>
                 </div>
             </form>

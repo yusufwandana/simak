@@ -36,12 +36,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($ruangans as $ruangan)
+                @foreach ($ruangans as $key => $ruangan)
                 <tr>
                     <th scope="row">
                         <div class="media align-items-center">
                         <div class="media-body">
-                            <span class="mb-0 text-sm">{{ $ruangan->id }}</span>
+                            <span class="mb-0 text-sm">{{ $ruangans->firstItem() + $key }}</span>
                         </div>
                         </div>
                     </th>
@@ -128,7 +128,7 @@
                             </select>
                         @endif
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                    <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                 </div>
             </div>
         </form>

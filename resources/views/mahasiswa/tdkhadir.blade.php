@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('head', 'Mahasiswa')
+@section('head', 'Kehadiran')
 
-@section('title', 'SIMAK2019 | Mahasiswa')
+@section('title', 'SIMAK2019 | Kehadiran')
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">
@@ -39,7 +39,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="card-title text-uppercase text-muted mb-0">tidakhadir</h5>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">tidak hadir</h5>
                                             <span class="h2 font-weight-bold mb-0">
                                                 {{ $absen }}
                                             </span>
@@ -69,7 +69,7 @@
                                     <h5 class="text-white">{{ $message }}</h5>
                                 </div>
                                 @endif
-                                <h3 class="mb-0 float-left">Nilai Mata Kuliah</h3>
+                                <h3 class="mb-0 float-left">Kehadiran</h3>
                             </div>
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush">

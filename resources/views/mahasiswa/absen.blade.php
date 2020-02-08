@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('head', 'Mahasiswa')
+@section('head', 'Kehadiran')
 
-@section('title', 'SIMAK2019 | Mahasiswa')
+@section('title', 'SIMAK2019 | Kehadiran')
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">
@@ -32,7 +32,6 @@
                                     <a href="/simak/kehadiran/mahasiswa/kehadiran" class="btn btn-info btn-sm btn-block">Detail</a>
                                 </p>
                             </div>
-                            {{-- <a  class="btn btn-info btn-lg btn-block btn-sm" href="/simak/kehadiran/mahasiswa/kehadiran">Deatail</a> --}}
                         </div>
                     </div>
 
@@ -53,13 +52,12 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 mb-0 text-muted text-sm">
-                                    <a href="mahasiswa/tdkhadir" class="btn btn-info btn-sm btn-block">Detail</a>
+                                    <a href="/simak/kehadiran/mahasiswa/tdkhadir" class="btn btn-info btn-sm btn-block">Detail</a>
                                 </p>
                             </div>
-                            {{-- <a  href="mahasiswa/tdkhadir" class="btn btn-info btn-lg btn-block btn-sm">Deatail</a> --}}
                         </div>
                     </div>
-                    <div class="card shadow ml-3 col-md-11.9">
+                    <div class="card shadow ml-3 col-md-11">
                         <div class="card-header border-0">
                             @if ($message = Session::get('success'))
                             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
@@ -67,7 +65,7 @@
                                 <h5 class="text-white">{{ $message }}</h5>
                             </div>
                             @endif
-                            <h3 class="mb-0 float-left">Nilai Mata Kuliah</h3>
+                            <h3 class="mb-0 float-left">Kehadiran </h3>
 
                         </div>
                         <div class="table-responsive ">

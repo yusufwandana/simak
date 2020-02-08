@@ -32,7 +32,8 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Tanggal</th>
-                                <th scope="col">Waktu</th>
+                                <th scope="col">Mulai</th>
+                                <th scope="col">Selesai</th>
                                 <th scope="col">Matkul</th>
                                 <th scope="col">Semester</th>
                                 <th scope="col">Dosen</th>
@@ -71,7 +72,16 @@
                                     <div class="media align-items-center">
                                     <div class="media-body">
                                         <span class="mb-0 text-sm">
-                                            {{ $jadwal->waktu }}
+                                            {{ $jadwal->mulai }}
+                                        </span>
+                                    </div>
+                                    </div>
+                                </td>
+                                <td scope="row">
+                                    <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <span class="mb-0 text-sm">
+                                            {{ $jadwal->selesai }}
                                         </span>
                                     </div>
                                     </div>
@@ -154,23 +164,27 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="time">Waktu</label>
-                                <input type="time" class="form-control" name="time" id="time" required>
+                                <label for="mulai">Mulai</label>
+                                <input type="time" class="form-control" name="mulai" id="mulai" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="date">Tanggal</label>
-                                <input type="date" required class="form-control" name="date" id="date" required>
+                                <label for="selesai">Selesai</label>
+                                <input type="time" required class="form-control" name="selesai" id="selesai" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="semester">Pilih semester</label>
+                                <label for="date">Tanggal</label>
+                                <input type="date" required class="form-control" name="date" id="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="semesterId">Pilih semester</label>
                                 <select name="semesterId" id="semesterId" class="form-control" required>
-                                    <option value="" selected disabled>Pilih semester</option>
+                                    <option value="" selected disabled>Pilih semester..</option>
                                     @foreach ($semesters as $semester)
                                         <option value="{{ $semester->id }}">Semester {{ $semester->semester }}</option>
                                     @endforeach
@@ -211,9 +225,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
+                    <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
                 </div>
             </div>
         </form>
