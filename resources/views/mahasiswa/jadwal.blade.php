@@ -60,8 +60,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td scope="row">{{ $item->waktu }}</td>
-                            <td scope="row">END</td>
+                            <td scope="row">{{ $item->mulai }}</td>
+                            <td scope="row">{{ $item->selesai }}</td>
                             <td scope="row">{{ $item->matkul->matakuliah }}</td>
                             <td scope="row">{{ $item->dosen->nama }}</td>
                             <td scope="row">{{ $item->ruangan->ruangan }}</td>

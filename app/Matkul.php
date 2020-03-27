@@ -36,4 +36,9 @@ class Matkul extends Model
         return $this->hasMany('App\Absen');
     }
 
+    public function materitugas()
+    {
+        return $this->hasMany('App\MateriTugas');
+    }
+
 }

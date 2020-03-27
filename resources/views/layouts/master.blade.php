@@ -72,7 +72,6 @@
   <script src="{{ asset('public/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('public/datatables/dataTables.bootstrap4.min.js') }}"></script>
   @yield('customjs')
-  
   {{-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> --}}
   {{-- <script>
     window.TrackJS &&

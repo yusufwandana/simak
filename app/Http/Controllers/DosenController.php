@@ -8,6 +8,7 @@ use App\User;
 use App\Matkul;
 use App\Jadwal;
 use App\DosenMatkul;
+use App\MateriTugas;
 
 class DosenController extends Controller
 {
@@ -139,5 +140,47 @@ class DosenController extends Controller
         $jadwal = Jadwal::where('dosen_id', $dosen->id)->paginate(20);
         // dd($jadwal);
         return view('jadwal.dosen-lihat-jadwal', compact('jadwal'));
+    }
+
+    public function uploadfile(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|file|mimes:jpeg,png,pptx,pdf,docx,xlsx'
+        ]);
+        $date      = date('ymdhis');
+        $file      = $request->file('file');
+        $fileName  = $file->getClientOriginalName();
+        $finalName  = $date . '_' . $fileName;
+        $fullName = str_replace(' ', '', $finalName);
+        $moveto    = 'public/filemateri';
+        $file->move($moveto, $fullName);
+        $dosen     = Dosen::where('user_id', auth()->user()->id)->first();
+        $matkul_id = Matkul::find($request->matkul_id);
+
+        MateriTugas::create([
+            'deskripsi' => $request->deskripsi,
+            'tanggal_tenggat' => $request->tanggal,
+            'waktu_tenggat' => $request->waktu,
+            'matkul_id' => $request->matkul_id,
+            'semester_id' => $matkul_id->semester_id,
+            'dosen_id'  => $dosen->id,
+            'jenis'     => $request->jenis,
+            'file'      => $fullName
+        ]);
+
+        return redirect()->route('dashboard.dosen')->with('success', 'Berhasil');
+    }
+
+    public function posttugas()
+    {
+        $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
+        $matkul = DosenMatkul::where('dosen_id', $dosen->id)->get();
+        // dd($matkul);
+        return view('dosen/post_tugas', compact('dosen', 'matkul'));
+    }
+
+    public function postmateri()
+    {
+        return view('dosen/post_materi');
     }
 }

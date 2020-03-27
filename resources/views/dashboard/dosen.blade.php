@@ -9,11 +9,18 @@
         <div class="row justify-content-center">
             <div class="col-md">
             <div class="card mb-5">
-                <div class="card-body">
-                @if ($msg = Session::get('success'))
-                    <p class="text-green">{{$msg}}</p>
-                @endif
-                <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3></h3>
+                <div class="card-header">
+                    @if ($msg = Session::get('success'))
+                        <p class="text-green">{{$msg}}</p>
+                    @endif
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            @foreach ($errors as $x)
+                                {{$x}} <br>
+                            @endforeach
+                        </div>
+                    @endif
+                <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3>
                 </div>
             </div>
             </div>
@@ -94,4 +101,51 @@
         </div> --}}
         </div>
     </div>
+@endsection
+
+@section('content')
+<div class="container-fluid mt--8 mb-5">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h3>Beranda <a href="/simak/dosen/postgs" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
+                </div>
+                <div class="card-body">
+                    @foreach ($mt as $data)
+                        <div class="row">
+                            <div class="col-md-1">
+                                <img src="{{ asset('public/image/profile/' . auth()->user()->avatar) }}" style="width: 60px;" class="rounded-circle">
+                            </div>
+                            <div class="col-md-10">
+                                <b>{{ $data->dosen->nama }}</b>
+                                <br>
+                                <small><i>Postingan ini berupa {{ $data->jenis }}</i></small><br><br>
+                                <div class="row">
+                                    <div class="col-md">
+                                        {{ $data->deskripsi }}
+                                        <br><br>
+                                        <small><b><i>Tenggat : {{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</i></b></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="{{asset('public/filemateri/' . $data->file)}}" style="margin:15px;">{{ $data->file }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <br>
+                    @endforeach
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

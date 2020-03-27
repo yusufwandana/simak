@@ -14,6 +14,6 @@ class DosenMatkul extends Model
 
     public function matkul()
     {
-        return $this->belongsTo('App/Matkul');
+        return $this->belongsTo('App\Matkul');
     }
 }

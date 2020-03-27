@@ -12,6 +12,7 @@ use App\User;
 use App\Absen;
 use App\Matkul;
 use App\Nilai;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -181,6 +182,14 @@ class MahasiswaController extends Controller
         return response()->json([
             'results' => $matkul
         ]);
+    }
+
+    public function exportpdf($id)
+    {
+        $data = Matkul::where('semester_id', $id)->orderBy('matakuliah', 'asc')->get();
+        return view('mahasiswa.export-krs', compact('data'));
+        // $pdf  = PDF::loadView('mahasiswa.export-krs', compact('data'));
+        // return $pdf->stream('export_krs.pdf');
     }
 
     public function Nilai()

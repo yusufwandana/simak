@@ -23,6 +23,7 @@
                 </div>
                 @endif
                 <h3 class="mb-0 float-left">KRS Mahasiswa</h3>
+                <input id="link" type="hidden" value="">
             </div>
             <div class="card-body">
                 <div class="row">
@@ -40,6 +41,7 @@
                 </div>
                 <hr>
                 <h3 class="mb-3 float-left">Daftar Mata Kuliah</h3>
+                <a id="exp" class="btn btn-sm btn-success float-right text-white">Export KRS</a>
                 <br>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush" id="data-table">
@@ -69,6 +71,9 @@
             $('#data-table tbody').append('<tr id="no-data"><td class="text-center" colspan="5"><h5>No data available!</h5></td></tr>');
             $('#semesterId').on('change', function(e){
                 var smId = $(this).val();
+                $('#link').val('/simak/krs/mahasiswa/export/' + smId);
+                var link = $('#link').val();
+                $('#exp').attr('href', link);
 
                 $.ajax({
                     url: "{{ url('krsmatkul') }}" + "/" + smId,
@@ -76,6 +81,7 @@
                     type: 'get',
                     success: function(response){
                         if(response.results != 0){
+                            $('.ada-data').remove();
                             $.each(response.results, function(e, i){
                                 $('#no-data').hide();
                                 $('#data-table tbody').append($('<tr class="ada-data"><td>1</td><td>'+i.kd_matkul+'</td><td>'+i.matakuliah+'</td><td>'+i.sks+'</td><td>'+i.kategori+'</td></tr>'));
@@ -89,6 +95,10 @@
 
                 
             });
+
+            var link = $('#link').val();
+            console.log(link);
+            // $('#exp').attr("href", "/simak/krs/mahasiswa/export/");
 
 
             // $('#data-table').dataTable({

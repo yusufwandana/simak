@@ -68,7 +68,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
-    Route::get('dashboard/dosen', 'DashboardController@dosen');
+    Route::get('dashboard/dosen', 'DashboardController@dosen')->name('dashboard.dosen');
 
     //ABSEN
     Route::get('absen', 'AbsenController@index')->name('absen.index');
@@ -89,6 +89,11 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::get('nilai/daftarmhs/{id}/{slug}', 'NilaiController@daftarmhs')->name('nilai.daftarmhs');
     Route::post('nilai/update/{id}', 'NilaiController@nilaiUpdate')->name('update.nilai ');
 
+    // Posting
+    Route::get('dosen/postgs', 'DosenController@posttugas')->name('posttugas');
+    Route::get('dosen/postmt', 'DosenController@postmateri')->name('postmateri');
+    Route::post('dosen/uploadfile', 'DosenController@uploadFile')->name('uploadfile');
+
     //Export
     Route::post('nilai/export/{matkulId}/{semesterId}', 'NilaiController@export_nilai');
     Route::get('absen/rekap/export/{matkulId}/{dosenId}/{dari}/{sampai}', 'AbsenController@export_absen')->name('absen.export');
@@ -101,6 +106,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () 
     Route::get('kehadiran/mahasiswa/tdkhadir', 'MahasiswaController@kehadirano');
     Route::get('kehadiran/mahasiswa/kehadiran', 'MahasiswaController@kehadirans');
     Route::get('krs/mahasiswa', 'MahasiswaController@krs');
+    Route::get('krs/mahasiswa/export/{id}', 'MahasiswaController@exportpdf')->name('exportpdf');
     Route::get('nilai/mahasiswa', 'MahasiswaController@Nilai');
     Route::get('jadwal/mahasiswa', 'DashboardController@jadwalMahasiswa')->name('mahasiswa.jadwal');
     Route::get('krsmatkul/{id}', 'MahasiswaController@krsmatkul')->name('krs.matkul');
