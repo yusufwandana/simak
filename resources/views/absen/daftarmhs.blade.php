@@ -179,7 +179,10 @@
                                         <td scope="row">
                                             <select class="form-control form-control-sm check-class" name="absen[]" id="check-{{ $mhs->id }}">
                                                 <option value="{{$mhs->id}}-1">Hadir</option>
-                                                <option value="{{$mhs->id}}-0">Tidak Hadir</option>
+                                                <option value="{{$mhs->id}}-0">Alfa</option>
+                                                <option value="{{$mhs->id}}-2">Sakit</option>
+                                                <option value="{{$mhs->id}}-3">Izin</option>
+                                                <option value="{{$mhs->id}}-4">Kerja</option>
                                             </select>
                                         </td>
                                     </tr>    

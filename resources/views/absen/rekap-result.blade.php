@@ -90,35 +90,24 @@
                         </div>
                     </div>    
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md-8">
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush" id="data-table">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th rowspan="7">Tanggal</th>
                                             <th scope="col">NIM</th>
-                                            <th scope="col">Nama</th>                                         
-                                            <th scope="col">Keterangan</th>                                         
+                                            <th scope="col">Nama</th>                                       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php $no = 1; @endphp
-                                        @foreach($absen as $a)
+                                        @foreach($absen->unique('mahasiswa_id') as $a)
                                         <tr>
                                             <td scope="row">
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
                                                         <span class="mb-0 text-sm">{{ $no++ }}</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <span class="mb-0 text-sm">
-                                                        {{ $a->tanggal }}
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -140,13 +129,65 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                        </tr>
+                                        @endforeach
+                                        {{-- @foreach($mahasiswa->unique('mahasiswa_id') as $mhs)
+                                        <tr>
                                             <td scope="row">
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
-                                                        
-                                                        <span class="mb-0 text-sm @if ($a->keterangan == 1) text-green @else text-red @endif">
-                                                        {{ $a->keterangan }}
+                                                        <span class="mb-0 text-sm">{{ $no++ }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        <span class="mb-0 text-sm">
+                                                        {{ $mhs->nim }}
                                                         </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        <span class="mb-0 text-sm">
+                                                        {{ $mhs->nama }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        <span class="mb-0 text-sm">
+                                                            <a href="/simak/absen/rekap/detail/{{$mhs->id}}" id="detail">{{$mhs->id}}</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush" id="data-table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Jumlah hadir</th>                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($fix as $x)
+                                        <tr>
+                                            <td scope="row">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body">
+                                                        <a href="/simak/absen/rekap/detail/{{$encrypted}}/{{$x['mahasiswa_id']}}/{{$data['dosen_id']}}"><span class="mb-0 text-sm">{{$x['jumlah']}}</span></a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -170,13 +211,14 @@
 @section('customjs')
     <script>
       $(document).ready(function(){
-        $('#data-table').dataTable({
-          paging:false,
-          info:false
-        });
+        // $('#data-table').dataTable({
+        //   paging:false,
+        //   info:false
+        // });
 
         $('#data-table_wrapper .row .col-sm-12').removeClass('col-md-6');
         $('#data-table_wrapper .row .col-sm-12 #data-table_filter label').addClass('pb-2');
+
       });
     </script>
 @endsection

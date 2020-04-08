@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $mahasiswa = Mahasiswa::all();
         $matkul = Matkul::all();
         $jurusan = Jurusan::all();
-        $mt = MateriTugas::all();
+        $mt = MateriTugas::orderBy('id', 'DESC')->get();
         return view('dashboard.admin', compact('dosen', 'mahasiswa', 'matkul', 'jurusan', 'mt'));
     }
 
@@ -34,9 +34,8 @@ class DashboardController extends Controller
     public function mahasiswa()
     {        
         $smstr = Mahasiswa::where('user_id', auth()->user()->id)->first();
-        dd($smstr->semester->id);
-        $mt = MateriTugas::where('semester_id', 1)->orderBy('id', 'DESC')->get();
-        return view('dashboard.mahasiswa');
+        $mt = MateriTugas::where('semester_id', $smstr->semester->id)->orderBy('id', 'DESC')->get();
+        return view('dashboard.mahasiswa', compact('mt'));
     }
 
     public function jadwalMahasiswa()

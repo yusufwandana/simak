@@ -21,10 +21,10 @@ class Materitugas extends Migration
             $table->date('tanggal_tenggat');
             $table->time('waktu_tenggat');
             $table->integer('semester_id')->unsigned();
-            $table->integer('dosen_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('matkul_id')->unsigned();
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
-            $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('matkul_id')->references('id')->on('matkuls')->onDelete('cascade');
             $table->timestamps();
         });

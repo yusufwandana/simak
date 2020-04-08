@@ -74,6 +74,12 @@
               </div>
           </li> --}}
           <li class="nav-item">
+            <a class="nav-link " href="/simak/absen"><i class="ni ni-bullet-list-67 text-info"></i>Absen</a>
+          </li>
+          <li class="nav-item">
+            <a class=" nav-link " href="/simak/jadwal"><i class="ni ni-calendar-grid-58 text-danger"></i>Atur Jadwal</a>
+          </li>
+          <li class="nav-item">
             <a href="/simak/dosen" class="nav-link"><i class="ni ni-circle-08 text-warning"></i> Dosen</a>
           </li>
           <li class="nav-item">
@@ -86,15 +92,13 @@
             <a href="/simak/matkul" class="nav-link"><i class="ni ni-books text-success"></i> Mata Kuliah</a>
           </li>
           <li class="nav-item">
+            <a class=" nav-link " href="{{ route('absen.rekap') }}"><i class="ni ni-chart-bar-32 text-yellow"></i>Rekap Absen</a>
+          </li>
+          <li class="nav-item">
             <a href="/simak/ruangan" class="nav-link"><i class="ni ni-building text-yellow"></i> Ruangan</a>
           </li>
           <li class="nav-item">
             <a href="/simak/semester" class="nav-link"><i class="ni ni-hat-3 text-default"></i> Semester</a>
-          </li>
-          <li class="nav-item">
-            <a class=" nav-link " href="/simak/jadwal">
-              <i class="ni ni-calendar-grid-58 text-danger"></i>Atur Jadwal
-            </a>
           </li>
           {{-- <li class="nav-item">
             <a class=" nav-link " href="{{ route('absen.rekap') }}">
@@ -108,7 +112,6 @@
           $a = url()->full();
           $b = explode('/', $a);
           $url = $b[4];
-          // dd($url);
           @endphp
         <hr class="my-2">
         <h6 class="navbar-heading text-muted">Menu Dosen</h6>

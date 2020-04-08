@@ -145,7 +145,7 @@ class DosenController extends Controller
     public function uploadfile(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|file|mimes:jpeg,png,pptx,pdf,docx,xlsx'
+            'file' => 'required|file|mimes:docx,xlsx,pptx,jpeg,png,pdf,rar,zip'
         ]);
         $date      = date('ymdhis');
         $file      = $request->file('file');
@@ -154,7 +154,6 @@ class DosenController extends Controller
         $fullName = str_replace(' ', '', $finalName);
         $moveto    = 'public/filemateri';
         $file->move($moveto, $fullName);
-        $dosen     = Dosen::where('user_id', auth()->user()->id)->first();
         $matkul_id = Matkul::find($request->matkul_id);
 
         MateriTugas::create([
@@ -163,18 +162,22 @@ class DosenController extends Controller
             'waktu_tenggat' => $request->waktu,
             'matkul_id' => $request->matkul_id,
             'semester_id' => $matkul_id->semester_id,
-            'dosen_id'  => $dosen->id,
+            'user_id'  => auth()->user()->id,
             'jenis'     => $request->jenis,
             'file'      => $fullName
         ]);
 
-        return redirect()->route('dashboard.dosen')->with('success', 'Berhasil');
+            return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil');
     }
 
     public function posttugas()
     {
-        $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
-        $matkul = DosenMatkul::where('dosen_id', $dosen->id)->get();
+        if (auth()->user()->role == 'dosen') {
+            $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
+            $matkul = DosenMatkul::where('dosen_id', $dosen->id)->get();
+        }elseif (auth()->user()->role == 'admin') {
+            $matkul = Matkul::all();
+        }
         // dd($matkul);
         return view('dosen/post_tugas', compact('dosen', 'matkul'));
     }

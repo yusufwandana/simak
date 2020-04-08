@@ -111,28 +111,41 @@
                 <div class="card-header">
                     <h3>Beranda <a href="/simak/dosen/postgs" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="background-color:#f0f0f0f0;">
                     @foreach ($mt as $data)
-                        <div class="row">
+                        <div class="row shadow" style="padding:20px; border-radius:10px; background-color:#fff;">
                             <div class="col-md-1">
-                                <img src="{{ asset('public/image/profile/' . auth()->user()->avatar) }}" style="width: 60px;" class="rounded-circle">
+                                <img src="{{ asset('public/image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
                             </div>
                             <div class="col-md-10">
-                                <b>{{ $data->dosen->nama }}</b>
+                                <b>{{ $data->user->name }}</b>
                                 <br>
                                 <small><i>Postingan ini berupa {{ $data->jenis }}</i></small><br><br>
                                 <div class="row">
-                                    <div class="col-md">
+                                    <div class="col-md" style="text-align:justify;">
                                         {{ $data->deskripsi }}
                                         <br><br>
-                                        <small><b><i>Tenggat : {{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</i></b></small>
                                     </div>
                                 </div>
+                                <h5><table>
+                                    <tr>
+                                        <td>Mata kuliah</td>
+                                        <td>&nbsp;:&nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{ $data->matkul->matakuliah }} (Semester {{$data->semester->semester}})</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tenggat</td>
+                                        <td>&nbsp;:&nbsp;</td>
+                                        <td>{{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</td>
+                                    </tr>
+                                </table></h5>                                
                                 <div class="row">
-                                    <div class="col-md">
-                                        <div class="card">
+                                    <div class="col-md-10">
+                                        <div class="card" style="border: solid 1px #f0f0ff;">
                                             <div class="card-body">
-                                                <a href="{{asset('public/filemateri/' . $data->file)}}" style="margin:15px;">{{ $data->file }}</a>
+                                                <a href="{{asset('public/filemateri/' . $data->file)}}" target="_blank" style="margin:15px;">
+                                                    <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;{{ $data->file }}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -140,10 +153,8 @@
                             </div>
                         </div>
                         <hr>
-                        <br>
                     @endforeach
                 </div>
-                <hr>
             </div>
         </div>
     </div>

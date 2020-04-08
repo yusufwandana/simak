@@ -29,14 +29,21 @@
                                     <label for="matkul_id">Mata Kuliah</label>
                                     <select class="form-control" name="matkul_id" id="matkul_id" required>
                                         <option value="">Pilih mata kuliah..</option>
-                                        @foreach ($matkul as $m)
-                                            <option value="{{$m->matkul->id}}">{{$m->matkul->matakuliah}}</option>
-                                        @endforeach
+                                        @if (auth()->user()->role == 'dosen')
+                                            @foreach ($matkul as $m)
+                                                <option value="{{$m->matkul->id}}">{{$m->matkul->matakuliah}}</option>
+                                            @endforeach
+                                        @elseif(auth()->user()->role == 'admin')
+                                            @foreach ($matkul as $m)
+                                                <option value="{{$m->id}}">{{$m->matakuliah}}</option>
+                                            @endforeach
+
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="deskripsi">Deskripsi</label>
-                                    <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="5" placeholder="Tambahkan deskripsi..." required></textarea>
+                                    <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="5" placeholder="Tambahkan deskripsi..." required>{{old('deskripsi')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -44,12 +51,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="date" name="tanggal" class="form-control" required>
+                                            <input type="date" name="tanggal" class="form-control" value="{{old('tanggal')}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="time" name="waktu" class="form-control" required>
+                                            <input type="time" name="waktu" class="form-control" value="{{old('waktu')}}" required>
                                         </div>
                                     </div>                            
                                 </div>

@@ -8,7 +8,7 @@ class MateriTugas extends Model
 {
     protected $table = 'materitugas';
     protected $fillable = [
-        'jenis', 'deskripsi', 'file', 'tanggal_tenggat', 'waktu_tenggat', 'semester_id' ,'dosen_id', 'matkul_id', 'created_at', 'updated_at'
+        'jenis', 'deskripsi', 'file', 'tanggal_tenggat', 'waktu_tenggat', 'semester_id' ,'user_id', 'matkul_id', 'created_at', 'updated_at'
     ];
 
     public function matkul()
@@ -16,9 +16,9 @@ class MateriTugas extends Model
         return $this->belongsTo('App\Matkul');
     }
 
-    public function dosen()
+    public function user()
     {
-        return $this->belongsTo('App\Dosen');
+        return $this->belongsTo('App\User');
     }
 
     public function semester()

@@ -226,7 +226,7 @@
                                 <select class="form-control" name="matkul_id" id="matkul_id" required>
                                     <option value="" selected disabled>Pilih matkul</option>
                                     @foreach ($matkul as $m)
-                                        <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
+                                        <option value="{{ $m->id }}">{{ $m->matakuliah }} ({{$m->semester->semester}})</option>
                                     @endforeach
                                 </select>
                             @endif

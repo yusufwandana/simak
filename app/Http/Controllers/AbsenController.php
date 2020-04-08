@@ -3,21 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\RekapAbsenExport;
 use App\Absen;
 use App\Matkul;
 use App\Dosen;
+use App\Jadwal;
 use App\Mahasiswa;
 use App\Semester;
+use App\User;
 
 class AbsenController extends Controller
 {
     public function index()
     {
-        $dosen = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
+        if (auth()->user()->role == 'admin') {
+            $dosen  = Matkul::all();
+            $jadwal = [];
+        }else{
+            $dosen  = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
+            $user   = Dosen::where('user_id', auth()->user()->id)->first();
+            $jadwal = Jadwal::where('dosen_id', $user->id)->latest()->get();
+        }
 
-        return view('absen.index', compact('dosen'));
+        return view('absen.index', compact('dosen', 'jadwal'));
     }
 
     public function daftarMhs(Request $request)
@@ -90,9 +100,14 @@ class AbsenController extends Controller
 
     public function rekapAbsen()
     {
-        $dosen = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
-        $user  = Dosen::where('user_id', auth()->user()->id)->first();
-        return view('absen.rekap', compact('dosen', 'user'));
+        if (auth()->user()->role == 'admin') {
+            $matkul = Matkul::all();
+            $user  = Dosen::where('user_id', 42)->first();
+        }else{
+            $matkul = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
+            $user  = Dosen::where('user_id', auth()->user()->id)->first();
+        }
+        return view('absen/rekap', compact('matkul', 'user'));
     }
 
     public function rekapPost(Request $request)
@@ -215,11 +230,29 @@ class AbsenController extends Controller
         $to = $sampai[2] . ' ' . $bulan . ' ' . $sampai[0];
 
         $matkul = Matkul::find($request->matkul_id);
+        $dosen = Dosen::where('user_id', auth()->user()->id)->first();
         $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
             ->where([
                 'dosen_id'     => $request->dosen_id,
-                'matkul_id'    => $request->matkul_id
-            ])->orderBy('tanggal', 'asc')->get();
+                'matkul_id'    => $request->matkul_id,
+                'dosen_id'     => $dosen->id
+            ])->orderBy('tanggal', 'desc')->get();
+
+        $mahasiswa = Mahasiswa::where('semester_id', $matkul->semester_id)->get();
+        $fix = [];
+        foreach ($mahasiswa as $m) {
+            $cek = Absen::whereBetween('tanggal', [$request->from, $request->to])
+                   ->where(['mahasiswa_id'  =>  $m->id,
+                            'dosen_id'      =>  $request->dosen_id,
+                            'matkul_id'     =>  $request->matkul_id,
+                            'dosen_id'      =>  $dosen->id,
+                            'keterangan'    =>  1 ])->get();
+            $jml = $cek->count();
+            $fix[] = [
+                'mahasiswa_id'  =>  $m->id,
+                'jumlah'        =>  $jml
+            ];
+        }
 
         $data = [
             'matkul_id' => $request->matkul_id,
@@ -230,7 +263,25 @@ class AbsenController extends Controller
             'to' => $to
         ];
 
-        return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'data'));
+        $date = [
+            'from'  =>  $request->from,
+            'to'    =>  $request->to
+        ];
+
+        $encrypted = Crypt::encrypt($date);
+
+        return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'data', 'fix', 'encrypted'));
+    }
+
+    public function absenDetail($encrypted, $mhsid, $dsnid)
+    {
+        $decrypted = Crypt::decrypt($encrypted);
+
+        $dosen = Dosen::find($dsnid);
+        $absen = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
+                    ->where(['mahasiswa_id' => $mhsid,
+                             'dosen_id'     => $dosen->id])->orderBy('id', 'DESC')->paginate(10);
+        return view('absen.rekap-detail', compact('absen'));
     }
 
     public function export_absen($matkulId, $dosenId, $dari, $sampai)

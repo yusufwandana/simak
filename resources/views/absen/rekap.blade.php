@@ -61,11 +61,19 @@
                                     <label for="matkul_id">Mata kuliah</label>
                                     <select name="matkul_id" id="matkul_id" class="form-control mb-3" required>
                                         <option value="" selected disabled>Pilih mata kuliah</option> 
-                                        @foreach ($dosen as $d)
-                                            @foreach ($d->Matkul as $m)                                                
-                                                <option value="{{ $m->id }}">{{ $m->matakuliah }}</option>
+                                        @if (auth()->user()->role == 'admin')
+                                            @foreach ($matkul as $mm)
+                                                <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
                                             @endforeach
-                                        @endforeach
+                                        @elseif(auth()->user()->role == 'dosen')
+                                            @foreach ($matkul as $m)
+                                                @foreach ($m->Matkul as $mm)
+                                                    <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
+                                                @endforeach
+                                            @endforeach
+                                        @else
+                                            @php die(); @endphp
+                                        @endif
                                     </select>
                                 </div> 
                             </div>

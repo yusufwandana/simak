@@ -78,12 +78,20 @@ if ($errors->has('matkul_id')){
                                 <div class="form-group">
                                     <label for="matkul_id">Mata kuliah</label>
                                     <select name="matkul_id" id="matkul_id" class="form-control mb-3" required>
-                                        <option value="" selected disabled>Pilih mata kuliah</option>
-                                        @foreach ($dosen as $m)
-                                            @foreach ($m->Matkul as $mm)
+                                        <option value="" selected disabled>Pilih mata kuliah</option>                                            
+                                        @if (auth()->user()->role == 'admin')
+                                            @foreach ($dosen as $mm)
                                                 <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
                                             @endforeach
-                                        @endforeach
+                                        @elseif(auth()->user()->role == 'dosen')
+                                            @foreach ($dosen as $m)
+                                                @foreach ($m->Matkul as $mm)
+                                                    <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
+                                                @endforeach
+                                            @endforeach
+                                        @else
+                                            @php die(); @endphp
+                                        @endif
                                     </select>
                                 </div> 
                             </div>
@@ -91,7 +99,16 @@ if ($errors->has('matkul_id')){
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal absen</label>
-                                    <input type="date" class="form-control" name="tanggal" id="tanggal">
+                                    @if (auth()->user()->role == 'admin')
+                                        <input type="date" class="form-control" name="tanggal" id="tanggal">
+                                    @else
+                                        <select name="tanggal" id="tanggal" class="form-control">
+                                            <option value="Pilih tanggal absen.." selected disabled>Pilih tanggal absen..</option>
+                                            @foreach ($jadwal as $item)
+                                                <option value="{{$item->tanggal}}">{{$item->tanggal}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
                         </div>
