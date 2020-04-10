@@ -57,13 +57,25 @@
                           <td scope="row">
                             <div class="media align-items-center">
                                 <div class="media-body">
-                                  @if ($item->keterangan == 1)
+                                  @if ($item->status == 1)
                                     <span class="mb-0 text-sm text-green">
-                                          Hadir
+                                        Hadir
                                     </span>
+                                  @elseif($item->status == 2)
+                                  <span class="mb-0 text-sm text-orange">
+                                        Sakit
+                                  </span>
+                                  @elseif($item->status == 3)
+                                  <span class="mb-0 text-sm text-purple">
+                                        Izin
+                                  </span>
+                                  @elseif($item->status == 4)
+                                  <span class="mb-0 text-sm text-primary">
+                                        Kerja
+                                  </span>
                                   @else 
                                     <span class="mb-0 text-sm text-red">
-                                          Tidak Hadir
+                                          Alfa
                                     </span>
                                   @endif
                                 </div>

@@ -123,8 +123,9 @@
                           <div class="col-md-1">
                               <img src="{{ asset('public/image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
                           </div>
-                          <div class="col-md-10">
+                          <div class="col-md-11">
                               <b>{{ $data->user->name }}</b>
+                              <a href="{{route('deletepost', $data->id)}}" class="badge badge-danger float-right" onclick="return confirm('Anda ingin menghapus postingan ini?')"><i class="fa fa-trash text-red"></i></a>
                               <br>
                               <small><i>Postingan ini berupa {{ $data->jenis }}</i></small><br><br>
                               <div class="row">
@@ -146,13 +147,13 @@
                                   </tr>
                               </table></h5>                                
                               <div class="row">
-                                  <div class="col-md-10">
+                                  <div class="col-md-12">
                                       <div class="card" style="border: solid 1px #f0f0ff;">
                                           <div class="card-body">
                                               <a href="{{asset('public/filemateri/' . $data->file)}}" target="_blank" style="margin:15px;">
-                                                  <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;   {{ $data->file }}
+                                                  <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;{{ $data->file }}
                                               </a>
-                                          </div>
+                                            </div>
                                       </div>
                                   </div>
                               </div>

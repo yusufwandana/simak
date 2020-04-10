@@ -15,6 +15,12 @@
               <h5 class="text-white">{{ $message }}</h5>
             </div>
           @endif
+          @if ($errors->all())
+            <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+            </div>
+          @endif
           <h3 class="mb-0 float-left">Daftar Dosen</h3>
           <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
         </div>

@@ -53,7 +53,6 @@
                 </div>  
                 <form action="{{ route('absen.rekapost') }}" method="post">
                     @csrf
-                    <input type="hidden" name="dosen_id" value="{{ $user->id }}">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">

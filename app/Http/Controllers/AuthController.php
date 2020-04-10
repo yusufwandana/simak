@@ -12,13 +12,17 @@ class AuthController extends Controller
 {
     public function login()
     {
-        // User::create([
-        //     'name' => 'Demo Account',
-        //     'email' => 'demo@gmail.com',
-        //     'password' => bcrypt('demo'),
-        //     'avatar' => 'default.png',
-        //     'role' => 'admin'
-        // ]);
+        $user = User::all()->count();
+        if ($user == 0) {
+            User::create([
+                'name' => 'Administrator',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('admin'),
+                'avatar' => 'default.png',
+                'role' => 'admin'
+            ]);
+        }
+
         $a = auth()->user();
         if ($a) {
             return redirect()->back();

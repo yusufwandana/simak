@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::post('absen/daftarmhs', 'AbsenController@daftarmhs')->name('absen.daftarmhs');
     Route::get('absen/rekap', 'AbsenController@rekapAbsen')->name('absen.rekap');
     Route::post('absen/rekap/result', 'AbsenController@rekapPost')->name('absen.rekapost');
-    Route::get('absen/rekap/detail/{encrypted}/{mhsid}/{dsnid}', 'AbsenController@absenDetail')->name('absen.detail');
+    Route::get('absen/rekap/detail/{encrypted}/{mhsid}', 'AbsenController@absenDetail')->name('absen.detail');
 
     //Jadwal
     Route::get('dosen/lihat-jadwal', 'DosenController@lihatJadwal')->name('dosen.jadwal');
@@ -94,13 +94,14 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::post('nilai/update/{id}', 'NilaiController@nilaiUpdate')->name('update.nilai ');
 
     // Posting
+    // Route::get('dosen/postmt', 'DosenController@postmateri')->name('postmateri');
     Route::get('dosen/postgs', 'DosenController@posttugas')->name('posttugas');
-    Route::get('dosen/postmt', 'DosenController@postmateri')->name('postmateri');
+    Route::get('dosen/post/{id}', 'DosenController@deletepost')->name('deletepost');
     Route::post('dosen/uploadfile', 'DosenController@uploadFile')->name('uploadfile');
 
     //Export
     Route::post('nilai/export/{matkulId}/{semesterId}', 'NilaiController@export_nilai');
-    Route::get('absen/rekap/export/{matkulId}/{dosenId}/{dari}/{sampai}', 'AbsenController@export_absen')->name('absen.export');
+    Route::get('absen/rekap/export/{matkulId}/{dari}/{sampai}', 'AbsenController@export_absen')->name('absen.export');
 });
 
 

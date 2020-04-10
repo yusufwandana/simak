@@ -61,11 +61,13 @@
                         </div>
                     </div>                  
                     <table class="table-responsive mt-3">
+                        @if (auth()->user()->role == 'dosen')
                             <tr>
                                 <td>Dosen</td>
                                 <td>:</td>
                                 <td>{{ auth()->user()->name }}</td>
                             </tr>
+                        @endif
                             <tr>
                                 <td>Mata kuliah</td>
                                 <td>:</td>
@@ -86,7 +88,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md">
-                            <a href="/simak/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dosen_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
+                            <a href="/simak/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
                         </div>
                     </div>    
                     <div class="row">
@@ -187,7 +189,7 @@
                                             <td scope="row">
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
-                                                        <a href="/simak/absen/rekap/detail/{{$encrypted}}/{{$x['mahasiswa_id']}}/{{$data['dosen_id']}}"><span class="mb-0 text-sm">{{$x['jumlah']}}</span></a>
+                                                        <a href="/simak/absen/rekap/detail/{{$encrypted}}/{{$x['mahasiswa_id']}}"><span class="mb-0 text-sm">{{$x['jumlah']}}</span></a>
                                                     </div>
                                                 </div>
                                             </td>

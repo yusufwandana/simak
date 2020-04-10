@@ -145,7 +145,7 @@ class DosenController extends Controller
     public function uploadfile(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|file|mimes:docx,xlsx,pptx,jpeg,png,pdf,rar,zip'
+            'file' => 'required|file|mimes:docx,xlsx,pptx,jpeg,png,pdf'
         ]);
         $date      = date('ymdhis');
         $file      = $request->file('file');
@@ -185,5 +185,12 @@ class DosenController extends Controller
     public function postmateri()
     {
         return view('dosen/post_materi');
+    }
+
+    public function deletepost($id)
+    {
+        $data = MateriTugas::find($id)->delete();
+        // dd($data);
+        return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil');
     }
 }
