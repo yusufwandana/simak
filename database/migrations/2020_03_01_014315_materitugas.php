@@ -20,6 +20,7 @@ class Materitugas extends Migration
             $table->string('file');
             $table->date('tanggal_tenggat');
             $table->time('waktu_tenggat');
+            $table->date('tanggal_post');
             $table->integer('semester_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('matkul_id')->unsigned();

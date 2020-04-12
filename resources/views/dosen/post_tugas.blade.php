@@ -21,8 +21,8 @@
                                     <label for="jenis">Jenis Posting</label>
                                     <select name="jenis" id="jenis" class="form-control" required>
                                         <option value="">Pilih jenis postingan..</option>
-                                        <option value="materi">Materi</option>
-                                        <option value="tugas">Tugas</option>
+                                        <option value="Materi">Materi</option>
+                                        <option value="Tugas">Tugas</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

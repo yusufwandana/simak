@@ -110,14 +110,14 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
         $hadir = Absen::where([
             'mahasiswa_id' => $mahasiswa->id,
-            'keterangan' => '1',
+            'status' => 1,
         ])->get();
         $tglhdrs = $hadir;
         $hadir = count($hadir);
 
         $tdkhadir = Absen::where([
-            'mahasiswa_id' => $mahasiswa->id,
-            'keterangan' => '0',
+            ['mahasiswa_id', '=', $mahasiswa->id],
+            ['status', '!=', 1]
         ])->get();
         $tglhdr = $tdkhadir;
         $absen = count($tdkhadir);
@@ -130,14 +130,14 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
         $hadir = Absen::where([
             'mahasiswa_id' => $mahasiswa->id,
-            'keterangan' => '1',
+            'status' => '1',
         ])->get();
         $tglhdr = $hadir;
         $hadir = count($hadir);
 
         $tdkhadir = Absen::where([
-            'mahasiswa_id' => $mahasiswa->id,
-            'keterangan' => '0',
+            ['mahasiswa_id', '=', $mahasiswa->id],
+            ['status', '!=', 1]
         ])->get();
         $absen = count($tdkhadir);
 
@@ -149,13 +149,13 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
         $hadir = Absen::where([
             'mahasiswa_id' => $mahasiswa->id,
-            'keterangan' => '1',
+            'status' => '1',
         ])->get();
         $hadir = count($hadir);
 
         $tdkhadir = Absen::where([
-            'mahasiswa_id' => $mahasiswa->id,
-            'keterangan' => '0',
+            ['mahasiswa_id', '=', $mahasiswa->id],
+            ['status', '!=', 1]
         ])->get();
         $absen = count($tdkhadir);
 
@@ -188,8 +188,8 @@ class MahasiswaController extends Controller
     {
         $data = Matkul::where('semester_id', $id)->orderBy('matakuliah', 'asc')->get();
         return view('mahasiswa.export-krs', compact('data'));
-        // $pdf  = PDF::loadView('mahasiswa.export-krs', compact('data'));
-        // return $pdf->stream('export_krs.pdf');
+        $pdf  = PDF::loadView('mahasiswa.export-krs', compact('data'));
+        return $pdf->stream('export_krs.pdf');
     }
 
     public function Nilai()

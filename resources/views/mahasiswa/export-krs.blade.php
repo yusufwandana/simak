@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md">
                 <table class="table table-bordered">
-                <h3 class="text-center text-red">KRS Mahasiswa Nih babu</h3>
+                <h3 class="text-center text-red">KRS Mahasiswa</h3>
                     <thead>
                         <tr>
                             <th>No</th>
@@ -40,6 +40,18 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4">
+                <h6 class="text-right">Yang bertanda tangan di bawah ini :</h6>
+            </div>
+        </div>
     </div>
+
+    <script>
+        window.print();
+    </script>
 </body>
 </html>

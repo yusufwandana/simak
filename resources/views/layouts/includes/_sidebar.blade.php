@@ -5,8 +5,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <div class="row justify-content-center" style="">
-        <img src="{{ asset('public/template/assets/img/brand/logo.png') }}" class="gambir" alt="..." style="">
+      <div class="row justify-content-center">
+        <img src="{{ asset('public/template/assets/img/brand/dm.png') }}" class="gambir">
         <h3 class="kata">SIMAK APPS</h3>
       </div>
       <!-- User -->
@@ -73,9 +73,9 @@
                   </ul>
               </div>
           </li> --}}
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link " href="/simak/absen"><i class="ni ni-bullet-list-67 text-info"></i>Absen</a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a class=" nav-link " href="/simak/jadwal"><i class="ni ni-calendar-grid-58 text-danger"></i>Atur Jadwal</a>
           </li>

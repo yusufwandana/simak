@@ -51,12 +51,12 @@
           <div class="card bg-secondary shadow border-0 mm mt--3">
             <div class="card-body px-lg-5 py-lg-4">
                   <div class="col-md text-center">
-                    <img src="{{ asset('public/template/assets/img/brand/logo.png') }}" class="mb-4 text-center" width="50%" alt="">
+                    <img src="{{ asset('public/template/assets/img/brand/dm.png') }}" class="mb-4 text-center" width="45%" alt="">
                   </div>
               
               <h2 class="text-center">Form Login</h2>
               <div class="text-center text-muted mb-4">
-                <small>SIMAK APPS 2019</small>
+                {{-- <small>SIMAK APPS @php echo date('Y') @endphp</small> --}}
               </div>
               
               @if ($message = Session::get('failed'))

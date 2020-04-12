@@ -31,7 +31,8 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Tanggal</th>
-                                    <th scope="col">Waktu</th>
+                                    <th scope="col">Mulai</th>
+                                    <th scope="col">Selesai</th>
                                     <th scope="col">Matkul</th>
                                     <th scope="col">Semester</th>
                                     <th scope="col">Ruangan</th>
@@ -60,7 +61,16 @@
                                             <div class="media align-items-center">
                                                 <div class="media-body">
                                                 <span class="mb-0 text-sm">
-                                                    {{ $j->waktu }}
+                                                    {{ $j->mulai }}
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td scope="row">
+                                            <div class="media align-items-center">
+                                                <div class="media-body">
+                                                <span class="mb-0 text-sm">
+                                                    {{ $j->selesai }}
                                                 </span>
                                                 </div>
                                             </div>

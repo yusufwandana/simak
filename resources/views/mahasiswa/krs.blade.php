@@ -41,7 +41,7 @@
                 </div>
                 <hr>
                 <h3 class="mb-3 float-left">Daftar Mata Kuliah</h3>
-                <a id="exp" class="btn btn-sm btn-success float-right text-white">Export KRS</a>
+                <a id="exp" class="btn btn-sm btn-success float-right text-white" target="_blank">Export KRS</a>
                 <br>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush" id="data-table">

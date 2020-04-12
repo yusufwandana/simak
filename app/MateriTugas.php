@@ -8,7 +8,7 @@ class MateriTugas extends Model
 {
     protected $table = 'materitugas';
     protected $fillable = [
-        'jenis', 'deskripsi', 'file', 'tanggal_tenggat', 'waktu_tenggat', 'semester_id' ,'user_id', 'matkul_id', 'created_at', 'updated_at'
+        'jenis', 'deskripsi', 'file', 'tanggal_tenggat', 'waktu_tenggat', 'semester_id' ,'user_id', 'matkul_id', 'tanggal_post', 'created_at', 'updated_at'
     ];
 
     public function matkul()

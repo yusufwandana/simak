@@ -55,10 +55,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="row mx-2">
                     @foreach ($dosen as $m)
                         @foreach ($m->Matkul as $mm)
-                            <div class="col-sm-5 my-4">
+                            <div class="col-sm-4 my-4">
                                 <a href="{{ route('nilai.daftarmhs', [$mm->id, $mm->slug]) }}">
                                     <div class="card shadow bg-gradient-info">
                                         <div class="card-body">

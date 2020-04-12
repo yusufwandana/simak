@@ -45,8 +45,9 @@ class RekapAbsenExport implements FromView, ShouldAutoSize
                     'dosen_id'  => $dosen->id,
                     'matkul_id' => $matkul->id
                 ])->orderBy('tanggal', 'asc')->get();
+            $mahasiswa = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->id)->get();
 
         }
-        return view('absen.absen-rekap-export', compact('matkul', 'absen', 'dari', 'sampai'));
+        return view('absen.absen-rekap-export', compact('matkul', 'absen', 'dari', 'sampai', 'mahasiswa'));
     }
 }

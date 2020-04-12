@@ -273,11 +273,6 @@ class AbsenController extends Controller
                 'to' => $to
             ];
 
-            $date = [
-                'from'  =>  $request->from,
-                'to'    =>  $request->to
-            ];
-
         }elseif (auth()->user()->role == 'dosen') {
             $matkul = Matkul::find($request->matkul_id);
             $dosen = Dosen::where('user_id', auth()->user()->id)->first();
@@ -312,12 +307,12 @@ class AbsenController extends Controller
                 'to' => $to
             ];
 
-            $date = [
-                'from'  =>  $request->from,
-                'to'    =>  $request->to
-            ];
-
         }
+        
+        $date = [
+            'from'  =>  $request->from,
+            'to'    =>  $request->to
+        ];
         
         $encrypted = Crypt::encrypt($date);
 
@@ -336,7 +331,14 @@ class AbsenController extends Controller
                         ->where(['mahasiswa_id' => $mhsid,
                                  'dosen_id'     => $dosen->id])->orderBy('id', 'DESC')->paginate(10);
         }
-        return view('absen.rekap-detail', compact('absen'));
+
+        $mahasiswa  = Mahasiswa::find($mhsid);
+        $hadir      = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
+                    ->where(['mahasiswa_id' => $mhsid,
+                             'dosen_id'     => $dosen->id,
+                             'status'       => 1])->orderBy('id', 'DESC')->count();
+
+        return view('absen.rekap-detail', compact('absen', 'mahasiswa', 'hadir'));
     }
 
     public function export_absen($matkulId, $dari, $sampai)

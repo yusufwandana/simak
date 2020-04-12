@@ -9,6 +9,7 @@ use App\Matkul;
 use App\Jadwal;
 use App\DosenMatkul;
 use App\MateriTugas;
+use File;
 
 class DosenController extends Controller
 {
@@ -145,12 +146,11 @@ class DosenController extends Controller
     public function uploadfile(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|file|mimes:docx,xlsx,pptx,jpeg,png,pdf'
+            'file' => 'required|file'
         ]);
         $date      = date('ymdhis');
         $file      = $request->file('file');
-        $fileName  = $file->getClientOriginalName();
-        $finalName  = $date . '_' . $fileName;
+        $finalName  = $date . uniqid() . '.' . $file->getClientOriginalExtension();
         $fullName = str_replace(' ', '', $finalName);
         $moveto    = 'public/filemateri';
         $file->move($moveto, $fullName);
@@ -164,7 +164,8 @@ class DosenController extends Controller
             'semester_id' => $matkul_id->semester_id,
             'user_id'  => auth()->user()->id,
             'jenis'     => $request->jenis,
-            'file'      => $fullName
+            'file'      => $fullName,
+            'tanggal_post' => date('Y-m-d')
         ]);
 
             return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil');
@@ -182,15 +183,11 @@ class DosenController extends Controller
         return view('dosen/post_tugas', compact('dosen', 'matkul'));
     }
 
-    public function postmateri()
-    {
-        return view('dosen/post_materi');
-    }
-
     public function deletepost($id)
     {
-        $data = MateriTugas::find($id)->delete();
-        // dd($data);
+        $data = MateriTugas::find($id);
+        File::delete('public/filemateri/' . $data->file);
+        $data->delete();
         return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil');
     }
 }

@@ -10,7 +10,33 @@
         <div class="col">
             <div class="card shadow">
               <div class="card-header border-0">
-                <h3 class="mb-0">Detail Kehadiran</h3>
+                <div class="row">
+                  <div class="col-md">
+                    <h3 class="mb-0">Detail Kehadiran</h3>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md">
+                    <table>
+                      <tr>
+                        <td>Nama Mahasiswa</td>
+                        <td>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</td>
+                        <td>{{$mahasiswa->nama}}</td>
+                      </tr>
+                      <tr>
+                        <td>Semester</td>
+                        <td>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</td>
+                        <td>Semester {{$mahasiswa->semester->semester}}</td>
+                      </tr>
+                      <tr>
+                        <td>Jumlah masuk</td>
+                        <td>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</td>
+                        <td>{{$hadir}} dari 14</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
               </div>
               <div class="table-responsive">
                 <table class="table align-items-center table-flush">

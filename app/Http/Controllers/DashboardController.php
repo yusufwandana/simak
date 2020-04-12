@@ -28,7 +28,8 @@ class DashboardController extends Controller
     public function dosen()
     {
         $mt = MateriTugas::orderBy('id', 'DESC')->get();
-        return view('dashboard.dosen', compact('mt'));
+        $dosen = Dosen::where('user_id', auth()->user()->id)->first();
+        return view('dashboard.dosen', compact('mt', 'dosen'));
     }
 
     public function mahasiswa()
@@ -40,19 +41,16 @@ class DashboardController extends Controller
 
     public function jadwalMahasiswa()
     {
+        date_default_timezone_set("Asia/Jakarta");
         $date = date('Y-m-d');
         $time = date('H:i:s');
-        // dd($date);
-        // $b = explode('-', $a);
-        // $c = (int)$b[2];
-        // $plus = $c +
-        $id = auth()->user()->id;
-        $mahasiswa = Mahasiswa::where('user_id', $id)->first();
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
         $jadwals   = Jadwal::where([
             ['semester_id', "=",  $mahasiswa->semester->id],
             ['tanggal',     ">=", $date],
-            ['selesai',     "<",  $time]
+            ['selesai',     ">",  $time]
             ])->orderBy('tanggal', 'ASC')->paginate(10);
+            // dd($time);
 
         return view('mahasiswa.jadwal', compact('jadwals'));
     }

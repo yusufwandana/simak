@@ -111,16 +111,24 @@
                 <div class="card-header">
                     <h3>Beranda <a href="/simak/dosen/postgs" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
                 </div>
-                <div class="card-body" style="background-color:#f0f0f0f0;">
+                <div class="card-body">
                     @foreach ($mt as $data)
-                        <div class="row shadow" style="padding:20px; border-radius:10px; background-color:#fff;">
+                        <div class="row shadow" style="padding:20px; border-radius:10px;">
                             <div class="col-md-1">
                                 <img src="{{ asset('public/image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
                             </div>
-                            <div class="col-md-10">
-                                <b>{{ $data->user->name }}</b>
+                            <div class="col-md-11">
+                                <b>{{ $data->user->name }}</b>@if ($data->user->role == 'admin') <i class="fas fa-check-circle mx-1"></i> @endif
+                                @if (auth()->user()->id == $data->user_id)
+                                    <a href="{{route('deletepost', $data->id)}}" class="badge badge-danger float-right" onclick="return confirm('Anda ingin menghapus postingan ini?')"><i class="fa fa-trash text-red"></i></a>
+                                @endif
                                 <br>
-                                <small><i>Postingan ini berupa {{ $data->jenis }}</i></small><br><br>
+                                <small><i>
+                                    Diposting pada
+                                    @php
+                                        echo date("d F Y", strtotime($data->tanggal_post));
+                                    @endphp
+                                </i></small><br><br>
                                 <div class="row">
                                     <div class="col-md" style="text-align:justify;">
                                         {{ $data->deskripsi }}
@@ -128,6 +136,11 @@
                                     </div>
                                 </div>
                                 <h5><table>
+                                    <tr>
+                                        <td>Jenis postingan</td>
+                                        <td>&nbsp;:&nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{ $data->jenis }}</td>
+                                    </tr>
                                     <tr>
                                         <td>Mata kuliah</td>
                                         <td>&nbsp;:&nbsp;&nbsp;&nbsp;</td>
