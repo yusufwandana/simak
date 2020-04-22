@@ -18,13 +18,6 @@ class NilaiController extends Controller
     public function index()
     {
         $dosen = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
-        // foreach ($dosen as $d) {
-        //     foreach ($d->Matkul as $value) {
-        //         foreach ($value->Semester as $v) {
-
-        //          }
-        //     }
-        // }
 
         return view('nilai.index', compact('dosen'));
     }
@@ -108,6 +101,32 @@ class NilaiController extends Controller
 
     public function export_nilai(Request $request, $matkulId, $semesterId)
     {
-        return Excel::download(new NilaiExport($request->jenis, $matkulId, $semesterId), 'export_nilai' . '_' . $request->jenis . '.xlsx');
+        $matkul = Matkul::find($matkulId);
+        $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
+        $nama = $dosen->nama . ' | ' . 'Nilai ' . $matkul->matakuliah . ' (Semester ' . $matkul->semester->semester . ')';
+        
+        return Excel::download(new NilaiExport($matkulId, $semesterId), $nama . '.xlsx');
+    }
+
+    public function adminNilaiIndex()
+    {
+        $data = Semester::orderBy('semester', 'ASC')->get();
+        return view('nilai.admin-index', compact('data'));
+    }
+
+    public function adminNilai($id)
+    {
+        $data = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $id)->paginate(20);
+        if($data->count() == 0){
+            return redirect()->back()->with('error', 'Tidak ada mahasiswa di semester tersebut!');
+        }
+        return view('nilai.admin', compact('data'));
+    }
+
+    public function adminNilaiDetail($id)
+    {
+        $mahasiswa = Mahasiswa::find($id);
+        $data = Nilai::where('mahasiswa_id', $id)->get();
+        return view('nilai.detail', compact('mahasiswa','data'));
     }
 }

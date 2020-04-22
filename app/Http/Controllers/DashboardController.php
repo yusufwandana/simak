@@ -47,8 +47,7 @@ class DashboardController extends Controller
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
         $jadwals   = Jadwal::where([
             ['semester_id', "=",  $mahasiswa->semester->id],
-            ['tanggal',     ">=", $date],
-            ['selesai',     ">",  $time]
+            ['tanggal',     ">=", $date]
             ])->orderBy('tanggal', 'ASC')->paginate(10);
             // dd($time);
 

@@ -102,13 +102,10 @@ class AuthController extends Controller
             $request->file('gambar')->move('public/image/profile/',  $new_name);;
             if ($old_pict == 'default.png') {
                 //do nothing
-
             } else {
                 unlink(public_path('\image\profile\\' . $old_pict));
             }
         }
-
-        // dd($new_name);
 
         User::where('id', $id)->update([
             'avatar' => $new_name

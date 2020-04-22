@@ -74,7 +74,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md">
-                            <a href="" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#exampleModal" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT NILAI</a>
+                            <form action="/simak/nilai/export/{{$matkul->id}}/{{$semester->id}}" method="post">
+                                @csrf
+                                <button class="btn btn-success btn-sm mb-3" title="Export"><i class="fas fa-file-export"></i> EXPORT NILAI</button>
+                            </form>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -174,7 +177,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="/simak/nilai/export/{{$matkul->id}}/{{$semester->id}}" method="post">
             @csrf
@@ -201,7 +204,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
 <form id="tambahForm" name="tambahForm" class="form-horizontal">
     <div class="modal fade" id="ajax-crud-modal" aria-hidden="true">
@@ -221,9 +224,10 @@
                         <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
                         <label for="jenis">Jenis nilai</label>
                         <select class="form-control" name="jenis" id="jenis" required>
-                            <option value="" selected disabled>Pilih jenis nilai</option>
+                            <option value="" selected disabled>Pilih jenis nilai..</option>
+                            <option value="Tugas">Tugas</option>
                             <option value="UTS">UTS</option>
-                            <option value="UKK">UKK</option>
+                            <option value="UAS">UAS</option>
                         </select>
                     </div>
                     <div class="form-group">

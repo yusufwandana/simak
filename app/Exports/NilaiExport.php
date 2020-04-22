@@ -3,6 +3,8 @@
 namespace App\Exports;
 
 use App\ExportNilai;
+use App\Mahasiswa;
+use App\Nilai;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -16,19 +18,15 @@ class NilaiExport implements FromView, ShouldAutoSize
 {
     use Exportable;
 
-    public function __construct($jenis, $matkulId, $semesterId)
+    public function __construct($matkulId, $semesterId)
     {
-        $this->jenis = $jenis;
         $this->matkulId = $matkulId;
         $this->semesterId = $semesterId;
     }
     public function view(): View
     {
-        $x = ExportNilai::where([
-            'jenis_nilai' => $this->jenis,
-            'matkul_id' => $this->matkulId,
-            'semester_id' => $this->semesterId
-        ])->get();
-        return view('nilai.exportnilaiuts', compact('x'));
+        $x = Mahasiswa::orderBy('nim')->where('semester_id', $this->semesterId)->with('Nilai')->get();
+        $mid = $this->matkulId;
+        return view('nilai.exportnilai', compact('x', 'mid'));
     }
 }

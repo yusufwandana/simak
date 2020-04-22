@@ -187,7 +187,8 @@ class MahasiswaController extends Controller
     public function exportpdf($id)
     {
         $data = Matkul::where('semester_id', $id)->orderBy('matakuliah', 'asc')->get();
-        return view('mahasiswa.export-krs', compact('data'));
+        $mhs  = Mahasiswa::where('user_id', auth()->user()->id)->first();
+        return view('mahasiswa.export-krs', compact('data', 'mhs'));
         $pdf  = PDF::loadView('mahasiswa.export-krs', compact('data'));
         return $pdf->stream('export_krs.pdf');
     }

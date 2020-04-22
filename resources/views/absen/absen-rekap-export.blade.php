@@ -22,13 +22,16 @@
             <th scope="col" rowspan="2" style="text-align:center;">No</th>
             <th scope="col" rowspan="2" style="text-align:center;">NIM</th>
             <th scope="col" rowspan="2" style="text-align:center;">Nama</th>
-            <th scope="col" colspan="{{$absen->unique('tanggal')->count()}}">Tanggal</th>
+            <th scope="col" colspan="{{$absen->unique('tanggal')->count()}}" style="text-align:center;">Tanggal</th>
         </tr>
         <tr>
             @foreach ($absen->unique('tanggal') as $a)
                 @php
                     $x = explode('-', $a->tanggal);
-                    
+                    $b = [];
+                    $b[] = [
+                        'tgl'   => $a->tanggal
+                    ];
                 @endphp
                     <th>{{$x[2]}}</th>
             @endforeach
@@ -42,11 +45,14 @@
                 <th scope="col">{{$item->nim}}</th>
                 <th scope="col">{{$item->nama}}</th>
                 @foreach ($item->absen as $z)
-                    @php $j = 0 @endphp
-                    @if ($z->status == 1)
+                    @php $j = 0; @endphp
+                    
+                    @if ($z->status == 1 && $z->dosen->user_id == auth()->user()->id && $z->tanggal >= $dari && $z->tanggal <= $sampai)
                         <th scope="col">1</th>
-                    @else
+                    @elseif($z->status != 1 && $z->dosen->user_id == auth()->user()->id && $z->tanggal >= $dari && $z->tanggal <= $sampai)
                         <th scope="col">0</th>
+                    @else
+                        
                     @endif
                 @endforeach
             </tr>

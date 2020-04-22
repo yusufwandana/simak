@@ -117,7 +117,6 @@ class AbsenController extends Controller
     {
         if (auth()->user()->role == 'admin') {
             $matkul = Matkul::all();
-            $user = 0;
         }else{
             $matkul = Dosen::where('user_id', auth()->user()->id)->with('Matkul.Semester')->get();
             $user  = Dosen::where('user_id', auth()->user()->id)->first();
@@ -185,7 +184,6 @@ class AbsenController extends Controller
 
         $from = $dari[2] . ' ' . $month . ' ' . $dari[0];
 
-
         //SAMPAI
         $sampai = explode('-', $request->to);
         $bulan = $sampai[1];
@@ -243,8 +241,9 @@ class AbsenController extends Controller
         }
 
         $to = $sampai[2] . ' ' . $bulan . ' ' . $sampai[0];
+        $matkul = Matkul::find($request->matkul_id);
+
         if (auth()->user()->role == 'admin') {
-            $matkul = Matkul::find($request->matkul_id);
             $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
                 ->where([
                     'matkul_id'    => $request->matkul_id
@@ -274,16 +273,14 @@ class AbsenController extends Controller
             ];
 
         }elseif (auth()->user()->role == 'dosen') {
-            $matkul = Matkul::find($request->matkul_id);
             $dosen = Dosen::where('user_id', auth()->user()->id)->first();
             $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
                 ->where([
                     'matkul_id'    => $request->matkul_id,
                     'dosen_id'     => $dosen->id
-                ])->orderBy('tanggal', 'desc')->get();
-                
+                ])->orderBy('tanggal', 'desc')->get();                
 
-            $mahasiswa = Mahasiswa::where('semester_id', $matkul->semester_id)->get();
+            $mahasiswa = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->semester_id)->with('Absen')->get();
             $fix = [];
             foreach ($mahasiswa as $m) {
                 $cek = Absen::whereBetween('tanggal', [$request->from, $request->to])
@@ -319,26 +316,40 @@ class AbsenController extends Controller
         return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'data', 'fix', 'encrypted'));
     }
 
-    public function absenDetail($encrypted, $mhsid)
+    public function absenDetail($encrypted, $mhsid, $mkid)
     {
         $decrypted = Crypt::decrypt($encrypted);
+        $matkul = Matkul::find($mkid);
+        
         if (auth()->user()->role == 'admin') {
             $absen = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
-                    ->where('mahasiswa_id', $mhsid)->orderBy('id', 'DESC')->paginate(10);
-        }else {
+                    ->where(['mahasiswa_id' => $mhsid,
+                             'matkul_id'    => $mkid])->orderBy('id', 'DESC')->paginate(10);
+
+            $hadir = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
+            ->where(['mahasiswa_id' => $mhsid,
+                     'matkul_id'    => $mkid,
+                     'status'       => 1])->orderBy('id', 'DESC')->count();
+
+        }elseif(auth()->user()->role == 'dosen') {
             $dosen = Dosen::where('user_id', auth()->user()->id)->first();
             $absen = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
                         ->where(['mahasiswa_id' => $mhsid,
-                                 'dosen_id'     => $dosen->id])->orderBy('id', 'DESC')->paginate(10);
+                                 'dosen_id'     => $dosen->id,
+                                 'matkul_id'    => $mkid])->orderBy('id', 'DESC')->paginate(10);
+
+            $hadir = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
+                            ->where(['mahasiswa_id' => $mhsid,
+                                     'dosen_id'     => $dosen->id,
+                                     'matkul_id'    => $mkid,
+                                     'status'       => 1])->orderBy('id', 'DESC')->count();
+        }else{
+            return redirect()->back();
         }
 
         $mahasiswa  = Mahasiswa::find($mhsid);
-        $hadir      = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
-                    ->where(['mahasiswa_id' => $mhsid,
-                             'dosen_id'     => $dosen->id,
-                             'status'       => 1])->orderBy('id', 'DESC')->count();
 
-        return view('absen.rekap-detail', compact('absen', 'mahasiswa', 'hadir'));
+        return view('absen.rekap-detail', compact('absen', 'mahasiswa', 'hadir', 'matkul'));
     }
 
     public function export_absen($matkulId, $dari, $sampai)

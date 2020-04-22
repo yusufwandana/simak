@@ -45,7 +45,7 @@
                       <th scope="col">No</th>
                       <th scope="col">Tanggal</th>
                       <th scope="col">Matkul</th>
-                      {{-- <th scope="col">Dosen</th> --}}
+                      @if (auth()->user()->role == 'admin') <th scope="col">Dosen</th> @endif
                       <th scope="col">Keterangan</th>
                     </tr>
                   </thead>
@@ -71,15 +71,19 @@
                                 </div>
                             </div>
                           </td>
-                          {{-- <td scope="row">
-                            <div class="media align-items-center">
-                                <div class="media-body">
-                                    <span class="mb-0 text-sm">
-                                        {{$item->dosen->nama}}
-                                    </span>
-                                </div>
-                            </div>
-                          </td> --}}
+                          @if (auth()->user()->role == 'admin')
+                          <td scope="row">
+                              <div class="media align-items-center">
+                                  <div class="media-body">
+                                      <span class="mb-0 text-sm">
+                                          {{$item->dosen->nama}}
+                                      </span>
+                                  </div>
+                              </div>
+                            </td>
+                            @else
+                                
+                            @endif
                           <td scope="row">
                             <div class="media align-items-center">
                                 <div class="media-body">
@@ -113,7 +117,7 @@
                 </table>
               </div>
               <div class="card-footer py-4">
-
+                  {{$absen->links()}}
               </div>
             </div>
           </div>

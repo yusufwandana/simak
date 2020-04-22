@@ -92,7 +92,10 @@
             <a href="/simak/matkul" class="nav-link"><i class="ni ni-books text-success"></i> Mata Kuliah</a>
           </li>
           <li class="nav-item">
-            <a class=" nav-link " href="{{ route('absen.rekap') }}"><i class="ni ni-chart-bar-32 text-yellow"></i>Rekap Absen</a>
+            <a class=" nav-link " href="{{ route('absen.rekap') }}"><i class="ni ni-chart-bar-32 text-default"></i>Rekap Absen</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.awal')}}" class="nav-link"><i class="ni ni-planet text-info"></i> Nilai</a>
           </li>
           <li class="nav-item">
             <a href="/simak/ruangan" class="nav-link"><i class="ni ni-building text-yellow"></i> Ruangan</a>
@@ -160,6 +163,11 @@
           <li class="nav-item">
             <a class=" nav-link " href="/simak/kehadiran/{{ auth()->user()->role }}">
               <i class="ni ni-circle-08 text-warning"></i> Kehadiran
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class=" nav-link " href="/simak/khs/{{ auth()->user()->role }}">
+              <i class="ni ni-hat-3 text-yellow"></i> KHS
             </a>
           </li>
           <li class="nav-item">

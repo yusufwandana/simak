@@ -39,7 +39,7 @@ class RekapAbsenExport implements FromView, ShouldAutoSize
 
         }elseif (auth()->user()->role == 'dosen') {
 
-            $dosen     = Dosen::where('user_id', auth()->user()->id)->first();
+            $dosen = Dosen::where('user_id', auth()->user()->id)->first();
             $absen = Absen::whereBetween('tanggal', [$this->dari, $this->sampai])
                 ->where([
                     'dosen_id'  => $dosen->id,
@@ -48,6 +48,6 @@ class RekapAbsenExport implements FromView, ShouldAutoSize
             $mahasiswa = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->id)->get();
 
         }
-        return view('absen.absen-rekap-export', compact('matkul', 'absen', 'dari', 'sampai', 'mahasiswa'));
+        return view('absen.absen-rekap-export', compact('matkul', 'absen', 'dari', 'sampai', 'mahasiswa', 'dosen'));
     }
 }

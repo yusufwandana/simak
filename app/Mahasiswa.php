@@ -29,4 +29,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany('App\Nilai');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -67,6 +67,11 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
     //Posting
     Route::get('admin/posting', 'DosenController@posttugas');
+
+    //Nilai admin
+    Route::get('admin/nilai/index', 'NilaiController@adminNilaiIndex')->name('admin.awal');
+    Route::get('admin/nilai/{id}', 'NilaiController@adminNilai')->name('admin.nilai');
+    Route::get('admin/nilai/detail/{id}', 'NilaiController@adminNilaiDetail')->name('nilai.detail');
 });
 
 
@@ -79,7 +84,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::post('absen/daftarmhs', 'AbsenController@daftarmhs')->name('absen.daftarmhs');
     Route::get('absen/rekap', 'AbsenController@rekapAbsen')->name('absen.rekap');
     Route::post('absen/rekap/result', 'AbsenController@rekapPost')->name('absen.rekapost');
-    Route::get('absen/rekap/detail/{encrypted}/{mhsid}', 'AbsenController@absenDetail')->name('absen.detail');
+    Route::get('absen/rekap/detail/{encrypted}/{mhsid}/{mkid}', 'AbsenController@absenDetail')->name('absen.detail');
 
     //Jadwal
     Route::get('dosen/lihat-jadwal', 'DosenController@lihatJadwal')->name('dosen.jadwal');

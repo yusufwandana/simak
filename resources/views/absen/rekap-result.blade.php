@@ -88,52 +88,28 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md">
-                            <a href="/simak/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
+                            @if (auth()->user()->role == 'dosen')
+                                <a href="/simak/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
+                            @else
+                            
+                            @endif
                         </div>
                     </div>    
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md">
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush" id="data-table">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">NIM</th>
-                                            <th scope="col">Nama</th>                                       
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Jumlah hadir</th>                                       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php $no = 1; @endphp
-                                        @foreach($absen->unique('mahasiswa_id') as $a)
-                                        <tr>
-                                            <td scope="row">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <span class="mb-0 text-sm">{{ $no++ }}</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td scope="row">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <span class="mb-0 text-sm">
-                                                        {{ $a->mahasiswa->nim }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td scope="row">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <span class="mb-0 text-sm">
-                                                        {{ $a->mahasiswa->nama }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        {{-- @foreach($mahasiswa->unique('mahasiswa_id') as $mhs)
+                                        @foreach($mahasiswa as $mhs)
                                         <tr>
                                             <td scope="row">
                                                 <div class="media align-items-center">
@@ -163,33 +139,21 @@
                                             <td scope="row">
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
-                                                        <span class="mb-0 text-sm">
-                                                            <a href="/simak/absen/rekap/detail/{{$mhs->id}}" id="detail">{{$mhs->id}}</a>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach --}}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="table-responsive">
-                                <table class="table align-items-center table-flush" id="data-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Jumlah hadir</th>                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($fix as $x)
-                                        <tr>
-                                            <td scope="row">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <a href="/simak/absen/rekap/detail/{{$encrypted}}/{{$x['mahasiswa_id']}}"><span class="mb-0 text-sm">{{$x['jumlah']}}</span></a>
+                                                        @php $jumlah = 0; @endphp
+                                                        @if (auth()->user()->role == 'admin')
+                                                            @foreach ($mhs->absen as $item)
+                                                                @if ($item->status == 1 && $item->matkul_id == $matkul->id && $item->tanggal >= $data['dari'] && $item->tanggal <= $data['sampai'])
+                                                                    @php $jumlah++;@endphp
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif(auth()->user()->role == 'dosen')
+                                                        @foreach ($mhs->absen as $item)
+                                                            @if ($item->status == 1 && $item->dosen->user_id == auth()->user()->id && $item->tanggal >= $data['dari'] && $item->tanggal <= $data['sampai'])
+                                                                @php $jumlah++;@endphp
+                                                            @endif
+                                                        @endforeach
+                                                        @endif
+                                                        <a href="/simak/absen/rekap/detail/{{$encrypted}}/{{$mhs->id}}/{{$matkul->id}}"><span class="mb-0 text-sm">{{$jumlah}}</span></a>
                                                     </div>
                                                 </div>
                                             </td>
