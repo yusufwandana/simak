@@ -40,29 +40,38 @@ class MahasiswaController extends Controller
             'alamat' => 'required'
         ]);
 
-        $user = new \App\User;
-        $user->name = ucwords($request->nama);
-        $user->email = strtolower($request->email);
-        $user->password = bcrypt($request->nim);
-        $user->avatar = 'default.png';
-        $user->role = 'mahasiswa';
-        $user->remember_token = str_random(60);
+        $mahasiswa = Mahasiswa::where('nim', $request->nim)->first();
+        $exist     = User::where('email', $request->email)->first();
 
-        $user->save();
-        $id = $user->id;
-
-        Mahasiswa::create([
-            'tahun_masuk' => $request->tahun_masuk,
-            'nim' => $request->nim,
-            'nama' => ucwords($request->nama),
-            'jk' => $request->jk,
-            'alamat' => ucwords($request->alamat),
-            'semester_id' => $request->semester,
-            'jurusan_id' => $request->jurusan,
-            'user_id' => $id
-        ]);
+        if ($exist) {
+            return redirect()->back()->with('failed', 'Email Anda telah terdaftar sebelumnya!');
+        }elseif($mahasiswa){
+            return redirect()->back()->with('failed', 'NIM sudah ada!');
+        }else{
+            $user = new \App\User;
+            $user->name = ucwords($request->nama);
+            $user->email = strtolower($request->email);
+            $user->password = bcrypt($request->nim);
+            $user->avatar = 'default.png';
+            $user->role = 'mahasiswa';
+            $user->remember_token = str_random(60);
+    
+            $user->save();
+            $id = $user->id;
+            Mahasiswa::create([
+                'tahun_masuk' => $request->tahun_masuk,
+                'nim' => $request->nim,
+                'nama' => ucwords($request->nama),
+                'jk' => $request->jk,
+                'alamat' => ucwords($request->alamat),
+                'semester_id' => $request->semester,
+                'jurusan_id' => $request->jurusan,
+                'user_id' => $id
+            ]);
+        }
 
         return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan!');
+
     }
 
     public function show($id)
@@ -200,5 +209,85 @@ class MahasiswaController extends Controller
 
         $nilai = Nilai::where('mahasiswa_id', $mahasiswa->id)->get();
         return view('mahasiswa.nilai', ['nilai' => $nilai, 'mahasiswa' => $mahasiswa]);
+    }
+
+    public function khsMahasiswa()
+    {
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->with('Nilai.Matkul')->first();
+        $matkul = Matkul::orderBy('id', 'asc')->where('semester_id', $mahasiswa->semester_id)->with(['Absen','Nilai'])->get();
+        $jumlah_absen=0; $tugas=0; $uts=0; $uas=0;
+
+        foreach ($matkul as $m) {
+            $jumlah_absen=0; $tugas=0; $uts=0; $uas=0;
+            foreach ($m->absen as $absen) {
+                if ($absen->mahasiswa_id == $mahasiswa->id && $absen->status == 1) {
+                    $jumlah_absen = $jumlah_absen + 1;
+                }
+            }
+
+            $n = Nilai::orderBy('matkul_id', 'ASC')->where(['matkul_id'    => $m->id,
+                               'mahasiswa_id' => $mahasiswa->id])->get();
+            foreach ($n as $val) {
+                if ($val->jenis_nilai == 'Tugas') {
+                    $tugas = ($val->nilai*20)/100;
+                }elseif($val->jenis_nilai == 'UTS'){
+                    $uts = ($val->nilai*30)/100;
+                }elseif($val->jenis_nilai == 'UAS'){
+                    $uas = ($val->nilai*40)/100;
+                }
+                $jumlah = ($jumlah_absen*10)/100;
+                $na = $jumlah+$tugas+$uts+$uas;
+            }
+
+            $nilai[] = [
+                'matkul' => $m->matakuliah,
+                'nilai'  => $na
+            ];
+
+            $na = 0;
+            
+        }
+
+        return view('mahasiswa.khs', compact('mahasiswa', 'matkul', 'nilai'));
+    }
+
+    public function printKhs()
+    {
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->with('Nilai.Matkul')->first();
+        $matkul = Matkul::orderBy('id', 'asc')->where('semester_id', $mahasiswa->semester_id)->with(['Absen','Nilai'])->get();
+        $jumlah_absen=0; $tugas=0; $uts=0; $uas=0;
+
+        foreach ($matkul as $m) {
+            $jumlah_absen=0; $tugas=0; $uts=0; $uas=0;
+            foreach ($m->absen as $absen) {
+                if ($absen->mahasiswa_id == $mahasiswa->id && $absen->status == 1) {
+                    $jumlah_absen = $jumlah_absen + 1;
+                }
+            }
+
+            $n = Nilai::orderBy('matkul_id', 'ASC')->where(['matkul_id'    => $m->id,
+                               'mahasiswa_id' => $mahasiswa->id])->get();
+            foreach ($n as $val) {
+                if ($val->jenis_nilai == 'Tugas') {
+                    $tugas = ($val->nilai*20)/100;
+                }elseif($val->jenis_nilai == 'UTS'){
+                    $uts = ($val->nilai*30)/100;
+                }elseif($val->jenis_nilai == 'UAS'){
+                    $uas = ($val->nilai*40)/100;
+                }
+                $jumlah = ($jumlah_absen*10)/100;
+                $na = $jumlah+$tugas+$uts+$uas;
+            }
+
+            $nilai[] = [
+                'matkul' => $m->matakuliah,
+                'nilai'  => $na
+            ];
+
+            $na = 0;
+            
+        }
+
+        return view('mahasiswa.print-khs', compact('mahasiswa', 'matkul', 'nilai'));   
     }
 }

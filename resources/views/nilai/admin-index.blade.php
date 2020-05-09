@@ -62,13 +62,14 @@
                     </div>
                 </div>
                 <div class="row mx-2">
-                    @foreach ($data as $semester)
+                    @foreach ($data as $matkul)
                         <div class="col-sm-4 my-4">
-                            <a href="{{route('admin.nilai', $semester->id)}}">
+                            <a href="{{route('admin.nilai', $matkul->semester_id)}}">
                                 <div class="card shadow bg-gradient-info">
                                     <div class="card-body">
-                                        <h3 class="text-white">Semester {{$semester->semester}}</h3>
-                                        <h5 class="text-white">Tampilkan siswa semester ini..</h5>
+                                        <h3 class="text-white">{{$matkul->matakuliah}}</h3>
+                                        <h4 class="text-white">Semester {{$matkul->semester->semester}}</h4>
+                                        <h5 class="text-white">Tampilkan siswa matkul ini..</h5>
                                     </div>
                                 </div>
                             </a>

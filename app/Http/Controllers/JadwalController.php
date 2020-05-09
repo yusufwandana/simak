@@ -18,7 +18,7 @@ class JadwalController extends Controller
 {
     public function index()
     {
-        $jadwals  = Jadwal::latest()->paginate(20);
+        $jadwals  = Jadwal::latest()->paginate(10);
         $ruangans = Ruangan::all();
         $semesters = Semester::all();
 
@@ -119,7 +119,7 @@ class JadwalController extends Controller
             'ruangan'   => $ruangan
         ];
 
-        // Mail::to($email)->send(new JadwalEmail($data));
+        Mail::to($email)->send(new JadwalEmail($data));
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal telah berhasil diatur!');
     }

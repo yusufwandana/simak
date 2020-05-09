@@ -120,4 +120,6 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () 
     Route::get('nilai/mahasiswa', 'MahasiswaController@Nilai');
     Route::get('jadwal/mahasiswa', 'DashboardController@jadwalMahasiswa')->name('mahasiswa.jadwal');
     Route::get('krsmatkul/{id}', 'MahasiswaController@krsmatkul')->name('krs.matkul');
+    Route::get('khs/mahasiswa', 'MahasiswaController@khsMahasiswa')->name('khs');
+    Route::get('khs/mahasiswa/print', 'MahasiswaController@printKhs')->name('khs.print');
 });

@@ -19,7 +19,8 @@ class JadwalEmail extends Mailable
     public function __construct($data)
     {
         $this->nama     = $data['nama'];
-        $this->waktu    = $data['waktu'];
+        $this->mulai    = $data['mulai'];
+        $this->selesai    = $data['selesai'];
         $this->event    = $data['event'];
         $this->matkul   = $data['matkul'];
         $this->semester = $data['semester'];
@@ -38,7 +39,8 @@ class JadwalEmail extends Mailable
                     ->with([
                         'nama'     => $this->nama,
                         'event'    => $this->event,
-                        'waktu'    => $this->waktu,
+                        'mulai'    => $this->mulai,
+                        'selesai'    => $this->selesai,
                         'matkul'   => $this->matkul,
                         'semester' => $this->semester,
                         'ruangan'  => $this->ruangan

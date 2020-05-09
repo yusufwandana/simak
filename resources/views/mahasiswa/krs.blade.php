@@ -22,8 +22,7 @@
                     <h5 class="text-white">{{ $message }}</h5>
                 </div>
                 @endif
-                <h3 class="mb-0 float-left">KRS Mahasiswa</h3>
-                <input id="link" type="hidden" value="">
+                <h3 class="mb-0 float-left">Kartu Rencana Studi</h3>
             </div>
             <div class="card-body">
                 <div class="row">

@@ -165,7 +165,6 @@
                       <hr>
                   @endforeach
               </div>
-              <hr>
           </div>
       </div>
   </div>

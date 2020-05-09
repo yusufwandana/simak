@@ -110,7 +110,7 @@ class NilaiController extends Controller
 
     public function adminNilaiIndex()
     {
-        $data = Semester::orderBy('semester', 'ASC')->get();
+        $data = Matkul::orderBy('matakuliah', 'ASC')->get();
         return view('nilai.admin-index', compact('data'));
     }
 
@@ -118,7 +118,7 @@ class NilaiController extends Controller
     {
         $data = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $id)->paginate(20);
         if($data->count() == 0){
-            return redirect()->back()->with('error', 'Tidak ada mahasiswa di semester tersebut!');
+            return redirect()->back()->with('error', 'Tidak ada mahasiswa di mata kuliah tersebut!');
         }
         return view('nilai.admin', compact('data'));
     }
@@ -126,7 +126,7 @@ class NilaiController extends Controller
     public function adminNilaiDetail($id)
     {
         $mahasiswa = Mahasiswa::find($id);
-        $data = Nilai::where('mahasiswa_id', $id)->get();
+        $data = Nilai::orderBy('matkul_id', 'ASC')->where('mahasiswa_id', $id)->get();
         return view('nilai.detail', compact('mahasiswa','data'));
     }
 }

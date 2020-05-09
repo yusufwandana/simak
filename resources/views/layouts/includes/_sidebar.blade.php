@@ -166,13 +166,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/khs/{{ auth()->user()->role }}">
-              <i class="ni ni-hat-3 text-yellow"></i> KHS
+            <a class=" nav-link " href="{{route('khs')}}">
+              <i class="ni ni-hat-3 text-yellow"></i> Kartu Hasil Studi
             </a>
           </li>
           <li class="nav-item">
             <a class=" nav-link " href="/simak/krs/{{ auth()->user()->role }}">
-              <i class="ni ni-hat-3 text-default text-primary"></i> KRS
+              <i class="ni ni-hat-3 text-default text-primary"></i> Kartu Rencana Studi
             </a>
           </li>
           <li class="nav-item">

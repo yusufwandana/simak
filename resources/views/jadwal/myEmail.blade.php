@@ -18,7 +18,7 @@
         <tr>
             <td>Waktu</td>
             <td>:</td>
-            <td>Pukul {{ $waktu }} WIB</td>
+            <td>Pukul {{ $mulai }} - {{$selesai}} WIB</td>
         </tr>
         <tr>
             <td>Mata kuliah</td>
