@@ -57,7 +57,7 @@
                             <h3 class="mb-0">Rekap Absen Mahasiswa</h3>
                         </div>
                         <div class="col-md-3">
-                            <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}<a href="{{ route('absen.rekap') }}" class="badge badge-warning float-right">kembali</a></h4>
+                            <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}<a href="{{ route('absen.rekap') }}" class="badge badge-primary float-right">kembali</a></h4>
                         </div>
                     </div>                  
                     <table class="table-responsive mt-3">
@@ -89,7 +89,7 @@
                     <div class="row">
                         <div class="col-md">
                             @if (auth()->user()->role == 'dosen')
-                                <a href="/simak/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
+                                <a href="/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
                             @else
                             
                             @endif
@@ -153,7 +153,7 @@
                                                             @endif
                                                         @endforeach
                                                         @endif
-                                                        <a href="/simak/absen/rekap/detail/{{$encrypted}}/{{$mhs->id}}/{{$matkul->id}}"><span class="mb-0 text-sm">{{$jumlah}}</span></a>
+                                                        <a href="/absen/rekap/detail/{{$encrypted}}/{{$mhs->id}}/{{$matkul->id}}"><span class="mb-0 text-sm">{{$jumlah}}</span></a>
                                                     </div>
                                                 </div>
                                             </td>

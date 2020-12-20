@@ -6,7 +6,7 @@
       </button>
       <!-- Brand -->
       <div class="row justify-content-center">
-        <img src="{{ asset('public/template/assets/img/brand/dm.png') }}" class="gambir">
+        <img src="{{ asset('template/assets/img/brand/dm.png') }}" class="gambir">
         <h3 class="kata">SIMAK APPS</h3>
       </div>
       <!-- User -->
@@ -15,7 +15,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="{{ asset('public/image/profile/' . auth()->user()->avatar) }}">
+                <img alt="Image placeholder" src="{{ asset('image/profile/' . auth()->user()->avatar) }}">
               </span>
             </div>
           </a>
@@ -47,7 +47,7 @@
             <div class="col-6 collapse-brand">
               <a href="">
                 <h2>SIMAK APPS</h2>
-                {{-- <img src="{{asset('public/template/assets/img/brand/logo.png')}}"> --}}
+                {{-- <img src="{{asset('template/assets/img/brand/logo.png')}}"> --}}
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -64,7 +64,7 @@
         <h6 class="navbar-heading text-muted">Menu Admin</h6>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/dashboard/{{ auth()->user()->role }}"><i class="ni ni-tv-2 text-primary"></i> Dashboard</a>
+            <a class=" nav-link " href="{{route('dashboard.admin')}}"><i class="ni ni-tv-2 text-primary"></i> Dashboard</a>
           </li>
           {{-- <li class="nav-item">
             <a class="nav-link collapse" href="#subPages" data-toggle="collapse" aria-expanded="true"><i class="ni ni-app text-primary"></i>Kelola Data</a>
@@ -77,19 +77,19 @@
             <a class="nav-link " href="/simak/absen"><i class="ni ni-bullet-list-67 text-info"></i>Absen</a>
           </li> --}}
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/jadwal"><i class="ni ni-calendar-grid-58 text-danger"></i>Atur Jadwal</a>
+            <a class=" nav-link " href="{{route('jadwal.index')}}"><i class="ni ni-calendar-grid-58 text-danger"></i>Atur Jadwal</a>
           </li>
           <li class="nav-item">
-            <a href="/simak/dosen" class="nav-link"><i class="ni ni-circle-08 text-warning"></i> Dosen</a>
+            <a href="{{route('dosen')}}" class="nav-link"><i class="ni ni-circle-08 text-warning"></i> Dosen</a>
           </li>
           <li class="nav-item">
-            <a href="/simak/mahasiswa" class="nav-link"><i class="ni ni-single-02 text-info"></i> Mahasiswa</a>
+            <a href="{{route('mahasiswa.index')}}" class="nav-link"><i class="ni ni-single-02 text-info"></i> Mahasiswa</a>
           </li>
           <li class="nav-item">
-            <a href="/simak/jurusan" class="nav-link"><i class="ni ni-spaceship text-blue"></i> Jurusan</a>
+            <a href="{{route('jurusan.index')}}" class="nav-link"><i class="ni ni-spaceship text-blue"></i> Jurusan</a>
           </li>
           <li class="nav-item">
-            <a href="/simak/matkul" class="nav-link"><i class="ni ni-books text-success"></i> Mata Kuliah</a>
+            <a href="{{route('matkul.index')}}" class="nav-link"><i class="ni ni-books text-success"></i> Mata Kuliah</a>
           </li>
           <li class="nav-item">
             <a class=" nav-link " href="{{ route('absen.rekap') }}"><i class="ni ni-chart-bar-32 text-default"></i>Rekap Absen</a>
@@ -98,10 +98,10 @@
             <a href="{{route('admin.awal')}}" class="nav-link"><i class="ni ni-planet text-info"></i> Nilai</a>
           </li>
           <li class="nav-item">
-            <a href="/simak/ruangan" class="nav-link"><i class="ni ni-building text-yellow"></i> Ruangan</a>
+            <a href="{{route('ruangan.index')}}" class="nav-link"><i class="ni ni-building text-yellow"></i> Ruangan</a>
           </li>
           <li class="nav-item">
-            <a href="/simak/semester" class="nav-link"><i class="ni ni-hat-3 text-default"></i> Semester</a>
+            <a href="{{route('semester.index')}}" class="nav-link"><i class="ni ni-hat-3 text-default"></i> Semester</a>
           </li>
           {{-- <li class="nav-item">
             <a class=" nav-link " href="{{ route('absen.rekap') }}">
@@ -111,21 +111,21 @@
         </ul>
         @endif
         @if (auth()->user()->role == 'dosen')
-          @php
+          {{-- @php
           $a = url()->full();
           $b = explode('/', $a);
           $url = $b[4];
-          @endphp
+          @endphp --}}
         <hr class="my-2">
         <h6 class="navbar-heading text-muted">Menu Dosen</h6>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class=" nav-link" href="/simak/dashboard/{{ auth()->user()->role }}">
+            <a class=" nav-link" href="{{route('dashboard.dosen')}}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/absen">
+            <a class="nav-link " href="{{route('absen.index')}}">
               <i class="ni ni-bullet-list-67 text-info"></i>Absen
             </a>
           </li>
@@ -135,12 +135,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/dosen/lihat-jadwal">
+            <a class="nav-link " href="{{route('dosen.jadwal')}}">
               <i class="ni ni-calendar-grid-58 text-red"></i>Lihat Jadwal
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/nilai">
+            <a class="nav-link " href="{{route('nilai.index')}}">
               <i class="ni ni-planet text-primary"></i>Input Nilai
             </a>
           </li>

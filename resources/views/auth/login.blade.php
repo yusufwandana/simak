@@ -7,14 +7,14 @@
     SIMAK | Login page
   </title>
   <!-- Favicon -->
-  <link href="{{ asset('public/template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  <link href="{{ asset('template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="{{ asset('public/template/assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('public/template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('template/assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
+  <link href="{{ asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="{{ asset('public/template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <link href="{{ asset('template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
 </head>
 <style>
   @media only screen and (max-width:991px){
@@ -51,7 +51,7 @@
           <div class="card bg-secondary shadow border-0 mm mt--3">
             <div class="card-body px-lg-5 py-lg-4">
                   <div class="col-md text-center">
-                    <img src="{{ asset('public/template/assets/img/brand/dm.png') }}" class="mb-4 text-center" width="45%" alt="">
+                    <img src="{{ asset('template/assets/img/brand/dm.png') }}" class="mb-4 text-center" width="40%" alt="">
                   </div>
               
               <h2 class="text-center">Form Login</h2>
@@ -66,7 +66,7 @@
                 </div>
               @endif
               
-              <form action="/simak/postlogin" method="post" role="form">
+              <form action="{{route('postlogin')}}" method="post" role="form">
                 @csrf
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
@@ -93,14 +93,14 @@
         </div>
       </div>
     </div>
-    <footer class="py-5">
+    <footer>
       <div class="container">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
               © @php
                   echo date('Y');
-              @endphp <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+              @endphp <a href="#" class="font-weight-bold ml-1" target="_blank">CIS Team</a>
             </div>
           </div>
           <div class="col-xl-6">
@@ -111,10 +111,10 @@
     </footer>
   </div>
   <!--   Core   -->
-  <script src="{{asset('public/template/assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
-  <script src="{{asset('public/template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('template/assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
   <!--   Argon JS   -->
-  <script src="{{asset('public/template')}}"></script>
+  <script src="{{asset('template')}}"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
     window.TrackJS &&

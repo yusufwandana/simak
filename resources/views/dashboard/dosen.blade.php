@@ -8,21 +8,25 @@
     <div class="container-fluid mt--3">
         <div class="row justify-content-center">
             <div class="col-md">
-            <div class="card mb-5">
-                <div class="card-header">
-                    @if ($msg = Session::get('success'))
-                        <p class="text-green">{{$msg}}</p>
-                    @endif
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            @foreach ($errors as $x)
-                                {{$x}} <br>
-                            @endforeach
+                @if ($msg = Session::get('success'))
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <p class="text-green">{{$msg}}</p>
+                            <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3>
                         </div>
-                    @endif
-                <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3>
-                </div>
-            </div>
+                    </div>
+                @endif
+                @if (count($errors) > 0)
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <div class="alert alert-danger">
+                                @foreach ($errors as $x)
+                                    {{$x}} <br>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -109,13 +113,13 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header">
-                    <h3>Beranda <a href="/simak/dosen/postgs" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
+                    <h3>Beranda <a href="{{route('posttugas')}}" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
                 </div>
                 <div class="card-body">
                     @foreach ($mt as $data)
                         <div class="row shadow" style="padding:20px; border-radius:10px;">
                             <div class="col-md-1">
-                                <img src="{{ asset('public/image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
+                                <img src="{{ asset('image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
                             </div>
                             <div class="col-md-11">
                                 <b>{{ $data->user->name }}</b>@if ($data->user->role == 'admin') <i class="fas fa-check-circle mx-1"></i> @endif
@@ -156,7 +160,7 @@
                                     <div class="col-md-10">
                                         <div class="card" style="border: solid 1px #f0f0ff;">
                                             <div class="card-body">
-                                                <a href="{{asset('public/filemateri/' . $data->file)}}" target="_blank" style="margin:15px;">
+                                                <a href="{{asset('files/' . $data->file)}}" target="_blank" style="margin:15px;">
                                                     <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;{{ $data->file }}
                                                 </a>
                                             </div>

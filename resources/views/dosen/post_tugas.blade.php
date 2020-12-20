@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK | Post Tugas')
+@section('title', 'SIMAK | Posting Materi & Tugas')
     
 @section('head', 'Posting Tugas')
 
@@ -10,10 +10,10 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header">
-                    <h3> Posting Materi atau Tugas</h3>
+                    <h3> Posting Materi dan Penugasan</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/simak/dosen/uploadfile" method="post" enctype="multipart/form-data">
+                    <form action="{{route('uploadfile')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

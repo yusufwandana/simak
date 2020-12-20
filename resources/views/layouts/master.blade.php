@@ -9,28 +9,29 @@
   </title>
   @yield('meta')
   <!-- Favicon -->
-  <link href="{{ asset('public/template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  <link href="{{ asset('template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
   {{-- Datatables --}}
-  <link href="{{ asset('public/datatables/dataTables.bootstrap4.min.css') }}" rel="icon" type="image/png">
-  <link href="{{ asset('public/datatables/datatables.min.css') }}" rel="icon" type="image/png">
+  <link href="{{ asset('datatables/dataTables.bootstrap4.min.css') }}" rel="icon" type="image/png">
+  <link href="{{ asset('datatables/datatables.min.css') }}" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="{{ asset('public/template/assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('public/template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('template/assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
+  <link href="{{ asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   {{-- Editable --}}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css">
   <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
   <!-- CSS Files -->
-  <link href="{{ asset('public/template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <link href="{{ asset('template/assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
 </head>
   <style>
       .gambir{
           width: 65%;
-      }
+    }
+
       .kata{
           display: none;
-      }
+    }
       @media only screen and (max-width:425px){
           .gambir{
               display: none;
@@ -44,6 +45,7 @@
       /* @media only screen and (min-width:000px){
 
       } */
+      
   </style>
 <body>
     @include('layouts.includes._sidebar')
@@ -60,17 +62,17 @@
       @yield('content')
   </div>
   <!--   Core   -->
-  <script src="{{ asset('public/template/assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('public/template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('template/assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
   <!--   Optional JS   -->
-  <script src="{{ asset('public/template/assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-  <script src="{{ asset('public/template/assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
+  <script src="{{ asset('template/assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
   <!--   Argon JS   -->
-  <script src="{{ asset('public/template/assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
-  <script src="{{ asset('public/datatables/datatables.min.js') }}"></script>
-  <script src="{{ asset('public/datatables/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('public/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('template/assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
+  <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+  <script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('datatables/dataTables.bootstrap4.min.js') }}"></script>
   @yield('customjs')
   {{-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> --}}
   {{-- <script>

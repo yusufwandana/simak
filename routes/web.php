@@ -18,12 +18,12 @@ Route::get('/', function () {
 });
 
 Route::get('login', 'AuthController@login')->name('login');
-Route::post('postlogin', 'AuthController@postlogin');
+Route::post('postlogin', 'AuthController@postlogin')->name('postlogin');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('changepp', 'AuthController@changepp')->name('changepp');
-    Route::post('ubahpw', 'AuthController@changepw');
-    Route::get('logout', 'AuthController@logout');
+    Route::post('ubahpw', 'AuthController@changepw')->name('ubahpw');
+    Route::get('logout', 'AuthController@logout')->name('logout');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
     //CRUD DOSEN
     Route::get('dosen', 'DosenController@index')->name('dosen');
-    Route::post('dosen/create', 'DosenController@create');
+    Route::post('dosen/create', 'DosenController@create')->name('dosen.create');
     Route::get('dosen/{id}/edit', 'DosenController@edit')->name('dosen.edit');
     Route::post('dosen/{id}/update', 'DosenController@update')->name('dosen.update');
     Route::get('dosen/{id}/delete', 'DosenController@delete')->name('dosen.delete');
@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::resource('nilai', 'NilaiController')->except(
         'show'
     );
-    Route::get('nilai/show/{mhsId}/{matkulId}', 'NilaiController@show');
+    Route::get('nilai/show/{mhsId}/{matkulId}', 'NilaiController@show')->name('show.nilai');
     Route::post('nilai/addnilai', 'NilaiController@addnilai')->name('nilai.addnilai');
     Route::get('nilai/daftarmhs/{id}/{slug}', 'NilaiController@daftarmhs')->name('nilai.daftarmhs');
     Route::post('nilai/update/{id}', 'NilaiController@nilaiUpdate')->name('update.nilai ');

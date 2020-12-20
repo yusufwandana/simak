@@ -17,7 +17,7 @@
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                 <a href="">
-                    <img src="{{ asset('public/image/profile/' . $user->avatar) }}" class="rounded-circle">
+                    <img src="{{ asset('image/profile/' . $user->avatar) }}" class="rounded-circle">
                 </a>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <h3 class="mb-0">{{ $user->name }} | Daftar Nilai</h3>
                     </div>
                     <div class="col-md-3">
-                        <a href="/simak/nilai/daftarmhs/{{$matkul->id}}/{{$matkul->slug}}" class="badge badge-warning float-right">kembali</a>
+                        <a href="/simak/nilai/daftarmhs/{{$matkul->id}}/{{$matkul->slug}}" class="badge badge-primary float-right">kembali</a>
                     </div>
                 </div>
             </div>

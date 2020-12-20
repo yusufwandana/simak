@@ -17,7 +17,7 @@
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                 <a href="">
-                    <img src="{{ asset('public/image/profile/' . $mahasiswa->user->avatar)}}" class="rounded-circle">
+                    <img src="{{ asset('image/profile/' . $mahasiswa->user->avatar)}}" class="rounded-circle">
                 </a>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <h3 class="mb-0">{{ $mahasiswa->nama }} | Semester {{$mahasiswa->semester->semester}}</h3>
                     </div>
                     <div class="col-md-3">
-                        <a href="{{URL::previous()}}" class="badge badge-warning float-right">kembali</a>
+                        <a href="{{URL::previous()}}" class="badge badge-primary float-right">kembali</a>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
 
             $('body').on('click', '#edit-data', function(){
                 var thisId = $(this).data('id');
-                $.get('/simak/nilai/' + thisId + '/edit', function(data){
+                $.get('/nilai/' + thisId + '/edit', function(data){
                     $('#userCrudModal').html("Edit Nilai Mahasiswa");
                     $('#btn-save').val("edit-user");
                     $('.modal-title').html('Edit nilai mahasiswa');
@@ -248,7 +248,7 @@
                 var myId = $('#my_id').val();
                 $.ajax({
                     data: $('#updateForm').serialize(),
-                    url: "/simak/nilai/update" +"/"+myId,
+                    url: "/nilai/update" +"/"+myId,
                     type: "post",
                     dataType: 'json',
                     success: function(data){

@@ -14,6 +14,10 @@
         <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+            {{$errors->all()}}
+            @foreach ($errors->all() as $item)
+                <p>{{$item}}</p>
+            @endforeach
         </div>
         @endif
         
@@ -24,7 +28,7 @@
         </div>
         @endif
         <h3 class="mb-0 float-left">Daftar Mata Kuliah</h3>
-        <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
+        <a href="{{route('matkul.create')}}" class="btn btn-primary btn-sm float-right"><i class="ni ni-fat-add"></i>Tambah</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -36,7 +40,6 @@
                     <th scope="col">Mata Kuliah</th>
                     <th scope="col">Semester</th>
                     <th scope="col">SKS</th>
-                    <th scope="col">Slug</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Aksi</th>
                 </tr>
@@ -85,15 +88,6 @@
                         <div class="media align-items-center">
                         <div class="media-body">
                             <span class="mb-0 text-sm">
-                            {{ $matkul->slug }}
-                            </span>
-                        </div>
-                        </div>
-                    </td>
-                    <td scope="row">
-                        <div class="media align-items-center">
-                        <div class="media-body">
-                            <span class="mb-0 text-sm">
                             {{ $matkul->kategori }}
                             </span>
                         </div>
@@ -126,7 +120,7 @@
     <div class="modal-dialog" role="document">
         <form action="{{ route('matkul.store') }}" method="post">
             @csrf
-            <div class="modal-content">
+            <div class="modal-content modal-adding">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel">
                         Tambah Mata Kuliah

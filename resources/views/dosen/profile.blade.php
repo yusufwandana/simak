@@ -13,7 +13,7 @@
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                 <a href="">
-                    <img src="{{ asset('public/image/profile/' . $user->avatar) }}" class="rounded-circle">
+                    <img src="{{ asset('image/profile/' . $user->avatar) }}" class="rounded-circle">
                 </a>
                 </div>
             </div>
@@ -34,17 +34,10 @@
                 {{ $dosen->nama }}<span class="font-weight-light"></span>
                 </h3>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i>{{ $dosen->nip }}
+                <i class="ni location_pin mr-2"></i><b>{{ $dosen->nip }}</b>
                 </div>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i>
-                @if ($dosen->jk == 'L')
-                    Laki-laki
-                @elseif($dosen->jk == 'P')
-                    Perempuan
-                @else
-                    !!EROR!!
-                @endif
+                <i class="ni location_pin mr-2"></i><b>{{$dosen->alamat}}</b>
                 </div>
                 <div class="h5 mt-4">
                 <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
@@ -84,11 +77,11 @@
             }
         @endphp
         <div class="col-xl-8 order-xl-1">
-        <div class="card bg-secondary shadow">
+        <div class="card bg-secondary shadow mb-5">
             <div class="card-header bg-white border-0">
             <div class="row align-items-center">
                 <div class="col-12">
-                <h3>{{ $dosen->nama }} | Profile <a href="{{ route('dosen') }}" class="badge badge-warning float-right">kembali</a></h3>
+                <h3>{{ $dosen->nama }} | Profile <a href="{{ route('dosen') }}" class="badge badge-primary float-right">kembali</a></h3>
                 
                 </div>
             </div>
@@ -169,7 +162,7 @@
         </div>
         </div>
     </div>
-    <!-- Footer -->
+    {{-- <!-- Footer -->
     <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
@@ -194,7 +187,7 @@
             </ul>
         </div>
         </div>
-    </footer>
+    </footer> --}}
 
     {{-- Modal --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -237,6 +230,5 @@
             </form>
         </div>
     </div>
-
-    </div>
+</div>
 @endsection

@@ -4,7 +4,7 @@
                         <div class="col-lg-3 order-lg-6">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img alt="Image placeholder" class="rounded-circle" src="{{ asset('public/image/profile/' . auth()->user()->avatar) }}">
+                                    <img alt="Image placeholder" class="rounded-circle" src="{{ asset('image/profile/' . auth()->user()->avatar) }}">
                                 </a>
                             </div>
                         </div>

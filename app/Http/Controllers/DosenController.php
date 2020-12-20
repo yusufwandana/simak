@@ -152,7 +152,7 @@ class DosenController extends Controller
         $file      = $request->file('file');
         $finalName  = $date . uniqid() . '.' . $file->getClientOriginalExtension();
         $fullName = str_replace(' ', '', $finalName);
-        $moveto    = 'public/filemateri';
+        $moveto    = 'files';
         $file->move($moveto, $fullName);
         $matkul_id = Matkul::find($request->matkul_id);
 
@@ -176,11 +176,13 @@ class DosenController extends Controller
         if (auth()->user()->role == 'dosen') {
             $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
             $matkul = DosenMatkul::where('dosen_id', $dosen->id)->get();
+
+            return view('dosen/post_tugas', compact('dosen', 'matkul'));
         }elseif (auth()->user()->role == 'admin') {
             $matkul = Matkul::all();
+
+            return view('dosen/post_tugas', compact('matkul'));
         }
-        // dd($matkul);
-        return view('dosen/post_tugas', compact('dosen', 'matkul'));
     }
 
     public function deletepost($id)

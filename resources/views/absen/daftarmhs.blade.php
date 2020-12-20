@@ -15,7 +15,7 @@
                             <h3 class="mb-0 float-left">Absen Mahasiswa</h3>
                         </div>
                         <div class="col-md-3">
-                            <a href="{{ route('absen.index') }}" class="badge badge-warning float-right">kembali</a>
+                            <a href="{{ route('absen.index') }}" class="badge badge-primary float-right">kembali</a>
                         </div>
                     </div>
                     <br>

@@ -130,7 +130,7 @@
                         @foreach ($mt as $data)
                             <div class="row shadow" style="padding:20px; border-radius:10px;">
                                 <div class="col-md-1">
-                                    <img src="{{ asset('public/image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
+                                    <img src="{{ asset('image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
                                 </div>
                                 <div class="col-md-10">
                                     <b>{{ $data->user->name }}</b>@if ($data->user->role == 'admin') <i class="fas fa-check-circle mx-1"></i> @endif
@@ -161,7 +161,7 @@
                                         <div class="col-md-10">
                                             <div class="card" style="border: solid 1px #f0f0ff;">
                                                 <div class="card-body">
-                                                    <a href="{{asset('public/filemateri/' . $data->file)}}" target="_blank" style="margin:15px;">
+                                                    <a href="{{asset('files/' . $data->file)}}" target="_blank" style="margin:15px;">
                                                         <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;   {{ $data->file }}
                                                     </a>
                                                 </div>

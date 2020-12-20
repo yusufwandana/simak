@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-3">
                             <h4 class="mb-0 float-left">@php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
-                            <a href="{{ route('nilai.index') }}" class="badge badge-warning float-right">kembali</a>
+                            <a href="{{ route('nilai.index') }}" class="badge badge-primary float-right">kembali</a>
                         </div>
                     </div>
                     <br>
@@ -74,7 +74,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md">
-                            <form action="/simak/nilai/export/{{$matkul->id}}/{{$semester->id}}" method="post">
+                            <form action="/nilai/export/{{$matkul->id}}/{{$semester->id}}" method="post">
                                 @csrf
                                 <button class="btn btn-success btn-sm mb-3" title="Export"><i class="fas fa-file-export"></i> EXPORT NILAI</button>
                             </form>
@@ -160,7 +160,7 @@
                                 </td> --}}
                                 <td scope="row">
                                     <a class="btn btn-primary btn-sm btn-danger" title="Tambah nilai" href="javascript:void(0)" id="tambah-data" data-id="{{ $mhs->id }}"><i class="fa fa-plus"></i></a>
-                                    <a class="btn btn-primary btn-sm btn-primary" title="Detail nilai" href="/simak/nilai/show/{{$mhs->id}}/{{$matkul->id}}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-primary btn-sm btn-primary" title="Detail nilai" href="{{route('show.nilai',[$mhs->id,$matkul->id])}}"><i class="fas fa-eye"></i></a>
                                 </td>
                             </tr>    
                             @endforeach

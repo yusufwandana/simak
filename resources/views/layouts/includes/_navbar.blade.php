@@ -21,7 +21,7 @@
                     <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
                   </div>
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="{{ asset('public/image/profile/' . auth()->user()->avatar) }}">
+                  <img alt="Image placeholder" src="{{ asset('image/profile/' . auth()->user()->avatar) }}">
                 </span>
               </div>
             </a>
@@ -38,7 +38,7 @@
                 <span>Ubah password</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="/simak/logout" class="dropdown-item">
+              <a href="{{route('logout')}}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -51,7 +51,7 @@
     {{--  Edit profile --}}
   <div class="modal fade" id="changeProfile" tabindex="-1" role="dialog" aria-labelledby="changeProfileLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="/simak/changepp" method="POST" enctype="multipart/form-data">
+      <form action="{{route('changepp')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,9 +68,9 @@
                         <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                            <a href="{{ asset('public/image/profile/' . auth()->user()->avatar) }}" target="_blank">
+                            <a href="{{ asset('image/profile/' . auth()->user()->avatar) }}" target="_blank">
                                 <div>
-                                  <img src="{{ asset('public/image/profile/' . auth()->user()->avatar) }}" style="width:150%; border:#000 solid 1px;">
+                                  <img src="{{ asset('image/profile/' . auth()->user()->avatar) }}" style="width:150%; border:#000 solid 1px;">
                                 </div>
                             </a>
                             </div>
@@ -114,7 +114,7 @@
   {{--  Change pw --}}
   <div class="modal fade" id="changePw" tabindex="-1" role="dialog" aria-labelledby="changePwLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-          <form action="/simak/ubahpw" method="post">
+          <form action="{{route('ubahpw')}}" method="post">
               @csrf
               <div class="modal-content">
                   <div class="modal-header">

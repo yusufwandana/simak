@@ -5,7 +5,7 @@
 @section('head', 'dashboard')
     
 @section('dashboard')
-  <div class="container-fluid mt--3">
+  {{-- <div class="container-fluid mt--3">
     <div class="row justify-content-center">
       <div class="col-md">
         <div class="card mb-5">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
   <div class="container-fluid">
       <div class="header-body">
         <!-- Card stats -->
@@ -38,7 +38,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/mahasiswa" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
+                  <a href="{{route('mahasiswa.index')}}" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -58,7 +58,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/dosen" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
+                  <a href="{{route('dosen')}}" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -78,7 +78,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/matkul" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
+                  <a href="{{route('matkul.index')}}" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <a href="/simak/jurusan" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
+                  <a href="{{route('jurusan.index')}}" class="btn btn-primary btn-sm btn-block">Tampilkan</a>
                 </p>
               </div>
             </div>
@@ -115,13 +115,13 @@
       <div class="col">
           <div class="card shadow">
               <div class="card-header">
-                  <h3>Beranda <a href="/simak/dosen/postgs" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
+                  <h3>Beranda <a href="{{route('posttugas')}}" class="btn btn-primary btn-sm float-right">Posting Sesuatu..</a></h3>
               </div>
               <div class="card-body">
                   @foreach ($mt as $data)
                       <div class="row shadow" style="padding:20px; border-radius:10px;">
                           <div class="col-md-1">
-                              <img src="{{ asset('public/image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
+                              <img src="{{ asset('image/profile/' . $data->user->avatar) }}" style="width: 60px;" class="rounded-circle">
                           </div>
                           <div class="col-md-11">
                               <b>{{ $data->user->name }}</b>@if ($data->user->role == 'admin') <i class="fas fa-check-circle mx-1"></i> @endif
@@ -153,7 +153,7 @@
                                   <div class="col-md-12">
                                       <div class="card" style="border: solid 1px #f0f0ff;">
                                           <div class="card-body">
-                                              <a href="{{asset('public/filemateri/' . $data->file)}}" target="_blank" style="margin:15px;">
+                                              <a href="{{asset('files/' . $data->file)}}" target="_blank" style="margin:15px;">
                                                   <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;{{ $data->file }}
                                               </a>
                                             </div>

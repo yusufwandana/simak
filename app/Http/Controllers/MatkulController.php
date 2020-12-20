@@ -16,19 +16,26 @@ class MatkulController extends Controller
     }
 
     public function create()
-    { }
+    {
+        $matkul = Matkul::orderBy('kd_matkul', 'asc')->paginate(10);
+        $semester = Semester::all();
+
+        return view('matkul.create',compact('matkul','semester'));
+    }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kd_matkul'   => 'required|min:8|max:8|unique:matkuls',
+            'kd_matkul'   => 'required|string|min:8|max:8|unique:matkuls',
             'matakuliah'  => 'required|unique:matkuls',
-            'slug'        => 'unique:matkuls',
-            'sks'         => 'required|numeric|digits:1'
+            'semester'    => 'required',
+            'kategori'    => 'required',
+            'sks'         => 'required|numeric|min:1|max:4'
         ]);
 
-        $test = strtolower($request->slug);
-        $slug = str_replace(' ', '-', $test);
+        $test  = strtolower($request->matakuliah);
+        $slug1 = str_replace(' ', '-', $test);
+        $slug  = $slug1 . '-' . $request->semester;
         
         $a = Matkul::create([
             'kd_matkul'   => strtoupper($request->kd_matkul),
@@ -59,15 +66,17 @@ class MatkulController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'sks'         => 'required|numeric|digits:1'
+            'matakuliah'  => 'required',
+            'sks'         => 'required|numeric|min:1|max:4'
         ]);
 
-        $test = strtolower($request->slug);
-        $slug = str_replace(' ', '-', $test);
+        $test  = strtolower($request->matakuliah);
+        $slug1 = str_replace(' ', '-', $test);
+        $slug  = $slug1 . '-' . $request->semester;
 
         $matkul = Matkul::find($id);
         $matkul->kd_matkul   = strtoupper($request->kd_matkul);
-        $matkul->matakuliah  = ucwords($request->mata_kuliah);
+        $matkul->matakuliah  = ucwords($request->matakuliah);
         $matkul->semester_id = $request->semester;
         $matkul->sks         = $request->sks;
         $matkul->slug        = $slug;

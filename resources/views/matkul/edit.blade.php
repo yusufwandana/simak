@@ -17,40 +17,48 @@
             @csrf
             @method('PUT')
             <div class="card-body">
-                <div class="form-group">
-                    <label for="kode_matkul">Kode mata kuliah</label>
-                    <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ $matkul->kd_matkul }}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="mata_kuliah">Nama mata kuliah</label>
-                    <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="mata_kuliah" id="mata_kuliah" value="{{ $matkul->matakuliah }}" required>
-                <div class="form-group">
-                    <label for="semester">Semester</label>
-                    <select class="form-control" name="semester" id="semester">
-                        <option value="" selected disabled>Pilih semester</option>
-                        @foreach ($semesters as $semester)
-                            <option value="{{ $semester->id }}" @if ($matkul->semester->id == $semester->id) selected @endif>Semester {{ $semester->semester }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sks">Jumlah SKS</label>
-                    <input type="text" class="form-control" placeholder="Masukan jumlah sks.." name="sks" id="sks" value="{{ $matkul->sks }}">
-                    @if ($errors->has('sks'))
-                        <small class="text-danger">{{ $errors->first('sks') }}</small>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label for="slug">Slug</label>
-                    <input type="text" class="form-control" placeholder="Masukan jumlah slug.." name="slug" id="slug" value="{{ $matkul->slug }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="kategori">Kategori</label>
-                    <select name="kategori" id="kategori" class="form-control" required>
-                        <option value="" selected disabled>Pilih kategori</option>
-                        <option value="pilihan" @if ($matkul->kategori == 'pilihan') selected @endif>Pilihan</option>
-                        <option value="wajib" @if ($matkul->kategori == 'wajib') selected @endif>Wajib</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="kode_matkul">Kode mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="kd_matkul" id="kd_matkul" value="{{ $matkul->kd_matkul }}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="matakuliah">Nama mata kuliah</label>
+                            <input type="text" class="form-control" placeholder="Masukan kode mata kuliah.." name="matakuliah" id="matakuliah" value="{{ $matkul->matakuliah }}">
+                            @if ($errors->has('matakuliah'))<small class="text-danger">{{ $errors->first('matakuliah') }}</small>@endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="semester">Semester</label>
+                            <select class="form-control" name="semester" id="semester">
+                                <option value="" selected disabled>Pilih semester</option>
+                                @foreach ($semesters as $semester)
+                                    <option value="{{ $semester->id }}" @if ($matkul->semester->id == $semester->id) selected @endif>Semester {{ $semester->semester }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="kategori">Kategori</label>
+                            <select name="kategori" id="kategori" class="form-control" required>
+                                <option value="" selected disabled>Pilih kategori</option>
+                                <option value="pilihan" @if ($matkul->kategori == 'pilihan') selected @endif>Pilihan</option>
+                                <option value="wajib" @if ($matkul->kategori == 'wajib') selected @endif>Wajib</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sks">Jumlah SKS</label>
+                            <input type="text" class="form-control" placeholder="Masukan jumlah sks.." name="sks" id="sks" value="{{ $matkul->sks }}">
+                            @if ($errors->has('sks'))<small class="text-danger">{{ $errors->first('sks') }}</small>@endif
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
