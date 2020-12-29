@@ -23,7 +23,7 @@
                 </div>
                 @endif
                 <h3 class="mb-0 float-left">Jadwal Kuliah</h3>
-                <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
+                <a href="{{route('jadwal.create')}}" class="btn btn-primary btn-sm float-right"><i class="ni ni-fat-add"></i>Tambah</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -63,7 +63,7 @@
                                                 $date  = $b[2];
                                                 echo $date . "/" . $month . "/" . $year;
                                             @endphp
-                                            
+
                                         </span>
                                     </div>
                                     </div>
@@ -130,7 +130,7 @@
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('jadwal.destroy', $jadwal->id) }}"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </td>
-                            </tr>    
+                            </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -147,7 +147,7 @@
 
 
 {{-- Modal --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="{{ route('jadwal.store') }}" method="post">
             @csrf
@@ -230,53 +230,53 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 @endsection
 
 @section('customjs')
     <script>
         $(document).ready(function(){
-            $('#semesterId').on('change', function(e){
-                var sId = $(this).val();
-                
-                $.ajax({
-                    url : "{{ url('getmatkuls') }}/" + sId,
-                    dataType : 'json',
-                    type : 'get',
-                    success : function(response){
-                        $('#matkul').html('<option value="" selected disabled>Pilih mata kuliah..</option>');
-                        $('#dosenId').html('<option value="" selected disabled>Pilih dosen..</option>');
-                        $.each(response.results, function(e, i){
-                            $('#matkul').append($("<option value="+ i.id +">" + i.matakuliah + "</option>"))
-                        });
-                    }
-                });
-            });
+            // $('#semesterId').on('change', function(e){
+            //     var sId = $(this).val();
 
-            $('#matkul').on('change', function(e){
-                var mId = $(this).val();
-                
-                $.ajax({
-                    url: "{{url('getdosens')}}/" + mId,
-                    dataType: 'json',
-                    type: 'get',
-                    success: function(response){
-                        $('#dosenId').html('<option value="" selected disabled>Pilih dosen..</option>');
-                        $.each(response.results, function(e, i){
-                            $('#dosenId').append($("<option value="+i.id+">"+i.nama+"</option>"))
-                        });
-                    }
-                });
-            });
+            //     $.ajax({
+            //         url : "{{ url('getmatkuls') }}/" + sId,
+            //         dataType : 'json',
+            //         type : 'get',
+            //         success : function(response){
+            //             $('#matkul').html('<option value="" selected disabled>Pilih mata kuliah..</option>');
+            //             $('#dosenId').html('<option value="" selected disabled>Pilih dosen..</option>');
+            //             $.each(response.results, function(e, i){
+            //                 $('#matkul').append($("<option value="+ i.id +">" + i.matakuliah + "</option>"))
+            //             });
+            //         }
+            //     });
+            // });
+
+            // $('#matkul').on('change', function(e){
+            //     var mId = $(this).val();
+
+            //     $.ajax({
+            //         url: "{{url('getdosens')}}/" + mId,
+            //         dataType: 'json',
+            //         type: 'get',
+            //         success: function(response){
+            //             $('#dosenId').html('<option value="" selected disabled>Pilih dosen..</option>');
+            //             $.each(response.results, function(e, i){
+            //                 $('#dosenId').append($("<option value="+i.id+">"+i.nama+"</option>"))
+            //             });
+            //         }
+            //     });
+            // });
 
             $('#data-table').dataTable({
                 paging: false,
-                info: false
+                info: true
             });
 
             $('#data-table_wrapper .row .col-sm-12').removeClass('col-md-6');
             $('#data-table_wrapper .row .col-sm-12 #data-table_filter label').addClass('pb-2');
-            
+
 
         });
     </script>

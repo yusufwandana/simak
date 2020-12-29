@@ -9,6 +9,7 @@ use App\Matkul;
 use App\Jadwal;
 use App\DosenMatkul;
 use App\MateriTugas;
+use App\Gelar;
 use File;
 
 class DosenController extends Controller
@@ -17,7 +18,8 @@ class DosenController extends Controller
     {
         $dosens = Dosen::orderBy('nip', 'asc')->paginate(20);
         $matakuliah = Matkul::all();
-        return view('dosen.index', compact('dosens', 'matakuliah'));
+        $gelar  = Gelar::orderBy('gelar','asc')->get();
+        return view('dosen.index', compact('dosens', 'matakuliah','gelar'));
     }
 
     public function create(Request $request)
@@ -44,6 +46,7 @@ class DosenController extends Controller
         Dosen::create([
             'nip'     => $request->nip,
             'nama'    => ucwords($request->nama),
+            'gelar_id'   => $request->gelar_id,
             'jk'      => $request->jk,
             'alamat'  => ucwords($request->alamat),
             'user_id' => $a
@@ -55,24 +58,27 @@ class DosenController extends Controller
     public function edit($id)
     {
         $dosen  = Dosen::where('id', $id)->first();
+        $gelar  = Gelar::orderBy('gelar','asc')->get();
         $matakuliah = Matkul::all();
 
-        return view('dosen.edit', compact('dosen', 'matakuliah'));
+        return view('dosen.edit', compact('dosen', 'matakuliah', 'gelar'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nip'    => 'required|numeric|digits:8',
-            'nama'   => 'required',
-            'jk'     => 'required',
-            'alamat' => 'required'
+            'nip'       => 'required|numeric|digits:8',
+            'nama'      => 'required',
+            'jk'        => 'required',
+            'alamat'    => 'required',
+            'gelar_id'  => 'required'
         ]);
 
         $dosen = Dosen::find($id);
-        $dosen->nama   = ucwords($request->nama);
-        $dosen->jk     = $request->jk;
-        $dosen->alamat = ucwords($request->alamat);
+        $dosen->nama     = ucwords($request->nama);
+        $dosen->jk       = $request->jk;
+        $dosen->alamat   = ucwords($request->alamat);
+        $dosen->gelar_id = $request->gelar_id;
         $dosen->save();
 
         $user = User::find($dosen->user_id);
@@ -114,7 +120,7 @@ class DosenController extends Controller
 
         foreach ($cek as $c) {
             if ($c) {
-                return back()->with('failed', 'Dosen telah mengajar matkul tersebut!');
+                return back()->with('failed', 'Dosen telah mengajar mata kuliah tersebut!');
             }
         }
 
@@ -124,7 +130,7 @@ class DosenController extends Controller
             'matkul_id' => $request->matkul_id
         ]);
 
-        return redirect()->back()->with('success', 'Penambahan matkul dosen berhasil!');
+        return redirect()->back()->with('success', 'Penambahan mata kuliah berhasil!');
     }
 
     public function deletematkul($id)
@@ -132,7 +138,7 @@ class DosenController extends Controller
         $dm = DosenMatkul::find($id);
         $dm->delete();
 
-        return redirect()->back()->with('success', 'Matkul dosen telah dihapus!');
+        return redirect()->back()->with('success', 'Mata kuliah ' . $dm->matkul->matakuliah . ' telah dihapus!');
     }
 
     public function lihatJadwal()
@@ -146,14 +152,29 @@ class DosenController extends Controller
     public function uploadfile(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|file'
+            'file'      => 'file'
         ]);
-        $date      = date('ymdhis');
-        $file      = $request->file('file');
-        $finalName  = $date . uniqid() . '.' . $file->getClientOriginalExtension();
-        $fullName = str_replace(' ', '', $finalName);
-        $moveto    = 'files';
-        $file->move($moveto, $fullName);
+
+        if ($request->file == null) {
+            $fullName = null;
+        }else {
+            $date      = date('ymdhis');
+            $file      = $request->file('file');
+            $finalName  = $date . uniqid() . '.' . $file->getClientOriginalExtension();
+            $fullName = str_replace(' ', '', $finalName);
+            $moveto    = 'files';
+            $file->move($moveto, $fullName);
+        }
+
+        if ($request->jenis == 'Tugas') {
+            $this->validate($request, [
+                'tanggal'   => 'required',
+                'waktu'     => 'required'
+            ]);
+        }
+
+        // dd($request->all());
+
         $matkul_id = Matkul::find($request->matkul_id);
 
         MateriTugas::create([
@@ -168,7 +189,7 @@ class DosenController extends Controller
             'tanggal_post' => date('Y-m-d')
         ]);
 
-            return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil');
+            return redirect()->route('dashboard.' . auth()->user()->role)->with('success', ' Berhasil diposting');
     }
 
     public function posttugas()
@@ -190,6 +211,12 @@ class DosenController extends Controller
         $data = MateriTugas::find($id);
         File::delete('public/filemateri/' . $data->file);
         $data->delete();
-        return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil');
+        return redirect()->route('dashboard.' . auth()->user()->role)->with('success', 'Berhasil dihapus');
+    }
+
+    public function addDosen()
+    {
+        $gelar = Gelar::orderBy('gelar','asc')->get();
+        return view('dosen/addDosen',compact('gelar'));
     }
 }

@@ -32,8 +32,14 @@ class AbsenController extends Controller
 
     public function daftarMhs(Request $request)
     {
+        if ($request->tanggal == null) {
+            $tgl = date('Y-m-d');
+        } else {
+            $tgl = $request->tanggal;
+        }
+
         $cek = Absen::where([
-            'tanggal' => $request->tanggal,
+            'tanggal' => $tgl,
             'matkul_id' => $request->matkul_id
         ])->first();
 
@@ -50,11 +56,6 @@ class AbsenController extends Controller
                 $thn = $tahun->tahun_masuk;
             }
             $no = 1;
-            if ($request->tanggal == null) {
-                $tgl = date('Y-m-d');
-            } else {
-                $tgl = $request->tanggal;
-            }
 
             return view('absen.daftarmhs', compact('no', 'mahasiswa', 'thn', 'matkul', 'semester', 'tgl'));
         }
@@ -124,10 +125,14 @@ class AbsenController extends Controller
         return view('absen/rekap', compact('matkul', 'user'));
     }
 
-    public function rekapPost(Request $request)
+    public function rekapGet()
     {
+        $request_from       = $_GET['from'];
+        $request_to         = $_GET['to'];
+        $request_matkul_id  = $_GET['matkul_id'];
+
         //DARI
-        $dari = explode('-', $request->from);
+        $dari = explode('-', $request_from);
         $month = $dari[1];
         switch ($month) {
             case '01':
@@ -185,7 +190,7 @@ class AbsenController extends Controller
         $from = $dari[2] . ' ' . $month . ' ' . $dari[0];
 
         //SAMPAI
-        $sampai = explode('-', $request->to);
+        $sampai = explode('-', $request_to);
         $bulan = $sampai[1];
         switch ($bulan) {
             case '01':
@@ -241,21 +246,21 @@ class AbsenController extends Controller
         }
 
         $to = $sampai[2] . ' ' . $bulan . ' ' . $sampai[0];
-        $matkul = Matkul::find($request->matkul_id);
+        $matkul = Matkul::find($request_matkul_id);
 
         if (auth()->user()->role == 'admin') {
-            $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
+            $absen = Absen::whereBetween('tanggal', [$request_from, $request_to])
                 ->where([
                     'matkul_id'    => $request->matkul_id
                 ])->orderBy('tanggal', 'desc')->get();
-                
+
 
             $mahasiswa = Mahasiswa::where('semester_id', $matkul->semester_id)->get();
             $fix = [];
             foreach ($mahasiswa as $m) {
-                $cek = Absen::whereBetween('tanggal', [$request->from, $request->to])
+                $cek = Absen::whereBetween('tanggal', [$request_from, $request_to])
                         ->where(['mahasiswa_id'  =>  $m->id,
-                                'matkul_id'     =>  $request->matkul_id,
+                                'matkul_id'     =>  $request_matkul_id,
                                 'status'    =>  1 ])->get();
                 $jml = $cek->count();
                 $fix[] = [
@@ -265,27 +270,27 @@ class AbsenController extends Controller
             }
 
             $data = [
-                'matkul_id' => $request->matkul_id,
-                'dari' => $request->from,
-                'sampai' => $request->to,
+                'matkul_id' => $request_matkul_id,
+                'dari' => $request_from,
+                'sampai' => $request_to,
                 'from' => $from,
                 'to' => $to
             ];
 
         }elseif (auth()->user()->role == 'dosen') {
             $dosen = Dosen::where('user_id', auth()->user()->id)->first();
-            $absen = Absen::whereBetween('tanggal', [$request->from, $request->to])
+            $absen = Absen::whereBetween('tanggal', [$request_from, $request_to])
                 ->where([
-                    'matkul_id'    => $request->matkul_id,
+                    'matkul_id'    => $request_matkul_id,
                     'dosen_id'     => $dosen->id
-                ])->orderBy('tanggal', 'desc')->get();                
+                ])->orderBy('tanggal', 'desc')->get();
 
             $mahasiswa = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->semester_id)->with('Absen')->get();
             $fix = [];
             foreach ($mahasiswa as $m) {
-                $cek = Absen::whereBetween('tanggal', [$request->from, $request->to])
+                $cek = Absen::whereBetween('tanggal', [$request_from, $request_to])
                         ->where(['mahasiswa_id'  =>  $m->id,
-                                'matkul_id'     =>  $request->matkul_id,
+                                'matkul_id'     =>  $request_matkul_id,
                                 'dosen_id'      =>  $dosen->id,
                                 'status'    =>  1 ])->get();
                 $jml = $cek->count();
@@ -296,21 +301,21 @@ class AbsenController extends Controller
             }
 
             $data = [
-                'matkul_id' => $request->matkul_id,
+                'matkul_id' => $request_matkul_id,
                 'dosen_id'  => $dosen->id,
-                'dari' => $request->from,
-                'sampai' => $request->to,
+                'dari' => $request_from,
+                'sampai' => $request_to,
                 'from' => $from,
                 'to' => $to
             ];
 
         }
-        
+
         $date = [
-            'from'  =>  $request->from,
-            'to'    =>  $request->to
+            'from'  =>  $request_from,
+            'to'    =>  $request_to
         ];
-        
+
         $encrypted = Crypt::encrypt($date);
 
         return view('absen.rekap-result', compact('absen', 'mahasiswa', 'matkul', 'data', 'fix', 'encrypted'));
@@ -320,7 +325,7 @@ class AbsenController extends Controller
     {
         $decrypted = Crypt::decrypt($encrypted);
         $matkul = Matkul::find($mkid);
-        
+
         if (auth()->user()->role == 'admin') {
             $absen = Absen::whereBetween('tanggal', [$decrypted['from'], $decrypted['to']])
                     ->where(['mahasiswa_id' => $mhsid,

@@ -91,9 +91,9 @@
           <li class="nav-item">
             <a href="{{route('matkul.index')}}" class="nav-link"><i class="ni ni-books text-success"></i> Mata Kuliah</a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class=" nav-link " href="{{ route('absen.rekap') }}"><i class="ni ni-chart-bar-32 text-default"></i>Rekap Absen</a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{route('admin.awal')}}" class="nav-link"><i class="ni ni-planet text-info"></i> Nilai</a>
           </li>
@@ -148,7 +148,7 @@
             <a class="nav-link " href="/simak/nilai">
               <i class="ni ni-diamond text-red"></i>Lihat Nilai
             </a>
-          </li> --}}          
+          </li> --}}
         </ul>
         @endif
         @if (auth()->user()->role == 'mahasiswa')
@@ -156,12 +156,12 @@
         <h6 class="navbar-heading text-muted">Menu Mahasiswa</h6>
         <ul class="navbar-nav">
           <li class="nav-item class">
-            <a class="nav-link" href="/simak/dashboard/{{ auth()->user()->role }}">
+            <a class="nav-link" href="{{route('dashboard.mahasiswa')}}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/kehadiran/{{ auth()->user()->role }}">
+            <a class=" nav-link " href="{{route('kehadiran')}}">
               <i class="ni ni-circle-08 text-warning"></i> Kehadiran
             </a>
           </li>
@@ -171,17 +171,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class=" nav-link " href="/simak/krs/{{ auth()->user()->role }}">
+            <a class=" nav-link " href="{{route('krs')}}">
               <i class="ni ni-hat-3 text-default text-primary"></i> Kartu Rencana Studi
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/jadwal/mahasiswa">
+            <a class="nav-link " href="{{route('jadwal.mahasiswa')}}">
               <i class="ni ni-calendar-grid-58 text-red"></i>Lihat Jadwal
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/simak/nilai/{{ auth()->user()->role }}">
+            <a class="nav-link " href="{{route('nilai.mahasiswa')}}">
               <i class="ni ni-planet text-primary"></i>Nilai
             </a>
           </li>

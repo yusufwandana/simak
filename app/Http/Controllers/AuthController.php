@@ -35,14 +35,14 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             if (auth()->user()->role == 'admin') {
-                return redirect('dashboard/admin')->with('success', 'Login berhasil.');
+                return redirect('dashboard/admin')->with('success', 'Berhasil login.');
             } elseif (auth()->user()->role == 'dosen') {
-                return redirect('dashboard/dosen')->with('success', 'Login berhasil.');
+                return redirect('dashboard/dosen')->with('success', 'Berhasil login');
             } elseif (auth()->user()->role == 'mahasiswa') {
-                return redirect('dashboard/mahasiswa')->with('success', 'Login berhasil.');
+                return redirect('dashboard/mahasiswa')->with('success', 'Berhasil login');
             }
         } else {
-            return redirect('login')->with('failed', 'Username atau password salah!');
+            return redirect('login')->with('failed', 'Email atau password salah!');
         }
     }
 
@@ -58,30 +58,30 @@ class AuthController extends Controller
                 $user->save();
 
                 if (auth()->user()->role == 'admin') {
-                    return redirect('dashboard/admin')->with('success', 'Password berhasil diubah!');
+                    return redirect('dashboard/admin')->with('success', 'Password berhasil diubah');
                 } elseif (auth()->user()->role == 'dosen') {
-                    return redirect('dashboard/dosen')->with('success', 'Password berhasil diubah!');
+                    return redirect('dashboard/dosen')->with('success', 'Password berhasil diubah');
                 } else {
-                    return redirect('dashboard/mahasiswa')->with('success', 'Password berhasil diubah!');
+                    return redirect('dashboard/mahasiswa')->with('success', 'Password berhasil diubah');
                 }
             } else {
 
                 if (auth()->user()->role == 'admin') {
-                    return redirect('dashboard/admin')->with('failed', 'Konfirmasi password tidak cocok!');
+                    return redirect('dashboard/admin')->with('failed', 'Gagal, kolom konfirmasi password tidak cocok!');
                 } elseif (auth()->user()->role == 'dosen') {
-                    return redirect('dashboard/dosen')->with('failed', 'Konfirmasi password tidak cocok!');
+                    return redirect('dashboard/dosen')->with('failed', 'Gagal, kolom konfirmasi password tidak cocok!');
                 } else {
-                    return redirect('dashboard/mahasiswa')->with('failed', 'Konfirmasi password tidak cocok!');
+                    return redirect('dashboard/mahasiswa')->with('failed', 'Gagal, kolom konfirmasi password tidak cocok!');
                 }
             }
         } else {
 
             if (auth()->user()->role == 'admin') {
-                return redirect('dashboard/admin')->with('failed', 'Password lama tidak cocok dengan database!');
+                return redirect('dashboard/admin')->with('failed', 'Gagal, password saat ini tidak cocok!');
             } elseif (auth()->user()->role == 'dosen') {
-                return redirect('dashboard/dosen')->with('failed', 'Konfirmasi password tidak cocok!');
+                return redirect('dashboard/dosen')->with('failed', 'Gagal, Password saat ini tidak cocok!');
             } else {
-                return redirect('dashboard/mahasiswa')->with('failed', 'Konfirmasi password tidak cocok!');
+                return redirect('dashboard/mahasiswa')->with('failed', 'Gagal, Password saat ini tidak cocok!');
             }
         }
     }

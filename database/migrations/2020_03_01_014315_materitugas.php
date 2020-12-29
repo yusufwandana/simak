@@ -17,9 +17,9 @@ class Materitugas extends Migration
             $table->increments('id');
             $table->string('jenis');
             $table->text('deskripsi');
-            $table->string('file');
-            $table->date('tanggal_tenggat');
-            $table->time('waktu_tenggat');
+            $table->string('file')->nullable();
+            $table->date('tanggal_tenggat')->nullable();
+            $table->time('waktu_tenggat')->nullable();
             $table->date('tanggal_post');
             $table->integer('semester_id')->unsigned();
             $table->integer('user_id')->unsigned();

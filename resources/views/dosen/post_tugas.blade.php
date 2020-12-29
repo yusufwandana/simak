@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('title', 'SIMAK | Posting Materi & Tugas')
-    
-@section('head', 'Posting Tugas')
+
+@section('head', 'Form Posting')
 
 @section('content')
 <div class="container-fluid mt--8 mb-5">
@@ -20,7 +20,11 @@
                                 <div class="form-group">
                                     <label for="jenis">Jenis Posting</label>
                                     <select name="jenis" id="jenis" class="form-control" required>
-                                        <option value="">Pilih jenis postingan..</option>
+                                        @if (old('jenis') == null)
+                                            <option value="">Pilih jenis postingan..</option>
+                                        @else
+                                            <option value="{{old('jenis')}}" selected>{{old('jenis')}}</option>
+                                        @endif
                                         <option value="Materi">Materi</option>
                                         <option value="Tugas">Tugas</option>
                                     </select>
@@ -47,22 +51,26 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="tanggal">Tenggat Waktu</label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="date" name="tanggal" class="form-control" value="{{old('tanggal')}}" required>
+                                <div id="tenggat">
+                                    <label for="tanggal">Tenggat Waktu</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{old('tanggal')}}">
+                                                <small class="text-danger">{{$errors->first('tanggal')}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="time" name="waktu" id="waktu" class="form-control" value="{{old('waktu')}}">
+                                                <small class="text-danger">{{$errors->first('waktu')}}</small>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="time" name="waktu" class="form-control" value="{{old('waktu')}}" required>
-                                        </div>
-                                    </div>                            
                                 </div>
                                 <div class="form-group">
-                                    <label for="deskripsi">Tambahkan file?</label> 
-                                    <input class="form-control" type="file" name="file" id="fileu" required>
+                                    <label for="deskripsi">Tambahkan file? <small>(optional)</small></label>
+                                    <input class="form-control" type="file" name="file" id="fileu">
                                     @if ($msg = $errors->first('file'))
                                         <small class="text-red">{{$msg}}</small>
                                     @endif
@@ -80,4 +88,22 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('customjs')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('body').on('change','#jenis', function(){
+                if ($(this).val() == 'Materi') {
+                    $('#tenggat').hide();
+                    $('#tanggal').removeAttr('required','required');
+                    $('#waktu').removeAttr('required','required');
+                }else{
+                    $('#tenggat').show();
+                    $('#tanggal').attr('required','required');
+                    $('#waktu').attr('required','required');
+                }
+            });
+        });
+    </script>
 @endsection

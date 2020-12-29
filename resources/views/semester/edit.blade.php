@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="semester">Semester</label>
-                    <input type="text" class="form-control" placeholder="Masukan nama semester.." name="semester" id="semester" value="{{ $semester->semester }}">
+                    <input type="text" class="form-control" placeholder="Masukan semester.." name="semester" id="semester" value="{{ $semester->semester }}">
                     @if ($errors->has('semester'))
                         <small class="text-danger">{{ $errors->first('semester') }}</small>
                     @endif

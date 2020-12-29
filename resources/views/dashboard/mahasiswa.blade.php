@@ -5,7 +5,35 @@
 @section('head', 'dashboard')
 
 @section('dashboard')
-    <div class="container-fluid mt--3">
+    @if ($msg = Session::get('success'))
+        <div class="container-fluid mt--3">
+            <div class="row justify-content-center">
+                <div class="col-md">
+                    <div class="card mb-5">
+                    <div class="card-body">
+                            <h4 class="text-success">{{$msg}}.</h4>
+                            {{-- <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3></h3> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if ($msg = Session::get('failed'))
+        <div class="container-fluid mt--3">
+            <div class="row justify-content-center">
+                <div class="col-md">
+                    <div class="card mb-5">
+                    <div class="card-body">
+                            <h4 class="text-danger">{{$msg}}</h4>
+                            {{-- <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3></h3> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    {{-- <div class="container-fluid mt--3">
         <div class="row justify-content-center">
             <div class="col-md">
             <div class="card mb-5">
@@ -18,7 +46,7 @@
             </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="container-fluid">
         <div class="header-body">
         <!-- Card stats -->
@@ -118,7 +146,7 @@
             <div class="col">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h3>Beranda 
+                        <h3>Beranda
                             @if (auth()->user()->role != 'admin' || 'dosen')
 
                             @else
@@ -156,7 +184,7 @@
                                             <td>&nbsp;:&nbsp;</td>
                                             <td>{{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</td>
                                         </tr>
-                                    </table></h5>                                
+                                    </table></h5>
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="card" style="border: solid 1px #f0f0ff;">

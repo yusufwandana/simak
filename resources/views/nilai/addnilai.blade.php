@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col">
                 <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-    
+
                 </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 @endif
                 </div>
                 <div class="h5 mt-4">
-                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                <i class="ni business_briefcase-24 mr-2"></i>{{$mahasiswa->jurusan->jurusan}} - Semester {{$mahasiswa->semester->semester}}
                 </div>
             </div>
             </div>
@@ -65,7 +65,7 @@
                         <h3 class="mb-0">{{ $user->name }} | Daftar Nilai</h3>
                     </div>
                     <div class="col-md-3">
-                        <a href="/simak/nilai/daftarmhs/{{$matkul->id}}/{{$matkul->slug}}" class="badge badge-primary float-right">kembali</a>
+                        <a href="{{URL::previous()}}" class="badge badge-primary float-right">kembali</a>
                     </div>
                 </div>
             </div>
@@ -172,27 +172,11 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
-        <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-            © {{ date('Y') }} <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+            <div class="col-xl-6">
+                <div class="copyright text-center text-xl-left text-muted">
+                © {{ date('Y') }} <a href="#" class="font-weight-bold ml-1">SIMAK Team</a>
+                </div>
             </div>
-        </div>
-        <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
-            </ul>
-        </div>
         </div>
     </footer>
 

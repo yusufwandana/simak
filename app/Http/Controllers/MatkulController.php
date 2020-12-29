@@ -26,8 +26,8 @@ class MatkulController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kd_matkul'   => 'required|string|min:8|max:8|unique:matkuls',
-            'matakuliah'  => 'required|unique:matkuls',
+            'kd_matkul'   => 'required|string|unique:matkuls',
+            'matakuliah'  => 'required|string|unique:matkuls',
             'semester'    => 'required',
             'kategori'    => 'required',
             'sks'         => 'required|numeric|min:1|max:4'
@@ -35,8 +35,8 @@ class MatkulController extends Controller
 
         $test  = strtolower($request->matakuliah);
         $slug1 = str_replace(' ', '-', $test);
-        $slug  = $slug1 . '-' . $request->semester;
-        
+        $slug2  = $slug1 . '-' . $request->semester;
+
         $a = Matkul::create([
             'kd_matkul'   => strtoupper($request->kd_matkul),
             'matakuliah'  => ucwords($request->matakuliah),
@@ -46,7 +46,6 @@ class MatkulController extends Controller
             'kategori'    => $request->kategori
         ]);
 
-        // dd($a);
         return redirect()->route('matkul.index')->with('success', 'Mata kuliah berhasil ditambahkan!');
     }
 
@@ -66,7 +65,7 @@ class MatkulController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'matakuliah'  => 'required',
+            'matakuliah'  => 'required|string',
             'sks'         => 'required|numeric|min:1|max:4'
         ]);
 

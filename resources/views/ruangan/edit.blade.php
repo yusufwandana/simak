@@ -31,7 +31,7 @@
                             <small class="text-danger">{{ $errors->first('jenis') }}</small>
                         </select>
                     @else
-                        <label for="jenis">jenis</label>
+                        <label for="jenis">Jenis Ruangan</label>
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="" selected disabled>Pilih jenis ruangan..</option>
                             <option value="Kelas" @if ($ruangan->jenis == 'Kelas') selected @endif>Ruang Kelas</option>

@@ -18,18 +18,26 @@
             @csrf
             @method('PUT')
             <div class="card-body">
-                @if ($errors->has('jurusan')) 
-                    <div class="form-group">
-                        <label for="nama">Nama jurusan</label>
-                        <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan" value="{{ $jurusan->jurusan }}">
-                        <small class="text-danger">{{ $errors->first('jurusan') }}</small>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nama">Nama jurusan sebelumnya</label>
+                            <input type="text" class="form-control" value="{{ $jurusan->jurusan }}" readonly>
+                        </div>
                     </div>
-                @else
-                    <div class="form-group">
-                        <label for="nama">Nama jurusan</label>
-                        <input type="text" class="form-control" placeholder="Masukan nama jurusan.." name="jurusan" id="jurusan" value="{{ $jurusan->jurusan }}">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nama">Nama jurusan baru</label>
+                            <input type="text" class="form-control" placeholder="Masukan nama baru.." name="jurusan" id="jurusan" required>
+                            @if ($errors->has('jurusan'))
+                                <small class="text-danger">{{ $errors->first('jurusan') }}</small>
+                            @endif
+                        </div>
                     </div>
-                @endif
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

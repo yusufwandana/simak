@@ -111,7 +111,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values',
     'string' => 'Kolom :attribute harus bertipe string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'Kolom :attribute sudah ada sebelumnya.',
+    'unique' => 'Kolom :attribute harus unik.',
     'uploaded' => 'Kolom :attribute gagal diupload.',
     'url' => 'Kolom :attribute tidak valid.',
     'uuid' => 'The :attribute must be a valid UUID.',

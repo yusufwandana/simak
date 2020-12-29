@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'Detail Profile')
+@section('title', 'SIMAK | Profil Dosen')
 
-@section('head', 'Profile')
+@section('head', 'Profil Dosen')
 
 @section('content')
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--8">
     <div class="row">
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
         <div class="card card-profile shadow">
@@ -25,22 +25,22 @@
             <div class="row">
                 <div class="col">
                 <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-    
+
                 </div>
                 </div>
             </div>
             <div class="text-center">
                 <h3>
-                {{ $dosen->nama }}<span class="font-weight-light"></span>
+                    {{ $dosen->nama }}<span class="font-weight-light"></span>
                 </h3>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i><b>{{ $dosen->nip }}</b>
+                    <i class="ni location_pin mr-2"></i><b>{{ $dosen->nip }}</b>
                 </div>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i><b>{{$dosen->alamat}}</b>
+                    <i class="ni location_pin mr-2"></i><b>{{substr($dosen->gelar->gelar,'5','50')}} ({{$dosen->gelar->singkatan}})</b>
                 </div>
-                <div class="h5 mt-4">
-                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                <div class="h5 mt-2">
+                    <i class="ni business_briefcase-24 mr-2"></i>{{$dosen->alamat}}
                 </div>
             </div>
             </div>
@@ -70,7 +70,7 @@
                 case 'Sat':
                     $a = 'Sabtu';
                     break;
-                
+
                 default:
                     $a = 'False';
                     break;
@@ -81,8 +81,8 @@
             <div class="card-header bg-white border-0">
             <div class="row align-items-center">
                 <div class="col-12">
-                <h3>{{ $dosen->nama }} | Profile <a href="{{ route('dosen') }}" class="badge badge-primary float-right">kembali</a></h3>
-                
+                <h3>{{ $dosen->nama }} | Profil <a href="{{ route('dosen') }}" class="badge badge-primary float-right">kembali</a></h3>
+
                 </div>
             </div>
             </div>
@@ -100,7 +100,7 @@
                     <h5 class="text-white">{{ $message }}</h5>
                 </div>
                 @endif
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">Informasi Dosen</h6>
                 <div class="px-lg-0">
                 <div class="row">
                     <div class="col-lg-6">
@@ -117,14 +117,14 @@
                     </div>
                 </div>
                 <hr class="my-4">
-                <h6 class="heading-small text-muted mb-4">Daftar matkul <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a></h6>
+                <h6 class="heading-small text-muted mb-4">Daftar Mata Kuliah <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a></h6>
                 <div class="row mt-4">
                     <div class="col-lg">
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                    <th scope="col">Matkul</th>
+                                    <th scope="col">Mata Kuliah</th>
                                     <th scope="col">Semester</th>
                                     <th scope="col">Aksi</th>
                                     </tr>
@@ -152,7 +152,7 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-                            </table>                        
+                            </table>
                         </div>
                     </div>
                     </div>
@@ -162,32 +162,7 @@
         </div>
         </div>
     </div>
-    {{-- <!-- Footer -->
-    <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-        <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-            © 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
-            </ul>
-        </div>
-        </div>
-    </footer> --}}
+    @include('layouts.includes._footer')
 
     {{-- Modal --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -27,7 +27,9 @@ class MahasiswaController extends Controller
 
     public function create()
     {
-        //
+        $jurusan  = Jurusan::orderBy('jurusan','asc')->get();
+        $semester = Semester::orderBy('semester','asc')->get();
+        return view('mahasiswa.add-mahasiswa', compact('jurusan','semester'));
     }
 
     public function store(Request $request)
@@ -55,7 +57,7 @@ class MahasiswaController extends Controller
             $user->avatar = 'default.png';
             $user->role = 'mahasiswa';
             $user->remember_token = str_random(60);
-    
+
             $user->save();
             $id = $user->id;
             Mahasiswa::create([
@@ -74,9 +76,12 @@ class MahasiswaController extends Controller
 
     }
 
-    public function show($id)
+    public function showProfile($id)
     {
-        //
+        $mahasiswa = Mahasiswa::find($id);
+        $user      = User::find($mahasiswa->user_id);
+        $matkul    = Matkul::where('semester_id',$mahasiswa->semester_id)->orderBy('matakuliah', 'asc')->get();
+        return view('mahasiswa.profile',compact('user','mahasiswa','matkul'));
     }
 
     public function edit($id)
@@ -114,44 +119,6 @@ class MahasiswaController extends Controller
         return redirect()->back()->with('success', 'Mahasiwa telah berhasil dihapus');
     }
 
-    public function kehadirano()
-    {
-        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
-        $hadir = Absen::where([
-            'mahasiswa_id' => $mahasiswa->id,
-            'status' => 1,
-        ])->get();
-        $tglhdrs = $hadir;
-        $hadir = count($hadir);
-
-        $tdkhadir = Absen::where([
-            ['mahasiswa_id', '=', $mahasiswa->id],
-            ['status', '!=', 1]
-        ])->get();
-        $tglhdr = $tdkhadir;
-        $absen = count($tdkhadir);
-        
-        return view('mahasiswa.tdkhadir', compact('absen', 'hadir','tglhdrs','tglhdr','mahasiswa'));
-    }
-
-    public function kehadirans()
-    {
-        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
-        $hadir = Absen::where([
-            'mahasiswa_id' => $mahasiswa->id,
-            'status' => '1',
-        ])->get();
-        $tglhdr = $hadir;
-        $hadir = count($hadir);
-
-        $tdkhadir = Absen::where([
-            ['mahasiswa_id', '=', $mahasiswa->id],
-            ['status', '!=', 1]
-        ])->get();
-        $absen = count($tdkhadir);
-
-        return view('mahasiswa.kehadiran', compact('absen', 'hadir','tglhdr','mahasiswa'));
-    }
     public function kehadiran()
     {
         $mahasiswas = Mahasiswa::all();
@@ -160,17 +127,18 @@ class MahasiswaController extends Controller
             'mahasiswa_id' => $mahasiswa->id,
             'status' => '1',
         ])->get();
-        $hadir = count($hadir);
 
         $tdkhadir = Absen::where([
             ['mahasiswa_id', '=', $mahasiswa->id],
             ['status', '!=', 1]
         ])->get();
+
+        $hadir = count($hadir);
         $absen = count($tdkhadir);
 
+        $kehadiran = Absen::orderBy('tanggal','desc')->where('mahasiswa_id', $mahasiswa->id)->paginate(20);
 
-
-        return view('mahasiswa.absen', compact('absen', 'hadir','mahasiswa'));
+        return view('mahasiswa.absen', compact('absen', 'hadir','mahasiswa','kehadiran'));
     }
 
     public function krs()
@@ -198,16 +166,16 @@ class MahasiswaController extends Controller
         $data = Matkul::where('semester_id', $id)->orderBy('matakuliah', 'asc')->get();
         $mhs  = Mahasiswa::where('user_id', auth()->user()->id)->first();
         return view('mahasiswa.export-krs', compact('data', 'mhs'));
-        $pdf  = PDF::loadView('mahasiswa.export-krs', compact('data'));
-        return $pdf->stream('export_krs.pdf');
+        // $pdf  = PDF::loadView('mahasiswa.export-krs', compact('data','mhs'));
+        // return $pdf->stream('export_krs.pdf');
     }
 
     public function Nilai()
     {
         $user = Auth::user();
         $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
-
         $nilai = Nilai::where('mahasiswa_id', $mahasiswa->id)->get();
+
         return view('mahasiswa.nilai', ['nilai' => $nilai, 'mahasiswa' => $mahasiswa]);
     }
 
@@ -245,7 +213,7 @@ class MahasiswaController extends Controller
             ];
 
             $na = 0;
-            
+
         }
 
         return view('mahasiswa.khs', compact('mahasiswa', 'matkul', 'nilai'));
@@ -285,9 +253,9 @@ class MahasiswaController extends Controller
             ];
 
             $na = 0;
-            
+
         }
 
-        return view('mahasiswa.print-khs', compact('mahasiswa', 'matkul', 'nilai'));   
+        return view('mahasiswa.print-khs', compact('mahasiswa', 'matkul', 'nilai'));
     }
 }

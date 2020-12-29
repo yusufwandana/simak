@@ -17,6 +17,7 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+// Login
 Route::get('login', 'AuthController@login')->name('login');
 Route::post('postlogin', 'AuthController@postlogin')->name('postlogin');
 
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
     //CRUD DOSEN
     Route::get('dosen', 'DosenController@index')->name('dosen');
+    Route::get('dosen/add-dosen', 'DosenController@addDosen')->name('addDosen');
     Route::post('dosen/create', 'DosenController@create')->name('dosen.create');
     Route::get('dosen/{id}/edit', 'DosenController@edit')->name('dosen.edit');
     Route::post('dosen/{id}/update', 'DosenController@update')->name('dosen.update');
@@ -42,7 +44,11 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
     Route::post('dosenmatkul/create', 'DosenController@addMatkul')->name('dosenmatkul.add');
 
     // CRUD MAHASISWA
-    Route::resource('mahasiswa', 'MahasiswaController');
+    Route::resource('mahasiswa', 'MahasiswaController')->except(
+        'show','destroy'
+    );
+    Route::get('mahasiswa/delete/{id}', 'MahasiswaController@destroy')->name('mahasiswa.destroy');
+    Route::get('profil-mahasiswa/{id}', 'MahasiswaController@showProfile')->name('mahasiswa.profile');
 
     // CRUD SEMESTER
     Route::resource('semester', 'SemesterController');
@@ -52,7 +58,6 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
 
     // CRUD JADWAL
     Route::resource('jadwal', 'JadwalController')->except(
-        'create',
         'show'
     );
     Route::get('jadwal/mailing', 'JadwalController@mailing')->name('jadwal.mailing');
@@ -69,9 +74,9 @@ Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
     Route::get('admin/posting', 'DosenController@posttugas');
 
     //Nilai admin
-    Route::get('admin/nilai/index', 'NilaiController@adminNilaiIndex')->name('admin.awal');
-    Route::get('admin/nilai/{id}', 'NilaiController@adminNilai')->name('admin.nilai');
-    Route::get('admin/nilai/detail/{id}', 'NilaiController@adminNilaiDetail')->name('nilai.detail');
+    Route::get('admin/nilai', 'NilaiController@adminNilaiIndex')->name('admin.awal');
+    Route::get('admin/nilai/{slug}', 'NilaiController@adminNilai')->name('admin.nilai');
+    Route::get('admin/nilai/detail/{nim}', 'NilaiController@adminNilaiDetail')->name('nilai.detail');
 });
 
 
@@ -83,7 +88,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     Route::post('postabsen', 'AbsenController@postabsen')->name('absen.postabsen');
     Route::post('absen/daftarmhs', 'AbsenController@daftarmhs')->name('absen.daftarmhs');
     Route::get('absen/rekap', 'AbsenController@rekapAbsen')->name('absen.rekap');
-    Route::post('absen/rekap/result', 'AbsenController@rekapPost')->name('absen.rekapost');
+    Route::get('absen/rekap/result', 'AbsenController@rekapGet')->name('absen.rekapget');
     Route::get('absen/rekap/detail/{encrypted}/{mhsid}/{mkid}', 'AbsenController@absenDetail')->name('absen.detail');
 
     //Jadwal
@@ -95,12 +100,12 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
     );
     Route::get('nilai/show/{mhsId}/{matkulId}', 'NilaiController@show')->name('show.nilai');
     Route::post('nilai/addnilai', 'NilaiController@addnilai')->name('nilai.addnilai');
-    Route::get('nilai/daftarmhs/{id}/{slug}', 'NilaiController@daftarmhs')->name('nilai.daftarmhs');
+    Route::get('nilai/{slug}', 'NilaiController@daftarmhs')->name('nilai.daftarmhs');
     Route::post('nilai/update/{id}', 'NilaiController@nilaiUpdate')->name('update.nilai ');
 
     // Posting
     // Route::get('dosen/postmt', 'DosenController@postmateri')->name('postmateri');
-    Route::get('dosen/postgs', 'DosenController@posttugas')->name('posttugas');
+    Route::get('dosen/posting', 'DosenController@posttugas')->name('posttugas');
     Route::get('dosen/post/{id}', 'DosenController@deletepost')->name('deletepost');
     Route::post('dosen/uploadfile', 'DosenController@uploadFile')->name('uploadfile');
 
@@ -111,15 +116,13 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,dosen']], function () {
 
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,mahasiswa']], function () {
-    Route::get('dashboard/mahasiswa', 'DashboardController@mahasiswa');
-    Route::get('kehadiran/mahasiswa', 'MahasiswaController@kehadiran');
-    Route::get('kehadiran/mahasiswa/tdkhadir', 'MahasiswaController@kehadirano');
-    Route::get('kehadiran/mahasiswa/kehadiran', 'MahasiswaController@kehadirans');
-    Route::get('krs/mahasiswa', 'MahasiswaController@krs');
-    Route::get('krs/mahasiswa/export/{id}', 'MahasiswaController@exportpdf')->name('exportpdf');
-    Route::get('nilai/mahasiswa', 'MahasiswaController@Nilai');
-    Route::get('jadwal/mahasiswa', 'DashboardController@jadwalMahasiswa')->name('mahasiswa.jadwal');
+    Route::get('dashboard/mahasiswa', 'DashboardController@mahasiswa')->name('dashboard.mahasiswa');
+    Route::get('kehadiran-mahasiswa', 'MahasiswaController@kehadiran')->name('kehadiran');
+    Route::get('krs-mahasiswa', 'MahasiswaController@krs')->name('krs');
+    Route::get('krs-mahasiswa/export/{id}', 'MahasiswaController@exportpdf')->name('exportpdf');
+    Route::get('nilai-mahasiswa', 'MahasiswaController@Nilai')->name('nilai.mahasiswa');
+    Route::get('jadwal/mahasiswa', 'DashboardController@jadwalMahasiswa')->name('jadwal.mahasiswa');
     Route::get('krsmatkul/{id}', 'MahasiswaController@krsmatkul')->name('krs.matkul');
-    Route::get('khs/mahasiswa', 'MahasiswaController@khsMahasiswa')->name('khs');
-    Route::get('khs/mahasiswa/print', 'MahasiswaController@printKhs')->name('khs.print');
+    Route::get('khs-mahasiswa', 'MahasiswaController@khsMahasiswa')->name('khs');
+    Route::get('khs-mahasiswa/print', 'MahasiswaController@printKhs')->name('khs.print');
 });

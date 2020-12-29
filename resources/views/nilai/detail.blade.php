@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK | Detail')
+@section('title', 'SIMAK | Detail Nilai Mahasiswa')
 
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
-@section('head', 'Detail Nilai')
+@section('head', 'Detail Nilai Mahasiswa')
 
 @section('content')
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--8">
     <div class="row">
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
         <div class="card card-profile shadow">
@@ -29,29 +29,25 @@
             <div class="row">
                 <div class="col">
                 <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-    
+
                 </div>
                 </div>
             </div>
             <div class="text-center">
-                <h3>
-                {{ $mahasiswa->nama }}<span class="font-weight-light"></span>
-                </h3>
+                <h3>{{ $mahasiswa->nama }} <span class="font-weight-light"></span></h3>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i>{{ $mahasiswa->nim }}
+                    <i class="ni location_pin mr-2"></i><b>{{ $mahasiswa->nim }}</b>
                 </div>
                 <div class="h4 font-weight-300">
-                <i class="ni location_pin mr-2"></i>
-                @if ($mahasiswa->jk == 'L')
-                    Laki-laki
-                @elseif($mahasiswa->jk == 'P')
-                    Perempuan
-                @else
-                    !!EROR!!
-                @endif
+                    <i class="ni location_pin mr-2"></i><b>
+                        @if ($mahasiswa->jk == 'L') Laki-laki @else Perempuan @endif
+                    </b>
                 </div>
-                <div class="h5 mt-4">
-                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                <div class="h4 font-weight-300">
+                    <i class="ni location_pin mr-2"></i><b>{{$mahasiswa->jurusan->jurusan}} - Semester {{$mahasiswa->semester->semester}}</b>
+                </div>
+                <div class="h5 mt-2">
+                    <i class="ni business_briefcase-24 mr-2"></i>{{$mahasiswa->alamat}}
                 </div>
             </div>
             </div>
@@ -62,7 +58,7 @@
             <div class="card-header bg-white border-0">
                 <div class="row align-items-center">
                     <div class="col-md-9">
-                        <h3 class="mb-0">{{ $mahasiswa->nama }} | Semester {{$mahasiswa->semester->semester}}</h3>
+                        <h3 class="mb-0">{{ $mahasiswa->nama }} | {{$mahasiswa->jurusan->jurusan}} ({{$mahasiswa->semester->semester}})</h3>
                     </div>
                     <div class="col-md-3">
                         <a href="{{URL::previous()}}" class="badge badge-primary float-right">kembali</a>
@@ -70,7 +66,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">Informasi Mahasiswa</h6>
                 <div class="px-lg-0">
                 <div class="row">
                     <div class="col-lg-6">
@@ -170,31 +166,7 @@
         </div>
     </div>
     <!-- Footer -->
-    <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-        <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-            © {{ date('Y') }} <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
-            </ul>
-        </div>
-        </div>
-    </footer>
+    @include('layouts.includes._footer')
 
     <form id="updateForm" action="post" name="updateForm" class="form-horizontal">
         <div class="modal fade" id="ajax-crud-modal" aria-hidden="true">

@@ -18,11 +18,10 @@ class JurusanController extends Controller
         //
     }
 
-
     public function store(Request $request)
     {
         $this->validate($request, [
-            'jurusan' => 'required|unique:jurusans'
+            'jurusan' => 'required|unique:jurusans|min:8'
         ]);
 
         Jurusan::create([
@@ -48,6 +47,10 @@ class JurusanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'jurusan' => 'required|min:8'
+        ]);
+
         $jurusan = Jurusan::find($id);
         $jurusan->jurusan = ucwords($request->jurusan);
         $jurusan->save();

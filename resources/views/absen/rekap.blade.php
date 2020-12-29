@@ -5,7 +5,7 @@
 @section('head', 'Absen Mahasiswa ')
 
 @section('content')
-    
+
 <div class="container-fluid mt--9">
     <div class="row">
         <div class="col-md">
@@ -42,7 +42,7 @@
                             case 'Sat':
                                 $a = 'Sabtu';
                                 break;
-                            
+
                             default:
                                 $a = 'False';
                                 break;
@@ -50,16 +50,15 @@
                     @endphp
 
                     <h4 class="mb-0 float-right"> @php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
-                </div>  
-                <form action="{{ route('absen.rekapost') }}" method="post">
-                    @csrf
+                </div>
+                <form action="{{route('absen.rekapget')}}" method="get">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="matkul_id">Mata kuliah</label>
                                     <select name="matkul_id" id="matkul_id" class="form-control mb-3" required>
-                                        <option value="" selected disabled>Pilih mata kuliah</option> 
+                                        <option value="" selected disabled>Pilih mata kuliah</option>
                                         @if (auth()->user()->role == 'admin')
                                             @foreach ($matkul as $mm)
                                                 <option value="{{ $mm->id }}">{{ $mm->matakuliah }}</option>
@@ -74,19 +73,19 @@
                                             @php die(); @endphp
                                         @endif
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="from">Dari</label>
                                     <input type="date" class="form-control" name="from" id="from" required>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="to">Sampai</label>
                                     <input type="date" class="form-control" name="to" id="to" required>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -94,7 +93,7 @@
                                 <button type="submit" class="btn btn-primary btn-sm">Tampilkan</button>
                             </div>
                         </div>
-                    </div>       
+                    </div>
                 </form>
             </div>
         </div>

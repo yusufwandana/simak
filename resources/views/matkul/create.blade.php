@@ -25,7 +25,7 @@
                                 <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
                             </div>
                             @endif
-                        
+
                             @if ($message = Session::get('success'))
                             <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -91,7 +91,7 @@
 {{-- Modal --}}
 {{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        
+
     </div>
 </div> --}}
 @endsection

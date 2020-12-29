@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('public\css\bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <title>Export</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
             <div class="col-md">
                 <div class="row">
                     <div class="col-md-7">
-                        <img src="{{asset('public/krs-pdf/1.png')}}" width="100%">
+                        <img src="{{asset('krs-pdf/1.png')}}" width="100%">
                     </div>
                     <div class="col-md-5">
                         <br>
@@ -26,7 +26,7 @@
                 <hr class="mt-3 mb-5">
                 <div class="row">
                     <div class="col-md">
-                        <h5 class="text-center"><b>KARTU RENCANA STUDI (KRS)</b></h5><br>
+                        <h5 class="text-center"><b>KARTU RENCANA STUDI</b></h5><br>
                         <table>
                             <tr>
                                 <td>NIM</td>
@@ -83,13 +83,37 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-6">
-                <p>Puket I Bid. Akademik</p>
-                <br><br><br><br>
-                <p style="text-decoration:underline;" class="mb-0">Iwan Ridwan, ST. M.Kom</p>
-                <b>NID. 1022015</b>
+            <div class="col-md">
+                <p class="float-left">Puket I Bid. Akademik</p>
+                <p class="my-0 float-right">Bandung, ........, ..............................@php echo date('Y') @endphp</p>
+                <br><br><br><br><br><br>
             </div>
-            <div class="col-md-6">
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <p style="text-decoration:underline;" class="mb-0 float-left">Iwan Ridwan, ST. M.Kom</p>
+                <p style="text-decoration:underline;" class="mb-0 float-right">{{$mhs->nama}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <b class="float-left">NID. 1022015</b>
+                <b class="float-right">NIM. {{$mhs->nim}}</b>
+            </div>
+        </div>
+        {{-- Ini yang lama pake col-md-6 --}}
+        {{-- <div class="row">
+            <div class="col-md-6 float-left">
+                <div class="row">
+                    <div class="col-md">
+                        <p>Puket I Bid. Akademik</p>
+                        <br><br><br><br>
+                        <p style="text-decoration:underline;" class="mb-0">Iwan Ridwan, ST. M.Kom</p>
+                        <b>NID. 1022015</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 float-left">
                 <div class="row float-right">
                     <div class="col-md">
                         <p class="my-0">Bandung, ........, .....................................@php echo date('Y') @endphp</p>
@@ -99,7 +123,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <script>
@@ -110,3 +134,4 @@
     </script>
 </body>
 </html>
+

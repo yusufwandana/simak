@@ -7,10 +7,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-1">
-                            
+
                         </div>
                         <div class="col-md-11">
-                            <img src="{{asset('public/template/assets/img/brand/dm.png')}}" style="position:absolute; margin-left:5%;" width="12%">
+                            <img src="{{asset('template/assets/img/brand/dm.png')}}" style="position:absolute; margin-left:5%;" width="12%">
                             <br><br>
                             <h3 class="mb-0 text-center">SEKOLAH TINGGI MANAJEMEN INFORMASI & KOMPUTER</h3>
                             <h3 class="mb-0 text-center">DHARMA NEGARA</h3>
@@ -33,10 +33,6 @@
                                     <td>:</td>
                                     <td>{{$mahasiswa->nim}}</td>
                                 </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table>
                                 <tr>
                                     <td>Program Studi&nbsp;&nbsp;&nbsp;</td>
                                     <td>:&nbsp;&nbsp;&nbsp;</td>
@@ -49,6 +45,20 @@
                                 </tr>
                             </table>
                         </div>
+                        {{-- <div class="col-md-6">
+                            <table>
+                                <tr>
+                                    <td>Program Studi&nbsp;&nbsp;&nbsp;</td>
+                                    <td>:&nbsp;&nbsp;&nbsp;</td>
+                                    <td>{{$mahasiswa->jurusan->jurusan}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Semester</td>
+                                    <td>:</td>
+                                    <td>{{$mahasiswa->semester->semester}}</td>
+                                </tr>
+                            </table>
+                        </div> --}}
                     </div>
                     {{-- <div class="table-responsive"> --}}
                         <table class="table align-items-center table-bordered table-hover" id="data-table">
@@ -108,9 +118,9 @@
                         </table>
                         <div class="row">
                             <div class="col-md"><br>
-                                <p class="float-right">Bandung, {{date('M Y')}} <br> 
+                                <p class="float-right">Bandung, {{date('M Y')}} <br>
                                     Pembantu Ketua I,<br><br>
-                                    <img src="{{asset('public/krs-pdf/ttd.png')}}" width="50%" alt=""><br>
+                                    <img src="{{asset('krs-pdf/ttd.png')}}" width="50%" alt=""><br>
                                     Iwan Ridwan, ST., M.Kom
                                 </p>
                             </div>

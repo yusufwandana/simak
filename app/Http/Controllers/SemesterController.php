@@ -16,7 +16,7 @@ class SemesterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'semester' => 'required|numeric|digits:1|unique:semesters'
+            'semester' => 'required|numeric|digits:1|unique:semesters|min:1'
         ]);
 
         Semester::create([
@@ -38,7 +38,7 @@ class SemesterController extends Controller
         $this->validate($request, [
             'semester' => 'required|numeric|digits:1|unique:semesters'
         ]);
-        
+
         $semester = Semester::find($id);
         $semester->semester = $request->semester;
         $semester->save();

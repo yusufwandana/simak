@@ -42,7 +42,7 @@
     </nav>
     <!-- Header -->
     <div class="header py-7 py-lg-8">
-      
+
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
@@ -53,19 +53,19 @@
                   <div class="col-md text-center">
                     <img src="{{ asset('template/assets/img/brand/dm.png') }}" class="mb-4 text-center" width="40%" alt="">
                   </div>
-              
+
               <h2 class="text-center">Form Login</h2>
               <div class="text-center text-muted mb-4">
                 {{-- <small>SIMAK APPS @php echo date('Y') @endphp</small> --}}
               </div>
-              
+
               @if ($message = Session::get('failed'))
                 <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                   <small><i class="fas fa-exclamation-triangle" style="padding-right: 3%;"></i>{{ $message }}</small>
                 </div>
               @endif
-              
+
               <form action="{{route('postlogin')}}" method="post" role="form">
                 @csrf
                 <div class="form-group mb-3">
@@ -98,13 +98,12 @@
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              © @php
-                  echo date('Y');
-              @endphp <a href="#" class="font-weight-bold ml-1" target="_blank">CIS Team</a>
+              © @php echo date('Y'); @endphp
+              <a href="#" class="font-weight-bold ml-1">Creative Team</a>
             </div>
           </div>
           <div class="col-xl-6">
-            
+
           </div>
         </div>
       </div>

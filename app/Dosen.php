@@ -8,7 +8,7 @@ class Dosen extends Model
 {
     protected $table = 'dosens';
     protected $fillable = [
-        'nip', 'nama', 'jk', 'alamat', 'user_id',
+        'nip', 'nama', 'jk', 'alamat', 'user_id', 'gelar_id'
     ];
 
     public function User()
@@ -34,5 +34,10 @@ class Dosen extends Model
     {
         return $this->hasMany('App\MateriTugas');
     }
-    
+
+    public function gelar()
+    {
+        return $this->belongsTo('App\Gelar');
+    }
+
 }

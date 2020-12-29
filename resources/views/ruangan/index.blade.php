@@ -6,81 +6,83 @@
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">
-<div class="col">
-    <div class="card shadow">
-        <div class="card-header">
-        @if ($errors->all())
-        <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
-        </div>
-        @endif
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h5 class="text-white">{{ $message }}</h5>
-        </div>
-        @endif
-        <h3 class="mb-0 float-left">Daftar Ruangan</h3>
-        <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Ruangan</th>
-                    <th scope="col">Jenis</th>
-                    <th scope="col">Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($ruangans as $key => $ruangan)
-                <tr>
-                    <th scope="row">
-                        <div class="media align-items-center">
-                        <div class="media-body">
-                            <span class="mb-0 text-sm">{{ $ruangans->firstItem() + $key }}</span>
-                        </div>
-                        </div>
-                    </th>
-                    <td scope="row">
-                        <div class="media align-items-center">
-                        <div class="media-body">
-                            <span class="mb-0 text-sm">
-                            {{ $ruangan->ruangan }}
-                            </span>
-                        </div>
-                        </div>
-                    </td>
-                    <td scope="row">
-                        <div class="media align-items-center">
-                        <div class="media-body">
-                            <span class="mb-0 text-sm">
-                            {{ $ruangan->jenis }}
-                            </span>
-                        </div>
-                        </div>
-                    </td>
-                    <td scope="row">
-                        <form action="{{ route('ruangan.destroy', $ruangan->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <a class="btn btn-info btn-sm" href="{{ route('ruangan.edit', $ruangan->id) }}"><i class="fa fa-cog"></i></a>
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('ruangan.destroy', $ruangan->id) }}"><i class="fa fa-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>    
-                @endforeach
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">
+                @if ($errors->all())
+                <div class="alert alert-danger alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">Terdapat kesalahan pada saat input, mohon cek kembali!</h5>
+                </div>
+                @endif
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-sm alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h5 class="text-white">{{ $message }}</h5>
+                </div>
+                @endif
+                <h3 class="mb-0 float-left">Daftar Ruangan</h3>
+                <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table align-items-center table-flush" id="ini_table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Ruangan</th>
+                            <th scope="col">Jenis</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($ruangans as $key => $ruangan)
+                        <tr>
+                            <th scope="row">
+                                <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">{{ $ruangans->firstItem() + $key }}</span>
+                                </div>
+                                </div>
+                            </th>
+                            <td scope="row">
+                                <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">
+                                    {{ $ruangan->ruangan }}
+                                    </span>
+                                </div>
+                                </div>
+                            </td>
+                            <td scope="row">
+                                <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">
+                                    {{ $ruangan->jenis }}
+                                    </span>
+                                </div>
+                                </div>
+                            </td>
+                            <td scope="row">
+                                <form action="{{ route('ruangan.destroy', $ruangan->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a class="btn btn-info btn-sm" href="{{ route('ruangan.edit', $ruangan->id) }}"><i class="fa fa-cog"></i></a>
+                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin akan menghapus data ini?')" href="{{ route('ruangan.destroy', $ruangan->id) }}"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="card-footer py-4">
+                    {{ $ruangans->links() }}
+                </div>
             </div>
         </div>
-        <div class="card-footer py-4">
-            {{ $ruangans->links() }}
-        </div>
-    </div>
     </div>
 </div>
 
@@ -134,4 +136,16 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('customjs')
+    <script>
+        $('#ini_table').dataTable({
+            paging: false,
+            info: true
+        });
+
+        $('#ini_table_wrapper .row  .col-sm-12').removeClass('col-md-6');
+        $('#ini_table_wrapper .row  .col-sm-12 #ini_table_filter label').addClass('pb-2');
+    </script>
 @endsection

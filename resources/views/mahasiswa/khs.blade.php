@@ -2,23 +2,23 @@
 
 @section('title', 'Mahasiswa | Kartu Hasil Studi')
 
-@section('head', 'Kartu Hasil Studi')
+@section('head', 'KHS Mahasiswa')
 
 @section('content')
     <div class="container-fluid mt--9 mb-5">
         <div class="col">
             <div class="card shadow">
                 <div class="card-header">
-                    <h3 class="mb-0 float-left">KHS Mahasiswa</h3>
-                    <a href="{{route('khs.print')}}" class="btn btn-sm btn-success float-right" target="_blank"> <i class="fas fa-file-export"></i> &nbsp;Eksport</a>
+                    <h3 class="mb-0 float-left">Kartu Hasil Studi</h3>
+                    <a href="{{route('khs.print')}}" class="btn btn-sm btn-success float-right" target="_blank"> <i class="fas fa-print"></i> &nbsp;Print</a>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-1">
-                            
+
                         </div>
                         <div class="col-md-11">
-                            <img src="{{asset('public/template/assets/img/brand/dm.png')}}" style="position:absolute; margin-left:5%;" width="12%">
+                            <img src="{{asset('template/assets/img/brand/dm.png')}}" style="position:absolute; margin-left:5%;" width="12%">
                             <br><br>
                             <h3 class="mb-0 text-center">SEKOLAH TINGGI MANAJEMEN INFORMASI & KOMPUTER</h3>
                             <h3 class="mb-0 text-center">DHARMA NEGARA</h3>
@@ -116,9 +116,9 @@
                         </table>
                         <div class="row">
                             <div class="col-md"><br>
-                                <p class="float-right">Bandung, {{date('M Y')}} <br> 
+                                <p class="float-right">Bandung, {{date('M Y')}} <br>
                                     Pembantu Ketua I,<br><br>
-                                    <img src="{{asset('public/krs-pdf/ttd.png')}}" width="50%" alt=""><br>
+                                    <img src="{{asset('krs-pdf/ttd.png')}}" width="50%" alt=""><br>
                                     Iwan Ridwan, ST., M.Kom
                                 </p>
                             </div>

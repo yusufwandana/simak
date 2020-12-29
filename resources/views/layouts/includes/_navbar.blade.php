@@ -1,7 +1,7 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">@yield('head')</a>    
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">@yield('head')</a>
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           {{-- <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
@@ -11,7 +11,7 @@
               <input class="form-control" placeholder="Search" type="text">
             </div>
           </div> --}}
-        </form>    
+        </form>
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
@@ -56,7 +56,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="changeProfileLabel">
-                        Ubah profile 
+                        Ubah profile
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -83,7 +83,7 @@
                         <div class="row">
                             <div class="col">
                             <div class="card-profile-stats d-flex justify-content-center mt-md-3">
-                
+
                             </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                           <input type="hidden" name="id" id="id" value="{{ auth()->user()->id }}">
                           <div class="form-group mt-4">
                               <strong>Pilih foto</strong>
-                            <input type="file" class="" name="gambar" id="input-foto" placeholder="Masukkan ambar">                            
+                            <input type="file" class="" name="gambar" id="input-foto" placeholder="Masukkan ambar">
                           </div>
                           <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                         </div>
@@ -119,7 +119,7 @@
               <div class="modal-content">
                   <div class="modal-header">
                       <h4 class="modal-title" id="changePwLabel">
-                          Ubah password 
+                          Ubah password
                       </h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
@@ -127,8 +127,8 @@
                   </div>
                   <div class="modal-body">
                       <div class="form-group">
-                          <label for="password_lama">Password lama</label>
-                          <input type="password" class="form-control" placeholder="Masukan password lama.." name="password_lama" id="password_lama">
+                          <label for="password_lama">Password saat ini</label>
+                          <input type="password" class="form-control" placeholder="Masukan password saat ini.." name="password_lama" id="password_lama">
                       </div>
                       <div class="form-group">
                           <label for="password_baru">Password baru</label>

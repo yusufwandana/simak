@@ -22,9 +22,9 @@ class NilaiController extends Controller
         return view('nilai.index', compact('dosen'));
     }
 
-    public function daftarMhs($id, $slug)
+    public function daftarMhs($slug)
     {
-        $matkul    = Matkul::find($id);
+        $matkul    = Matkul::where('slug',$slug)->first();
         $semester  = Semester::find($matkul->semester_id);
         $mahasiswa = Mahasiswa::where('semester_id', $semester->id)->get();
         $no = 1;
@@ -103,8 +103,8 @@ class NilaiController extends Controller
     {
         $matkul = Matkul::find($matkulId);
         $dosen  = Dosen::where('user_id', auth()->user()->id)->first();
-        $nama = $dosen->nama . ' | ' . 'Nilai ' . $matkul->matakuliah . ' (Semester ' . $matkul->semester->semester . ')';
-        
+        $nama = $dosen->nama . '_Nilai_' . $matkul->matakuliah . '_Semester_' . $matkul->semester->semester;
+
         return Excel::download(new NilaiExport($matkulId, $semesterId), $nama . '.xlsx');
     }
 
@@ -114,19 +114,20 @@ class NilaiController extends Controller
         return view('nilai.admin-index', compact('data'));
     }
 
-    public function adminNilai($id)
+    public function adminNilai($slug)
     {
-        $data = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $id)->paginate(20);
+        $matkul = Matkul::where('slug', $slug)->first();
+        $data = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->semester_id)->paginate(20);
         if($data->count() == 0){
-            return redirect()->back()->with('error', 'Tidak ada mahasiswa di mata kuliah tersebut!');
+            return redirect()->back()->with('error', 'Belum ada mahasiswa di mata kuliah tersebut!');
         }
         return view('nilai.admin', compact('data'));
     }
 
-    public function adminNilaiDetail($id)
+    public function adminNilaiDetail($nim)
     {
-        $mahasiswa = Mahasiswa::find($id);
-        $data = Nilai::orderBy('matkul_id', 'ASC')->where('mahasiswa_id', $id)->get();
+        $mahasiswa = Mahasiswa::where('nim',$nim)->first();
+        $data = Nilai::orderBy('matkul_id', 'ASC')->where('mahasiswa_id', $mahasiswa->id)->get();
         return view('nilai.detail', compact('mahasiswa','data'));
     }
 }

@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK2019 | Pilih Semester')
+@section('title', 'SIMAK2019 | Nilai Mahasiswa')
 
-@section('head', 'Data Nilai Mahasiswa')
+@section('head', 'Nilai Mahasiswa')
 
 @section('content')
 <div class="container-fluid mt--9">
@@ -46,7 +46,7 @@
                         case 'Sat':
                             $a = 'Sabtu';
                             break;
-                        
+
                         default:
                             $a = 'False';
                             break;
@@ -54,7 +54,7 @@
                         @endphp
                     <div class="row">
                         <div class="col-md-10">
-                            <h3 class="mb-0">Pilih Semester</h3>
+                            <h3 class="mb-0">Pilih Mata Kuliah</h3>
                         </div>
                         <div class="col-md-2">
                             <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}</h4>
@@ -64,7 +64,7 @@
                 <div class="row mx-2">
                     @foreach ($data as $matkul)
                         <div class="col-sm-4 my-4">
-                            <a href="{{route('admin.nilai', $matkul->semester_id)}}">
+                            <a href="{{route('admin.nilai', $matkul->slug)}}">
                                 <div class="card shadow bg-gradient-info">
                                     <div class="card-body">
                                         <h3 class="text-white">{{$matkul->matakuliah}}</h3>

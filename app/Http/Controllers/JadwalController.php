@@ -22,7 +22,14 @@ class JadwalController extends Controller
         $ruangans = Ruangan::all();
         $semesters = Semester::all();
 
-        return view('jadwal.index', compact('jadwals', 'dosens', 'matkuls', 'ruangans', 'semesters'));
+        return view('jadwal.index', compact('jadwals', 'ruangans', 'semesters'));
+    }
+
+    public function create()
+    {
+        $ruangans = Ruangan::all();
+        $semesters = Semester::all();
+        return view('jadwal.addJadwal', compact('ruangans','semesters'));
     }
 
     public function store(Request $request)
@@ -131,7 +138,7 @@ class JadwalController extends Controller
 
     public function edit($id)
     {
-        
+
     }
 
     public function update(Request $request, $id)

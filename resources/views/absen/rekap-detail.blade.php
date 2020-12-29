@@ -11,8 +11,11 @@
             <div class="card shadow">
               <div class="card-header border-0">
                 <div class="row">
-                  <div class="col-md">
+                  <div class="col-md-6">
                     <h3 class="mb-0">Detail Kehadiran</h3>
+                  </div>
+                  <div class="col-md-6">
+                    <h4 class="mb-0"><a href="{{ URL::previous() }}" class="badge badge-primary float-right">kembali</a></h4>
                   </div>
                 </div>
                 <br>
@@ -50,7 +53,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach ($absen as $key => $item)
+                      @forelse ($absen as $key => $item)
                         <tr>
                           <td><b>{{$absen->firstItem() + $key}}</b></td>
                           <td scope="row">
@@ -82,7 +85,7 @@
                               </div>
                             </td>
                             @else
-                                
+
                             @endif
                           <td scope="row">
                             <div class="media align-items-center">
@@ -103,7 +106,7 @@
                                   <span class="mb-0 text-sm text-primary">
                                         Kerja
                                   </span>
-                                  @else 
+                                  @else
                                     <span class="mb-0 text-sm text-red">
                                           Alfa
                                     </span>
@@ -112,7 +115,11 @@
                             </div>
                           </td>
                         </tr>
-                        @endforeach
+                        @empty
+                            <tr class="text-center">
+                                <td colspan="5"><b>Belum ada data</b></td>
+                            </tr>
+                        @endforelse
                   </tbody>
                 </table>
               </div>

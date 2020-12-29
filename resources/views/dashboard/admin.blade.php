@@ -3,22 +3,36 @@
 @section('title', 'SIMAK | Dashboard')
 
 @section('head', 'dashboard')
-    
+
 @section('dashboard')
-  {{-- <div class="container-fluid mt--3">
-    <div class="row justify-content-center">
-      <div class="col-md">
-        <div class="card mb-5">
-          <div class="card-body">
-            @if ($msg = Session::get('success'))
-                <p class="text-green">{{$msg}}</p>
-            @endif
-            <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3></h3>
-          </div>
+    @if ($msg = Session::get('success'))
+        <div class="container-fluid mt--3">
+            <div class="row justify-content-center">
+                <div class="col-md">
+                    <div class="card mb-5">
+                    <div class="card-body">
+                            <h4 class="text-success">{{$msg}}.</h4>
+                            {{-- <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3></h3> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div> --}}
+    @endif
+    @if ($msg = Session::get('failed'))
+        <div class="container-fluid mt--3">
+            <div class="row justify-content-center">
+                <div class="col-md">
+                    <div class="card mb-5">
+                    <div class="card-body">
+                            <h4 class="text-danger">{{$msg}}</h4>
+                            {{-- <h3 class="float-left">Selamat datang, &nbsp;<h3 class="text-green float-left"> {{auth()->user()->name}}!</h3></h3> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
   <div class="container-fluid">
       <div class="header-body">
         <!-- Card stats -->
@@ -127,10 +141,10 @@
                               <b>{{ $data->user->name }}</b>@if ($data->user->role == 'admin') <i class="fas fa-check-circle mx-1"></i> @endif
                               <a href="{{route('deletepost', $data->id)}}" class="badge badge-danger float-right" onclick="return confirm('Anda ingin menghapus postingan ini?')"><i class="fa fa-trash text-red"></i></a>
                               <br>
-                              <small><i>Diposting pada
+                              <small>Diposting pada
                                 @php
                                     echo date("d F Y", strtotime($data->tanggal_post));
-                                @endphp</i></small><br><br>
+                                @endphp</small><br><br>
                               <div class="row">
                                   <div class="col-md" style="text-align:justify;">
                                       {{ $data->deskripsi }}
@@ -143,23 +157,36 @@
                                       <td>&nbsp;:&nbsp;&nbsp;&nbsp;</td>
                                       <td>{{ $data->matkul->matakuliah }} (Semester {{$data->semester->semester}})</td>
                                   </tr>
-                                  <tr>
-                                      <td>Tenggat</td>
-                                      <td>&nbsp;:&nbsp;</td>
-                                      <td>{{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</td>
-                                  </tr>
-                              </table></h5>                                
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <div class="card" style="border: solid 1px #f0f0ff;">
-                                          <div class="card-body">
-                                              <a href="{{asset('files/' . $data->file)}}" target="_blank" style="margin:15px;">
-                                                  <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;{{ $data->file }}
-                                              </a>
+                                  {{-- {{dd($data->jenis)}} --}}
+                                  @if ($data->jenis == 'Materi')
+                                    <tr>
+                                        <td>Tenggat</td>
+                                        <td>&nbsp;:&nbsp;</td>
+                                        <td>Tidak ada</td>
+                                    </tr>
+                                  @else
+                                    <tr>
+                                        <td>Tenggat</td>
+                                        <td>&nbsp;:&nbsp;</td>
+                                        <td>{{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</td>
+                                    </tr>
+                                  @endif
+                              </table></h5>
+                              @if ($data->file == null)
+
+                              @else
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card" style="border: solid 1px #f0f0ff;">
+                                            <div class="card-body">
+                                                <a href="{{asset('files/' . $data->file)}}" target="_blank" style="margin:15px;">
+                                                    <i class="fas fa-file"></i>&nbsp;&nbsp;&nbsp;{{ $data->file }}
+                                                </a>
                                             </div>
-                                      </div>
-                                  </div>
-                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              @endif
                           </div>
                       </div>
                       <hr>

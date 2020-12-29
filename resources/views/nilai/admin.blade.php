@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'SIMAK | Nilai')
+@section('title', 'SIMAK | Nilai Mahasiswa')
 
-@section('head', 'Nilai')
+@section('head', 'Nilai Mahasiswa')
 
 @section('content')
 <div class="container-fluid mt--9 mb-5">
@@ -22,7 +22,7 @@
             </div>
             @endif
             <h3 class="mb-0 float-left">Daftar Nilai Mahasiswa</h3>
-            <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-fat-add"></i>Tambah</a>
+            <a href="{{URL::previous()}}" class="badge badge-primary float-right">kembali</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -74,9 +74,9 @@
                             </div>
                         </td>
                         <td scope="row">
-                            <a href="{{route('nilai.detail', $mhs->id)}}" class="btn btn-sm btn-primary" title="Detail"><i class="fas fa-eye"></i> </a>
+                            <a href="{{route('nilai.detail', $mhs->nim)}}" class="btn btn-sm btn-primary" title="Detail"><i class="fas fa-eye"></i> </a>
                         </td>
-                    </tr>    
+                    </tr>
                     @endforeach
                     </tbody>
                 </table>

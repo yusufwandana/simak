@@ -40,7 +40,7 @@
                         case 'Sat':
                             $a = 'Sabtu';
                             break;
-                        
+
                         default:
                             $a = 'False';
                             break;
@@ -59,7 +59,7 @@
                     @foreach ($dosen as $m)
                         @foreach ($m->Matkul as $mm)
                             <div class="col-sm-4 my-4">
-                                <a href="{{ route('nilai.daftarmhs', [$mm->id, $mm->slug]) }}">
+                                <a href="{{ route('nilai.daftarmhs', $mm->slug) }}">
                                     <div class="card shadow bg-gradient-info">
                                         <div class="card-body">
                                             <h3 class="text-white">{{ $mm->matakuliah }}</h3>
