@@ -11,7 +11,7 @@
         <div class="col-md-10">
         <div class="card shadow">
             <div class="card-header bg-transparent">
-                <h3 class="mb-0">Edit Mata Kuliah</h3>
+                <h3 class="mb-0">Edit Mata Kuliah<a href="{{ route('matkul.index') }}" class="badge badge-primary float-right">kembali</a></h3>
             </div>
             <form action="{{ route('matkul.update', $matkul->id) }}" method="post">
             @csrf

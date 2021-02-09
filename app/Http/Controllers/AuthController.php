@@ -99,11 +99,11 @@ class AuthController extends Controller
             $new_name = $new_pict;
         } else {
             $new_name = Carbon::now()->timestamp . '_' . uniqid() . '.' . $request->file('gambar')->getClientOriginalExtension();
-            $request->file('gambar')->move('public/image/profile/',  $new_name);;
+            $request->file('gambar')->move('image/profile/',  $new_name);;
             if ($old_pict == 'default.png') {
                 //do nothing
             } else {
-                unlink(public_path('\image\profile\\' . $old_pict));
+                // unlink(public_path('\image\profile\\' . $old_pict));
             }
         }
 

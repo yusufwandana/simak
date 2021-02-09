@@ -11,7 +11,7 @@
         <div class="col-md-10">
         <div class="card shadow">
             <div class="card-header bg-transparent">
-            <h3 class="mb-0">Edit Semester</h3>
+            <h3 class="mb-0">Edit Semester<a href="{{ route('semester.index') }}" class="badge badge-primary float-right">kembali</a></h3>
             </div>
             <form action="{{ route('semester.update', $semester->id) }}" method="post">
             @csrf

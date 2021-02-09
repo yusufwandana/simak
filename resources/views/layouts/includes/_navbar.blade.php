@@ -97,7 +97,7 @@
                           <input type="hidden" name="id" id="id" value="{{ auth()->user()->id }}">
                           <div class="form-group mt-4">
                               <strong>Pilih foto</strong>
-                            <input type="file" class="" name="gambar" id="input-foto" placeholder="Masukkan ambar">
+                            <input type="file" class="" name="gambar" id="input-foto" placeholder="Masukkan gambar">
                           </div>
                           <button type="submit" class="btn btn-primary btn-sm float-right">Save changes</button>
                         </div>

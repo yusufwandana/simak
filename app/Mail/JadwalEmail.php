@@ -20,7 +20,7 @@ class JadwalEmail extends Mailable
     {
         $this->nama     = $data['nama'];
         $this->mulai    = $data['mulai'];
-        $this->selesai    = $data['selesai'];
+        $this->selesai  = $data['selesai'];
         $this->event    = $data['event'];
         $this->matkul   = $data['matkul'];
         $this->semester = $data['semester'];
@@ -32,15 +32,16 @@ class JadwalEmail extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
         return $this->from('simakwikrama@gmail.com')->view('jadwal.myEmail')
-                    ->subject('Jadwal Kuliah Wikrama')
+                    ->subject('Jadwal Kuliah')
                     ->with([
                         'nama'     => $this->nama,
                         'event'    => $this->event,
                         'mulai'    => $this->mulai,
-                        'selesai'    => $this->selesai,
+                        'selesai'  => $this->selesai,
                         'matkul'   => $this->matkul,
                         'semester' => $this->semester,
                         'ruangan'  => $this->ruangan

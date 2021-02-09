@@ -28,12 +28,8 @@
             @foreach ($absen->unique('tanggal') as $a)
                 @php
                     $x = explode('-', $a->tanggal);
-                    $b = [];
-                    $b[] = [
-                        'tgl'   => $a->tanggal
-                    ];
                 @endphp
-                    <th>{{$x[2]}}</th>
+                    <th>{{$x[2]}}/{{$x[1]}}</th>
             @endforeach
         </tr>
     </thead>
@@ -46,13 +42,13 @@
                 <th scope="col">{{$item->nama}}</th>
                 @foreach ($item->absen as $z)
                     @php $j = 0; @endphp
-                    
+
                     @if ($z->status == 1 && $z->dosen->user_id == auth()->user()->id && $z->tanggal >= $dari && $z->tanggal <= $sampai)
                         <th scope="col">1</th>
                     @elseif($z->status != 1 && $z->dosen->user_id == auth()->user()->id && $z->tanggal >= $dari && $z->tanggal <= $sampai)
                         <th scope="col">0</th>
                     @else
-                        
+
                     @endif
                 @endforeach
             </tr>

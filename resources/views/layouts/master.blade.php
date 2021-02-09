@@ -11,8 +11,9 @@
   <!-- Favicon -->
   <link href="{{ asset('template/assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
   {{-- Datatables --}}
-  <link href="{{ asset('datatables/dataTables.bootstrap4.min.css') }}" rel="icon" type="image/png">
-  <link href="{{ asset('datatables/datatables.min.css') }}" rel="icon" type="image/png">
+  <link href="{{ asset('datatables/dataTables.bootstrap4.min.css') }}">
+  <link href="{{ asset('datatables/datatables.min.css') }}">
+  {{-- <link rel="stylesheet" href="cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"> --}}
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
@@ -45,12 +46,12 @@
       /* @media only screen and (min-width:000px){
 
       } */
-      
+
   </style>
 <body>
     @include('layouts.includes._sidebar')
   <div class="main-content">
-      
+
     <!-- Navbar -->
     @include('layouts.includes._navbar')
     <!-- End Navbar -->
@@ -72,16 +73,9 @@
   <script src="{{ asset('template/assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
   <script src="{{ asset('datatables/datatables.min.js') }}"></script>
   <script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>
+   {{-- <script src="cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script> --}}
   <script src="{{ asset('datatables/dataTables.bootstrap4.min.js') }}"></script>
   @yield('customjs')
-  {{-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> --}}
-  {{-- <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-dashboard-free"
-      });
-  </script> --}}
 </body>
 
 </html>

@@ -46,7 +46,7 @@ class DosenController extends Controller
         Dosen::create([
             'nip'     => $request->nip,
             'nama'    => ucwords($request->nama),
-            'gelar_id'   => $request->gelar_id,
+            'gelar_id'=> $request->gelar_id,
             'jk'      => $request->jk,
             'alamat'  => ucwords($request->alamat),
             'user_id' => $a

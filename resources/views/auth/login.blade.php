@@ -33,11 +33,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md bg-primary navbar-dark p-1">
       <div class="container px-0">
-        {{-- <marquee behavior="" direction=""> --}}
         <a class="navbar-brand" href="">
           <h2 class="text-white py-1 my-1 ml-3">SIMAK APPS</h2>
         </a>
-      {{-- </marquee> --}}
       </div>
     </nav>
     <!-- Header -->

@@ -38,7 +38,7 @@ class MahasiswaController extends Controller
             'nim' => 'required',
             'nama' => 'required',
             'jk' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users',
             'alamat' => 'required'
         ]);
 
@@ -183,7 +183,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->with('Nilai.Matkul')->first();
         $matkul = Matkul::orderBy('id', 'asc')->where('semester_id', $mahasiswa->semester_id)->with(['Absen','Nilai'])->get();
-        $jumlah_absen=0; $tugas=0; $uts=0; $uas=0;
+        $jumlah_absen=0; $tugas=0; $uts=0; $uas=0; $na=0;
 
         foreach ($matkul as $m) {
             $jumlah_absen=0; $tugas=0; $uts=0; $uas=0;

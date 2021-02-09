@@ -32,10 +32,8 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Tanggal</th>
-                                <th scope="col">Mulai</th>
-                                <th scope="col">Selesai</th>
-                                <th scope="col">Matkul</th>
-                                <th scope="col">Semester</th>
+                                <th scope="col">Waktu</th>
+                                <th scope="col">Mata kuliah</th>
                                 <th scope="col">Dosen</th>
                                 <th scope="col">Ruangan</th>
                                 <th scope="col">Aksi</th>
@@ -72,16 +70,7 @@
                                     <div class="media align-items-center">
                                     <div class="media-body">
                                         <span class="mb-0 text-sm">
-                                            {{ $jadwal->mulai }}
-                                        </span>
-                                    </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                    <div class="media-body">
-                                        <span class="mb-0 text-sm">
-                                            {{ $jadwal->selesai }}
+                                            {{ substr($jadwal->mulai,0,5) }} sd. {{ substr($jadwal->selesai,0,5) }}
                                         </span>
                                     </div>
                                     </div>
@@ -90,18 +79,9 @@
                                     <div class="media align-items-center">
                                         <div class="media-body">
                                             <span class="mb-0 text-sm">
-                                                {{ $jadwal->matkul->matakuliah }}
+                                                {{ $jadwal->matkul->matakuliah }} - Semester {{ $jadwal->semester->semester }}
                                             </span>
                                         </div>
-                                    </div>
-                                </td>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                    <div class="media-body">
-                                        <span class="mb-0 text-sm">
-                                            Semester {{ $jadwal->semester->semester }}
-                                        </span>
-                                    </div>
                                     </div>
                                 </td>
                                 <td scope="row">
@@ -136,7 +116,6 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="card-footer py-4">
                     {{ $jadwals->links() }}
                 </div>
@@ -144,93 +123,6 @@
         </div>
     </div>
 </div>
-
-
-{{-- Modal --}}
-{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="{{ route('jadwal.store') }}" method="post">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel">
-                        Tambah jadwal
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="mulai">Mulai</label>
-                                <input type="time" class="form-control" name="mulai" id="mulai" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="selesai">Selesai</label>
-                                <input type="time" required class="form-control" name="selesai" id="selesai" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="date">Tanggal</label>
-                                <input type="date" required class="form-control" name="date" id="date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="semesterId">Pilih semester</label>
-                                <select name="semesterId" id="semesterId" class="form-control" required>
-                                    <option value="" selected disabled>Pilih semester..</option>
-                                    @foreach ($semesters as $semester)
-                                        <option value="{{ $semester->id }}">Semester {{ $semester->semester }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="matkul">Pilih matkul</label>
-                                <select name="matkulId" id="matkul" class="form-control" required>
-                                    <option value="" selected disabled>Pilih mata kuliah..</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="dosen">Pilih Dosen</label>
-                                <select name="dosenId" id="dosenId" class="form-control" required>
-                                    <option value="" selected disabled>Pilih dosen..</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="ruangan">Pilih ruangan</label>
-                                <select name="ruanganId" id="ruangan" class="form-control" required>
-                                    <option value="" selected disabled>Pilih ruangan..</option>
-                                    @foreach ($ruangans as $ruangan)
-                                        <option value="{{ $ruangan->id }}">{{ $ruangan->ruangan }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> --}}
 @endsection
 
 @section('customjs')

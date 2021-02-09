@@ -10,7 +10,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header">
-                    <h3> Posting Materi dan Penugasan</h3>
+                    <h3 class="mb-0">Posting Materi dan Penugasan<a href="{{ route('dashboard.dosen') }}" class="badge badge-primary float-right">kembali</a></h3>
                 </div>
                 <div class="card-body">
                     <form action="{{route('uploadfile')}}" method="post" enctype="multipart/form-data">

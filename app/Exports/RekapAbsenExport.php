@@ -33,9 +33,8 @@ class RekapAbsenExport implements FromView, ShouldAutoSize
         if (auth()->user()->role == 'admin') {
 
             $absen = Absen::whereBetween('tanggal', [$this->dari, $this->sampai])
-                ->where([
-                    'matkul_id' => $matkul->id
-                ])->orderBy('tanggal', 'asc')->get();
+                            ->where(['matkul_id' => $matkul->id])
+                            ->orderBy('tanggal', 'asc')->get();
 
         }elseif (auth()->user()->role == 'dosen') {
 
@@ -45,7 +44,8 @@ class RekapAbsenExport implements FromView, ShouldAutoSize
                     'dosen_id'  => $dosen->id,
                     'matkul_id' => $matkul->id
                 ])->orderBy('tanggal', 'asc')->get();
-            $mahasiswa = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->id)->get();
+
+            $mahasiswa = Mahasiswa::orderBy('nim', 'asc')->where('semester_id', $matkul->semester_id)->get();
 
         }
         return view('absen.absen-rekap-export', compact('matkul', 'absen', 'dari', 'sampai', 'mahasiswa', 'dosen'));

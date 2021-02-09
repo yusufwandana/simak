@@ -365,6 +365,7 @@ class AbsenController extends Controller
         $from = str_replace('-', '', $dari);
         $to = str_replace('-', '', $sampai);
 
+
         return Excel::download(new RekapAbsenExport($matkulId, $dari, $sampai),  $from . "_" . $to . "_" . $nama . ".xlsx");
     }
 }

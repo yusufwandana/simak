@@ -19,8 +19,10 @@ class CreateDosensTable extends Migration
             $table->string('nama');
             $table->string('jk');
             $table->string('alamat');
+            $table->integer('gelar_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('gelar_id')->references('id')->on('gelars')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

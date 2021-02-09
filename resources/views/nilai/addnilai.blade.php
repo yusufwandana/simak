@@ -9,16 +9,14 @@
 @section('head', 'Input Nilai')
 
 @section('content')
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--8 mb-5">
     <div class="row">
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
         <div class="card card-profile shadow">
             <div class="row justify-content-center">
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                <a href="">
-                    <img src="{{ asset('image/profile/' . $user->avatar) }}" class="rounded-circle">
-                </a>
+                <a href="#"><img src="{{ asset('image/profile/' . $user->avatar) }}" class="rounded-circle"></a>
                 </div>
             </div>
             </div>
@@ -169,16 +167,6 @@
         </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-            <div class="col-xl-6">
-                <div class="copyright text-center text-xl-left text-muted">
-                © {{ date('Y') }} <a href="#" class="font-weight-bold ml-1">SIMAK Team</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <form id="updateForm" action="post" name="updateForm" class="form-horizontal">
         <div class="modal fade" id="ajax-crud-modal" aria-hidden="true">
@@ -218,7 +206,7 @@
 
             $('body').on('click', '#edit-data', function(){
                 var thisId = $(this).data('id');
-                $.get('/simak/nilai/' + thisId + '/edit', function(data){
+                $.get('/nilai/' + thisId + '/edit', function(data){
                     $('#userCrudModal').html("Edit Nilai Mahasiswa");
                     $('#btn-save').val("edit-user");
                     $('.modal-title').html('Edit nilai mahasiswa');
@@ -232,7 +220,7 @@
                 var myId = $('#my_id').val();
                 $.ajax({
                     data: $('#updateForm').serialize(),
-                    url: "/simak/nilai/update" +"/"+myId,
+                    url: "/nilai/update" +"/"+myId,
                     type: "post",
                     dataType: 'json',
                     success: function(data){

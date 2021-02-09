@@ -34,15 +34,20 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
+
+        $mulai     = $request->mulai;
+        $selesai   = $request->selesai;
+        $date      = $request->date;
+        $roomId    = $request->ruanganId;
+
         $roomTimeExist = Jadwal::where([
-            'mulai' => $request->mulai,
-            'selesai' => $request->selesai,
-            'tanggal' => $request->date,
+            'tanggal' => $date,
             'ruangan_id' => $request->ruanganId,
-        ])->first();
+        ])->whereBetween('mulai', [$mulai, $selesai])->first();
 
         if ($roomTimeExist) {
-            return redirect()->back()->with('failed', 'Ruangan dan waktu telah diatur sebelumnya!');
+            return redirect()->back()->with('failed', 'Jadwal tersebut sudah ada sebelumnya!');
         } else {
             Jadwal::create([
                 'mulai'       => $request->mulai,
@@ -58,9 +63,6 @@ class JadwalController extends Controller
         $dosen     = Dosen::find($request->dosenId);
         $user      = User::find($dosen->user_id);
         $m         = Matkul::find($request->matkulId);
-        $mulai     = $request->mulai;
-        $selesai   = $request->selesai;
-        $date   = $request->date;
         $d = explode('-', $date);
         $tahun   = $d[0];
         $bulan   = $d[1];
@@ -112,7 +114,6 @@ class JadwalController extends Controller
         $email     = $user->email;
         $matkul    = $m->matakuliah;
         $semester  = $m->semester->semester;
-        $roomId    = $request->ruanganId;
         $room      = Ruangan::find($roomId);
         $ruangan   = $room->ruangan;
 

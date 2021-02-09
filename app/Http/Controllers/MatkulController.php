@@ -35,7 +35,7 @@ class MatkulController extends Controller
 
         $test  = strtolower($request->matakuliah);
         $slug1 = str_replace(' ', '-', $test);
-        $slug2  = $slug1 . '-' . $request->semester;
+        $slug  = $slug1 . '-' . $request->semester;
 
         $a = Matkul::create([
             'kd_matkul'   => strtoupper($request->kd_matkul),

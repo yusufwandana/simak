@@ -8,9 +8,9 @@
 @php
     if ($errors->has('matkul_id')){
         echo "<script>alert('Harap isi kolom dengan benar!');</script>";
-    }   
+    }
 @endphp
-    
+
 <div class="container-fluid mt--9">
     <div class="row">
         <div class="col-md">
@@ -46,7 +46,7 @@
                             case 'Sat':
                                 $a = 'Sabtu';
                                 break;
-                            
+
                             default:
                                 $a = 'False';
                                 break;
@@ -59,7 +59,7 @@
                         <div class="col-md-3">
                             <h4 class="mb-0">@php echo $a; @endphp, {{ date('d/m/Y') }}<a href="{{ route('absen.rekap') }}" class="badge badge-primary float-right">kembali</a></h4>
                         </div>
-                    </div>                  
+                    </div>
                     <table class="table-responsive mt-3">
                         @if (auth()->user()->role == 'dosen')
                             <tr>
@@ -91,10 +91,10 @@
                             @if (auth()->user()->role == 'dosen')
                                 <a href="/absen/rekap/export/{{$data['matkul_id']}}/{{$data['dari']}}/{{$data['sampai']}}" class="btn btn-success btn-sm mb-3" title="Export" target="_blank"><i class="fas fa-file-export"></i> EXPORT ABSEN</a>
                             @else
-                            
+
                             @endif
                         </div>
-                    </div>    
+                    </div>
                     <div class="row">
                         <div class="col-md">
                             <div class="table-responsive">
@@ -104,7 +104,7 @@
                                             <th scope="col">No</th>
                                             <th scope="col">NIM</th>
                                             <th scope="col">Nama</th>
-                                            <th scope="col">Jumlah hadir</th>                                       
+                                            <th scope="col">Jumlah hadir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -140,19 +140,22 @@
                                                 <div class="media align-items-center">
                                                     <div class="media-body">
                                                         @php $jumlah = 0; @endphp
-                                                        @if (auth()->user()->role == 'admin')
-                                                            @foreach ($mhs->absen as $item)
+                                                        {{-- @if (auth()->user()->role == 'admin') --}}
+                                                            {{-- @foreach ($mhs->absen as $item)
                                                                 @if ($item->status == 1 && $item->matkul_id == $matkul->id && $item->tanggal >= $data['dari'] && $item->tanggal <= $data['sampai'])
+                                                                @php
+                                                                    dd($item->matkul_id, $matkul->id);
+                                                                @endphp
                                                                     @php $jumlah++;@endphp
                                                                 @endif
-                                                            @endforeach
-                                                        @elseif(auth()->user()->role == 'dosen')
+                                                            @endforeach --}}
+                                                        {{-- @elseif(auth()->user()->role == 'dosen') --}}
                                                         @foreach ($mhs->absen as $item)
-                                                            @if ($item->status == 1 && $item->dosen->user_id == auth()->user()->id && $item->tanggal >= $data['dari'] && $item->tanggal <= $data['sampai'])
+                                                            @if ($item->status == 1 && $item->matkul_id == $matkul->id && $item->dosen->user_id == auth()->user()->id && $item->tanggal >= $data['dari'] && $item->tanggal <= $data['sampai'])
                                                                 @php $jumlah++;@endphp
                                                             @endif
                                                         @endforeach
-                                                        @endif
+                                                        {{-- @endif --}}
                                                         <a href="/absen/rekap/detail/{{$encrypted}}/{{$mhs->id}}/{{$matkul->id}}"><span class="mb-0 text-sm">{{$jumlah}}</span></a>
                                                     </div>
                                                 </div>

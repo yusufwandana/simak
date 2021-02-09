@@ -157,20 +157,16 @@
                                       <td>&nbsp;:&nbsp;&nbsp;&nbsp;</td>
                                       <td>{{ $data->matkul->matakuliah }} (Semester {{$data->semester->semester}})</td>
                                   </tr>
-                                  {{-- {{dd($data->jenis)}} --}}
-                                  @if ($data->jenis == 'Materi')
-                                    <tr>
-                                        <td>Tenggat</td>
-                                        <td>&nbsp;:&nbsp;</td>
-                                        <td>Tidak ada</td>
-                                    </tr>
-                                  @else
-                                    <tr>
-                                        <td>Tenggat</td>
-                                        <td>&nbsp;:&nbsp;</td>
-                                        <td>{{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</td>
-                                    </tr>
-                                  @endif
+                                  <tr>
+                                      <td>Tenggat Waktu</td>
+                                      <td>&nbsp;:&nbsp;</td>
+                                      @if ($data->jenis == 'Materi')
+                                          <td>Tidak ada</td>
+                                      @else
+                                          <td>{{$data->tanggal_tenggat}} pada pukul {{$data->waktu_tenggat}}</td>
+                                      @endif
+                                  </tr>
+
                               </table></h5>
                               @if ($data->file == null)
 

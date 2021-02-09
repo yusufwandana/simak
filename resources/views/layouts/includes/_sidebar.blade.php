@@ -32,7 +32,7 @@
               <span>Ubah password</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="/simak/logout" class="dropdown-item">
+            <a href="{{route('logout')}}" class="dropdown-item">
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
@@ -47,7 +47,6 @@
             <div class="col-6 collapse-brand">
               <a href="">
                 <h2>SIMAK APPS</h2>
-                {{-- <img src="{{asset('template/assets/img/brand/logo.png')}}"> --}}
               </a>
             </div>
             <div class="col-6 collapse-close">
